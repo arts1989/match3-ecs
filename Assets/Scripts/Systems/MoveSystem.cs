@@ -7,6 +7,7 @@ namespace Match3
     internal class MoveSystem : IEcsRunSystem
     {
         private EcsFilter<MoveEvent, LinkToObject, Position> _filter;
+        private EcsWorld _world;
 
         public void Run()
         {
@@ -22,12 +23,18 @@ namespace Match3
                 Object1.transform.DOMove(Object2Pos, .5f)
                     .OnComplete(() => { 
                         Debug.Log("animation 1 complete");
-                        _filter.GetEntity(0).Get<DestroyEvent>();
+                        if (_filter.GetEntity(0).Get<Cell>().type == Types.Blue)
+                        {
+                            _filter.GetEntity(0).Get<DestroyEvent>();
+                        }
                     });
                 Object2.transform.DOMove(Object1Pos, .5f)
                     .OnComplete(() => { 
                         Debug.Log("animation 2 complete");
-                        _filter.GetEntity(1).Get<DestroyEvent>();
+                        if (_filter.GetEntity(1).Get<Cell>().type == Types.Blue)
+                        {
+                            _filter.GetEntity(1).Get<DestroyEvent>();
+                        }
                     });
 
                 // меняем position компонент у ентити

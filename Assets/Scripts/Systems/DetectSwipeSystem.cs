@@ -40,18 +40,11 @@ namespace Match3
                 }
                 _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
                 _swipeStartTime = Time.time;
-                //Debug.Log("----");
-                //Debug.Log(swipeStartTime);
-                //Debug.Log(swipeStartPos.ToString());
             }
             else if(Input.GetMouseButtonUp(0))
             {
                 _swipeEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 _swipeEndTime = Time.time * Time.deltaTime;
-
-                //Debug.Log("----");
-                //Debug.Log(swipeEndTime); 
-                //Debug.Log(swipeEndPos.ToString());
 
                 if (Vector2.Distance(_swipeStartPos, _swipeEndPos) >= swipeMinimumDistance && 
                     (_swipeEndTime - _swipeStartTime) <= swipeMaximumTime)
@@ -77,8 +70,6 @@ namespace Match3
                     }
 
                     _entityClicked.Get<CheckMoveEvent>().moveVector = _swipeVector;
-                    //Debug.Log("add move event");
-                    //Debug.DrawLine(swipeStartPos, swipeEndPos, Color.red);
                 }
             }
         }

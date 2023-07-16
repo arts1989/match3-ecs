@@ -14,17 +14,16 @@ namespace Match3
         public void Init() 
         {
             // установка камеры над полем
-            var level = _saveManager.GetData().Level;
-            var levelConfig = _gameConfig.levels[level];
+            var levelConfig = _gameConfig.levels[_saveManager.GetData().Level];
 
             var camera = _sceneData.Camera;
             camera.orthographic = true;
-            camera.orthographicSize = levelConfig.BoardHeight / 2f;
+            camera.orthographicSize = levelConfig.Rows / 2f;
             // 3 3 - 1 1
             // 4 4 - 1.5 1.5
             _sceneData.CameraTransform.position = new Vector3(
-               (levelConfig.BoardWitdh - 1f) / 2f,
-               (levelConfig.BoardHeight - 1f) / 2f
+               (levelConfig.Rows - 1f) / 2f,
+               (levelConfig.Columns - 1f) / 2f
             );
         }
     }

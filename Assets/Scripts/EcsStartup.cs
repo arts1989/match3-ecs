@@ -13,9 +13,11 @@ namespace Match3
         void Start () {
             // void can be switched to IEnumerator for support coroutines.
 
-            //load save game manager 
-            SaveManager saveManager = new SaveManager(); 
- 
+            //load managers 
+            SaveManager saveManager = new SaveManager();
+            var levelConfig = gameConfig.levels[saveManager.GetData().Level];
+            var board = new Board(levelConfig.Columns, levelConfig.Rows);
+
             _world = new EcsWorld ();
             _systems = new EcsSystems (_world);
 #if UNITY_EDITOR
@@ -41,6 +43,7 @@ namespace Match3
                 // inject service instances here (order doesn't important), for example:
                 .Inject (gameConfig)
                 .Inject (saveManager)
+                .Inject (board)
                 .Inject (sceneData)
                 .Init ();
         }
