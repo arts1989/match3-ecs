@@ -2,5 +2,6 @@
 {
     internal struct Cell
     {
+        public Types type;
     }
 }

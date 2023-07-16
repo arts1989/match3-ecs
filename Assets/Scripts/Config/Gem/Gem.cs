@@ -10,5 +10,7 @@ namespace Match3
     {
         public int PointsForDestroy = 5;
         public GameObject sprite;
+
+        [SerializeField] public Types type;
     }
 }

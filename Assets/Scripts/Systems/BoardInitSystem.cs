@@ -23,9 +23,6 @@ namespace Match3
                 {
                     var entity = _world.NewEntity();
 
-                    entity.Get<Position>().value = new Vector2(x, y);
-                    entity.Get<Cell>();
-                    
                     int randomNum = Random.Range(0, _gameConfig.gems.Count); 
                     var gem = Object.Instantiate(_gameConfig.gems[randomNum].sprite);
 
@@ -36,6 +33,8 @@ namespace Match3
                         y + _gameConfig.offset.y * y
                     );
 
+                    entity.Get<Position>().value = new Vector2(x, y);
+                    entity.Get<Cell>().type = _gameConfig.gems[randomNum].type;
                     entity.Get<LinkToObject>().value = gem;
                 }
             }
