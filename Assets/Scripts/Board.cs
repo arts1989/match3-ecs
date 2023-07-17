@@ -33,7 +33,7 @@ namespace Match3
         {
             var temp = this[pos1.x, pos1.y];
             this[pos1.x, pos1.y] = this[pos2.x, pos2.y];
-            this[2, 1] = temp;
+            this[pos2.x, pos2.y] = temp;
         }
     }
 }

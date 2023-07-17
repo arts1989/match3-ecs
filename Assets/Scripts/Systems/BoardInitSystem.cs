@@ -1,4 +1,5 @@
 ﻿using Leopotam.Ecs;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Match3
@@ -14,9 +15,9 @@ namespace Match3
             // система генерации ентитей доски - спавним префабы из конфига
             // и ставим геймобжекту ссылку на ентитю через компонент-монобех
             // сохраняем состояние доски по координатам, в них лежит айди ентити
-            
-            for (int x = 0; x < _board.Rows; x++)
-            {
+
+             for (int x = 0; x < _board.Rows; x++)
+             {
                 for (int y = 0; y < _board.Columns; y++)
                 {
                     var entity = _world.NewEntity();
