@@ -1,4 +1,4 @@
-using Leopotam.Ecs;
+using Unity.Mathematics;
 
 namespace Match3
 {
@@ -27,6 +27,13 @@ namespace Match3
             _rows = row;
             _cellsAmount = _rows * _columns;
             _cells = new int[_cellsAmount];
+        }
+
+        public void Swap(int2 pos1, int2 pos2)
+        {
+            var temp = this[pos1.x, pos1.y];
+            this[pos1.x, pos1.y] = this[pos2.x, pos2.y];
+            this[2, 1] = temp;
         }
     }
 }

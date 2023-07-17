@@ -23,7 +23,7 @@ namespace Match3
                 Object1.transform.DOMove(Object2Pos, .5f)
                     .OnComplete(() => { 
                         Debug.Log("animation 1 complete");
-                        if (_filter.GetEntity(0).Get<Cell>().type == Types.Blue)
+                        if (_filter.GetEntity(0).Get<Cell>().type == BlockType.Blue)
                         {
                             _filter.GetEntity(0).Get<DestroyEvent>();
                         }
@@ -31,7 +31,7 @@ namespace Match3
                 Object2.transform.DOMove(Object1Pos, .5f)
                     .OnComplete(() => { 
                         Debug.Log("animation 2 complete");
-                        if (_filter.GetEntity(1).Get<Cell>().type == Types.Blue)
+                        if (_filter.GetEntity(1).Get<Cell>().type == BlockType.Blue)
                         {
                             _filter.GetEntity(1).Get<DestroyEvent>();
                         }

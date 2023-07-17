@@ -2,6 +2,6 @@
 {
     internal struct Cell
     {
-        public Types type;
+        public BlockType type;
     }
 }

@@ -10,7 +10,7 @@ namespace Match3
         public int GemInlineToDestroy = 3;
         
         public List<Level> levels = new List<Level>();
-        public List<Gem> gems = new List<Gem>();
+        public List<Block> gems = new List<Block>();
 
         public Vector2 offset;
     }
