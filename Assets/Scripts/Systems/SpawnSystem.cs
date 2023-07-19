@@ -17,7 +17,7 @@ namespace Match3
                 ref var position = ref _filter.Get3(index).value;
 
                 int randomNum = Random.Range(0, _gameConfig.gems.Count);
-                var gem = Object.Instantiate(_gameConfig.gems[ randomNum].sprite);
+                var gem = Object.Instantiate(_gameConfig.gems[  randomNum].sprite);
 
                 gem.AddComponent<LinkToEntity>().entity = _filter.GetEntity(index); //link from gameobject to entity
                 gem.AddComponent<BoxCollider>();

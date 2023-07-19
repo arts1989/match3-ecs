@@ -1,6 +1,6 @@
 ﻿namespace Match3
 {
-    public enum BlockType
+    public enum BlockTypes
     {
         Blue,
         Red,

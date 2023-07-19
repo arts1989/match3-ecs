@@ -14,7 +14,8 @@ namespace Match3
                 ref var obj = ref _filter.Get2(index).value;
                 Object.Destroy(obj);
                 _filter.GetEntity(index).Get<SpawnEvent>();
+                //_filter.GetEntity(index).Destroy();
             }
-         }
+        }
     }
 }

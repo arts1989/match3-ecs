@@ -10,7 +10,7 @@ namespace Match3
         private GameConfig _gameConfig;
         private Board _board;
 
-        public void Init()
+        public void Init() 
         {
             // система генерации ентитей доски - спавним префабы из конфига
             // и ставим геймобжекту ссылку на ентитю через компонент-монобех
@@ -23,20 +23,20 @@ namespace Match3
                     var entity = _world.NewEntity();
 
                     int randomNum = Random.Range(0, _gameConfig.gems.Count);
-                    var gem = Object.Instantiate(_gameConfig.gems[randomNum].sprite);
+                    var obj = Object.Instantiate(_gameConfig.gems[randomNum].sprite);
 
-                    gem.AddComponent<LinkToEntity>().entity = entity; //link from gameobject to entity
-                    gem.AddComponent<BoxCollider>();
-                    gem.transform.position = new Vector3(
+                    obj.AddComponent<LinkToEntity>().entity = entity; //link from gameobject to entity
+                    obj.AddComponent<BoxCollider>();
+                    obj.transform.position = new Vector3(
                         x + _gameConfig.offset.x * x,
                         y + _gameConfig.offset.y * y
                     );
 
-                    entity.Get<Position>().value = new Vector2(x, y);
-                    entity.Get<Cell>().type = _gameConfig.gems[randomNum].type;
-                    entity.Get<LinkToObject>().value = gem;
+                    entity.Get<Position>().value = new Vector2Int(x, y);
+                    entity.Get<BlockType>().value = _gameConfig.gems[randomNum].type;
+                    entity.Get<LinkToObject>().value = obj;
 
-                    _board[x, y] = entity.GetInternalId();
+                    _board[x, y] = entity.GetInternalId(); 
                 }
             }
         }

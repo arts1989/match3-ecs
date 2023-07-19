@@ -29,11 +29,11 @@ namespace Match3
             _cells = new int[_cellsAmount];
         }
 
-        public void Swap(int2 pos1, int2 pos2)
-        {
-            var temp = this[pos1.x, pos1.y];
-            this[pos1.x, pos1.y] = this[pos2.x, pos2.y];
-            this[pos2.x, pos2.y] = temp;
-        }
+        //public void Swap(int2 pos1, int2 pos2)
+        //{
+        //    var temp = this[pos1.x, pos1.y];
+        //    this[pos1.x, pos1.y] = this[pos2.x, pos2.y];
+        //    this[pos2.x, pos2.y] = temp;
+        //}
     }
 }
