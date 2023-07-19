@@ -5,7 +5,7 @@ namespace Match3
 {
     [CreateAssetMenu]
    
-    public class GameConfig : ScriptableObject
+    public class Configuration : ScriptableObject
     {
         public int GemInlineToDestroy = 3;
         

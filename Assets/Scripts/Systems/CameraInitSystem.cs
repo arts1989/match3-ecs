@@ -8,13 +8,13 @@ namespace Match3
     internal class CameraInitSystem : IEcsInitSystem
     {
         private SceneData _sceneData;
-        private GameConfig _gameConfig;
+        private Configuration _configuration;
         private SaveManager _saveManager;
          
         public void Init() 
         {
             // установка камеры над полем
-            var levelConfig = _gameConfig.levels[_saveManager.GetData().Level];
+            var levelConfig = _configuration.levels[_saveManager.GetData().Level];
 
             var camera = _sceneData.Camera;
             camera.orthographic = true;

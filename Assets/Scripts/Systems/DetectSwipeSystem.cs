@@ -5,9 +5,6 @@ namespace Match3
 {
     internal partial class DetectSwipeSystem : IEcsRunSystem
     {
-        //private EcsFilter<SwapGemEvent, CellViewRef> _filter;
-        private EcsWorld _world;
-
         private SceneData _sceneData;
 
         private Vector3 _swipeStartPos;
@@ -19,7 +16,6 @@ namespace Match3
         private Vector2 _swipeVector;
         private EcsEntity _entityClicked;
 
-        //game config ?
         private float swipeMinimumDistance = .2f;
         private float swipeMaximumTime = 1f;
         private float swipeDirectionThreshold = .9f;

@@ -7,16 +7,15 @@ namespace Match3
         EcsWorld _world;
         EcsSystems _systems;
 
-        public GameConfig gameConfig;
+        public Configuration gameConfig;
         public SceneData sceneData;
         
         void Start () {
             // void can be switched to IEnumerator for support coroutines.
 
             //load managers 
-            SaveManager saveManager = new SaveManager();
-            var levelConfig = gameConfig.levels[saveManager.GetData().Level];
-            var board = new Board(levelConfig.Columns, levelConfig.Rows);
+            var saveManager = new SaveManager();
+            var gameState = new GameState();
 
             _world = new EcsWorld ();
             _systems = new EcsSystems (_world);
@@ -43,7 +42,7 @@ namespace Match3
                 // inject service instances here (order doesn't important), for example:
                 .Inject (gameConfig)
                 .Inject (saveManager)
-                .Inject (board)
+                .Inject (gameState)
                 .Inject (sceneData)
                 .Init ();
         }

@@ -6,7 +6,7 @@ namespace Match3
     internal class SpawnSystem : IEcsRunSystem
     {
         private EcsFilter<SpawnEvent, LinkToObject, Position> _filter;
-        private GameConfig _gameConfig;
+        private Configuration _gameConfig;
 
         public void Run()
         {
