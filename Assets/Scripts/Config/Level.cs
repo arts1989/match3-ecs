@@ -10,7 +10,7 @@ namespace Match3
 		public int Columns = 5;
 		public int Rows = 5;
 
-		public int MoveCount = 5;
+		public int MovesAvailable = 5;
 
     }
 }

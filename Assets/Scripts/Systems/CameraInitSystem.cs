@@ -8,22 +8,19 @@ namespace Match3
     internal class CameraInitSystem : IEcsInitSystem
     {
         private SceneData _sceneData;
-        private Configuration _configuration;
-        private SaveManager _saveManager;
+        private GameState _gameState;
          
         public void Init() 
         {
             // установка камеры над полем
-            var levelConfig = _configuration.levels[_saveManager.GetData().Level];
-
             var camera = _sceneData.Camera;
             camera.orthographic = true;
-            camera.orthographicSize = levelConfig.Rows / 2f;
+            camera.orthographicSize = _gameState.Rows / 2f;
             // 3 3 - 1 1
             // 4 4 - 1.5 1.5
             _sceneData.CameraTransform.position = new Vector3(
-               (levelConfig.Rows - 1f) / 2f,
-               (levelConfig.Columns - 1f) / 2f
+               (_gameState.Rows - 1f) / 2f,
+               (_gameState.Columns - 1f) / 2f
             );
         }
     }

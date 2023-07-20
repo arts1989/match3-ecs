@@ -25,6 +25,8 @@ namespace Match3
 #endif
             _systems
                 // register your sys tems here, for example:
+                .Add (new GameStateInitSystem())
+                .Add (new UpdateScoreWidgetSystem())
                 .Add (new BoardInitSystem()) // спавним ентити, спавним префабы (связанные с энтити)
                 .Add (new CameraInitSystem()) // устанавливаем камеру над полем
                 .Add (new DetectSwipeSystem())  //пользователь передвигает
@@ -32,6 +34,7 @@ namespace Match3
                 .Add (new MoveSystem()) // меняет местами
                 .Add (new DestroySystem()) // унитожает связанный с энтити геймобжект
                 .Add (new SpawnSystem ()) // спавнит новый и связывает с энтитей
+                .Add (new CheckWinSystem ()) // проверка что есть ентити с WinEvent 
 
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent> ()

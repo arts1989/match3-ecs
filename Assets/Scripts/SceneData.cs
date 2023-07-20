@@ -6,5 +6,6 @@ namespace Match3
     {
         public Transform CameraTransform;
         public Camera Camera;
+        public UI UI;
     }
 }
