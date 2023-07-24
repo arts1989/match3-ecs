@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52dafeef091367c4b94fbb1d5375af0f, type: 3}
   m_Name: Level_2
   m_EditorClassIdentifier: 
-  PointsToWin: 100
-  BoardWitdh: 5
-  BoardHeight: 5
-  MoveCount: 5
+  PointsToWin: 110
+  Columns: 5
+  Rows: 5
+  MovesAvailable: 6

@@ -19,7 +19,7 @@ namespace Match3
                 {
                     horizontalCoords.Add(coord);
                 }
-            }
+            }  
             return horizontalCoords;
         }
 
@@ -30,6 +30,8 @@ namespace Match3
 
             var coords = new List<Vector2Int>();
             var prevBlockType = BlockTypes.None;
+
+            coords.Clear();
 
             while (board.TryGetValue(startPos, out var entity))
             {
@@ -50,6 +52,10 @@ namespace Match3
             {
                 var firstBlockInChainPos = coords.First() + reverseDirection;
                 coords.Add(firstBlockInChainPos);
+            }
+            else
+            {
+                coords.Clear();
             }
 
             return coords;

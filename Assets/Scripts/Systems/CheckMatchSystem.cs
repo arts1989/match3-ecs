@@ -1,5 +1,5 @@
 using Leopotam.Ecs;
-namespace Match3
+ namespace Match3
 {
     internal class CheckMatchSystem : IEcsRunSystem
     {
@@ -19,6 +19,8 @@ namespace Match3
                 {
                     board[coords].Get<DestroyEvent>();
                 }
+
+                break; //отладить проверку линий куда пришел кубик сосед, глючит
             }
         }
     }

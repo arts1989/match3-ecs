@@ -6,6 +6,7 @@ namespace Match3
     {
         // modal window popups
         public WinScreen WinScreen;
+        public LoseScreen LoseScreen;
 
         // game widgets on scene
         public ScoreWidget scoreWidget;

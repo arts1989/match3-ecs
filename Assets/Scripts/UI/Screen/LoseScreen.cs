@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Match3
 {
-    public class WinScreen : Screen
+    public class LoseScreen : Screen
     {
         public Text text;
 

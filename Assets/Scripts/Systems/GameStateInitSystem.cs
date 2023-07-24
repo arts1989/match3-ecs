@@ -8,7 +8,6 @@ namespace Match3
         private Configuration _configuration;
         private GameState _gameState;
         private SaveManager _saveManager;
-        private SceneData _sceneData;
 
         public void Init()
         {
@@ -19,6 +18,9 @@ namespace Match3
             _gameState.MovesAvaliable = _configuration.levels[level].MovesAvailable;
             _gameState.Rows = levelConfig.Rows;
             _gameState.Columns = levelConfig.Columns;
+
+            _gameState.PointsToWin = _configuration.levels[level].PointsToWin;
+            _gameState.PointsScored = 0;
         }
     }
 }

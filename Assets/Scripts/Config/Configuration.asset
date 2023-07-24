@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c9dc76bf217b74eb9b06a8285f9bd2, type: 3}
   m_Name: Configuration
   m_EditorClassIdentifier: 
-  GemInlineToDestroy: 3
+  minChainLenght: 3
   levels:
   - {fileID: 11400000, guid: 987e51b0d446d7d4b864934b78d09520, type: 2}
   - {fileID: 11400000, guid: 5defca4c0baa8a34099e7d6da9754a0f, type: 2}
   blocks:
-  - {fileID: 11400000, guid: b5e61f036ad8fc14690457ee890239d9, type: 2}
-  - {fileID: 11400000, guid: a99132c73c783a94db007f2cbe7aa69b, type: 2}
-  - {fileID: 11400000, guid: efc2a2c78e7f6344dbcda25d9f83547f, type: 2}
-  - {fileID: 11400000, guid: 97d96503a0388ae4781eeeb403e99dda, type: 2}
+  - {fileID: 11400000, guid: c59d73d00e8cf4c47999976dfe0de979, type: 2}
+  - {fileID: 11400000, guid: c66bde6366d10c54195312425a26fb14, type: 2}
+  - {fileID: 11400000, guid: e9795b327b568784ebd67709b40e010e, type: 2}
+  - {fileID: 11400000, guid: 925d295a439049c499a80dded7539718, type: 2}
   offset: {x: 0, y: 0}

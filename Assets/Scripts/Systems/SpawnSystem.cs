@@ -1,12 +1,11 @@
 ﻿using Leopotam.Ecs;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Match3
 {
     internal class SpawnSystem : IEcsRunSystem
     {
-        private EcsFilter<SpawnEvent, LinkToObject, Position, BlockType> _filter;
+        private EcsFilter<SpawnEvent, LinkToObject, Position, BlockType, Points> _filter;
         private Configuration _configuration;
         private EcsWorld _world;
 
@@ -27,8 +26,10 @@ namespace Match3
                     position.x + _configuration.offset.x * position.x,
                     position.y + _configuration.offset.y * position.y
                 );
+                
                 _filter.Get2(index).value = obj;
                 _filter.Get4(index).value = _configuration.blocks[randomNum].type;
+                _filter.Get5(index).value = _configuration.blocks[randomNum].points;
             }
 
             if(!_filter.IsEmpty())

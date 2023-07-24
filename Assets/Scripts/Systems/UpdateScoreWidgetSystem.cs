@@ -12,18 +12,28 @@ namespace Match3
         public void Init()
         {
             _sceneData.UI.scoreWidget.SetMovesLeftText(_gameState.MovesAvaliable);
+            _sceneData.UI.scoreWidget.SetPointsScoredText(_gameState.PointsScored);
+
         }
         public void Run()
         {
             if (!_filter.IsEmpty())
             {
                 _gameState.MovesAvaliable--;
-                Debug.Log(_gameState.MovesAvaliable);
+                
                 _sceneData.UI.scoreWidget.SetMovesLeftText(_gameState.MovesAvaliable);
                 if (_gameState.MovesAvaliable == 0)
                 {
+                    _filter.GetEntity(0).Get<LoseEvent>();
+                }
+
+                _sceneData.UI.scoreWidget.SetPointsScoredText(_gameState.PointsScored);
+                if(_gameState.PointsScored > _gameState.PointsToWin)
+                {
                     _filter.GetEntity(0).Get<WinEvent>();
                 }
+
+
                 _filter.GetEntity(0).Del<UpdateScoreEvent>(); //destroy entity with UpdateScoreEvent component
             }
         }

@@ -30,6 +30,7 @@ namespace Match3
                     var position = new Vector2Int(x, y);
                     entity.Get<Position>().value = position;
                     entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
+                    entity.Get<Points>().value = _configuration.blocks[randomNum].points;
                     entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
 
                     _gameState.Board[position] = entity; 
