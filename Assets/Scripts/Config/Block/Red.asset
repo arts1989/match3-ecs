@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PointsForDestroy: 5
   sprite: {fileID: 190868633864949082, guid: 631f1e3e6037b13448ce3e7982ed10b2, type: 3}
-  type: 1
+  type: 2

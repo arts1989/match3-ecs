@@ -7,7 +7,7 @@ namespace Match3
    
     public class Configuration : ScriptableObject
     {
-        public int GemInlineToDestroy = 3;
+        public int minChainLenght = 3;
         
         public List<Level> levels = new List<Level>();
         public List<Block> blocks = new List<Block>();

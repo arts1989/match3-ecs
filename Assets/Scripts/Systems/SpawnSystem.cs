@@ -1,11 +1,12 @@
 ﻿using Leopotam.Ecs;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Match3
 {
     internal class SpawnSystem : IEcsRunSystem
     {
-        private EcsFilter<SpawnEvent, LinkToObject, Position> _filter;
+        private EcsFilter<SpawnEvent, LinkToObject, Position, BlockType> _filter;
         private Configuration _configuration;
         private EcsWorld _world;
 
@@ -18,16 +19,16 @@ namespace Match3
                 ref var position = ref _filter.Get3(index).value;
 
                 int randomNum = Random.Range(0, _configuration.blocks.Count);
-                var gem = Object.Instantiate(_configuration.blocks[randomNum].sprite);
+                var obj = Object.Instantiate(_configuration.blocks[randomNum].sprite);
 
-                gem.AddComponent<LinkToEntity>().entity = _filter.GetEntity(index); //link from gameobject to entity
-                gem.AddComponent<BoxCollider>();
-                gem.transform.position = new Vector3(
+                obj.AddComponent<LinkToEntity>().entity = _filter.GetEntity(index); //link from gameobject to entity
+                obj.AddComponent<BoxCollider>();
+                obj.transform.position = new Vector3(
                     position.x + _configuration.offset.x * position.x,
                     position.y + _configuration.offset.y * position.y
                 );
-
-                _filter.Get2(index).value = gem;
+                _filter.Get2(index).value = obj;
+                _filter.Get4(index).value = _configuration.blocks[randomNum].type;
             }
 
             if(!_filter.IsEmpty())

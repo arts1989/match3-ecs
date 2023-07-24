@@ -3,10 +3,10 @@ using DG.Tweening;
 
 namespace Match3
 {
-    internal class MoveSystem : IEcsRunSystem
+    internal partial class MoveSystem : IEcsRunSystem
     {
         private EcsFilter<MoveEvent, LinkToObject, Position> _filter;
-        private EcsWorld _world;
+        private GameState _gameState;
 
         public void Run()
         {
@@ -19,28 +19,24 @@ namespace Match3
                 // меняем трансформ у обжектов
                 obj1.transform.DOMove(obj2.transform.position, .5f)
                     .OnComplete(() => { 
-                        //Debug.Log("animation 1 complete");
-                        //if (_filter.GetEntity(0).Get<BlockType>().value == BlockTypes.Blue)
-                        //{
-                        _filter.GetEntity(0).Get<DestroyEvent>();
-                        //}
+                        _filter.GetEntity(0).Get<CheckMatchEvent>();
                     });
                 obj2.transform.DOMove(tempObj1, .5f)
                     .OnComplete(() => {
-                        //Debug.Log("animation 2 complete");
-                        //if (_filter.GetEntity(1).Get<BlockType>().value == BlockTypes.Blue)
-                        //{
-                        _filter.GetEntity(1).Get<DestroyEvent>();
-                        //}
+                        _filter.GetEntity(1).Get<CheckMatchEvent>();
                     });
+                
+                var entity1 = _filter.GetEntity(1);
+                var entity2 = _filter.GetEntity(0);
 
-                // меняем position компонент у ентити
-                ref var pos1 = ref _filter.Get3(0).value;
-                ref var pos2 = ref _filter.Get3(1).value;
+                var pos1 = entity1.Ref<Position>().Unref().value;
+                var pos2 = entity2.Ref<Position>().Unref().value;
 
-                var tempPos1 = pos1;
-                pos1 = pos2;
-                pos2 = tempPos1;
+                entity1.Get<Position>().value = pos2;
+                entity2.Get<Position>().value = pos1;
+                 //обновляем стейт доски
+                _gameState.Board[pos1] = entity2;
+                _gameState.Board[pos2] = entity1;
             }
         }
     }

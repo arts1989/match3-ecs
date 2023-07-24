@@ -10,14 +10,14 @@ namespace Match3
         private Vector3 _swipeStartPos;
         private Vector3 _swipeEndPos;
         
-        private float _swipeStartTime;
-        private float _swipeEndTime;
+        //private float _swipeStartTime;
+        //private float _swipeEndTime;
 
-        private Vector2 _swipeVector;
+        private Vector2Int _swipeVector;
         private EcsEntity _entityClicked;
 
         private float swipeMinimumDistance = .2f;
-        private float swipeMaximumTime = 1f;
+        //private float swipeMaximumTime = 1f;
         private float swipeDirectionThreshold = .9f;
 
         public void Run()
@@ -35,37 +35,37 @@ namespace Match3
                     }
                 }
                 _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
-                _swipeStartTime = Time.time;
+               // _swipeStartTime = Time.time;
             }
             else if(Input.GetMouseButtonUp(0))
             {
                 _swipeEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                _swipeEndTime = Time.time * Time.deltaTime;
+                //_swipeEndTime = Time.time * Time.deltaTime;
 
-                if (Vector2.Distance(_swipeStartPos, _swipeEndPos) >= swipeMinimumDistance && 
-                    (_swipeEndTime - _swipeStartTime) <= swipeMaximumTime)
+                if (Vector2.Distance(_swipeStartPos, _swipeEndPos) >= swipeMinimumDistance /*&& 
+                    (_swipeEndTime - _swipeStartTime) <= swipeMaximumTime*/)
                 {
                     Vector3 swipeDirection = _swipeEndPos - _swipeStartPos;
                     Vector2 swipeDirection2D = new Vector2(swipeDirection.x, swipeDirection.y).normalized;
 
                     if(Vector2.Dot(Vector2.up, swipeDirection2D) > swipeDirectionThreshold)
                     {
-                        _swipeVector = Vector2.up;
+                        _swipeVector = Vector2Int.up;
                     }
                     if (Vector2.Dot(Vector2.down, swipeDirection2D) > swipeDirectionThreshold)
                     {
-                        _swipeVector = Vector2.down;
+                        _swipeVector = Vector2Int.down;
                     }
                     if (Vector2.Dot(Vector2.left, swipeDirection2D) > swipeDirectionThreshold)
                     {
-                        _swipeVector = Vector2.left;
+                        _swipeVector = Vector2Int.left;
                     }
                     if (Vector2.Dot(Vector2.right, swipeDirection2D) > swipeDirectionThreshold)
                     {
-                        _swipeVector = Vector2.right;
+                        _swipeVector = Vector2Int.right;
                     }
 
-                    _entityClicked.Get<CheckMoveEvent>().moveVector = _swipeVector;
+                    _entityClicked.Get<CheckMoveEvent>().direction = _swipeVector;
                 }
             }
         }

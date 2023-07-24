@@ -2,6 +2,7 @@
 {
     public enum BlockTypes
     {
+        None,
         Blue,
         Red,
         Pink,

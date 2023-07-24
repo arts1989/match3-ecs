@@ -7,7 +7,7 @@ namespace Match3
         EcsWorld _world;
         EcsSystems _systems;
 
-        public Configuration gameConfig;
+        public Configuration configuration;
         public SceneData sceneData;
         
         void Start () {
@@ -32,6 +32,7 @@ namespace Match3
                 .Add (new DetectSwipeSystem())  //пользователь передвигает
                 .Add (new CheckMoveSystem ()) //проверка можно ли передвинуть
                 .Add (new MoveSystem()) // меняет местами
+                .Add (new CheckMatchSystem())
                 .Add (new DestroySystem()) // унитожает связанный с энтити геймобжект
                 .Add (new SpawnSystem ()) // спавнит новый и связывает с энтитей
                 .Add (new CheckWinSystem ()) // проверка что есть ентити с WinEvent 
@@ -39,11 +40,12 @@ namespace Match3
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent> ()
                 .OneFrame<MoveEvent> ()
+                .OneFrame<CheckMatchEvent>()
                 .OneFrame<DestroyEvent> ()
                 .OneFrame<SpawnEvent> ()
-
+             
                 // inject service instances here (order doesn't important), for example:
-                .Inject (gameConfig)
+                .Inject (configuration)
                 .Inject (saveManager)
                 .Inject (gameState)
                 .Inject (sceneData)

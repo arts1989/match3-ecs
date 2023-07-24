@@ -18,6 +18,7 @@ namespace Match3
             if (!_filter.IsEmpty())
             {
                 _gameState.MovesAvaliable--;
+                Debug.Log(_gameState.MovesAvaliable);
                 _sceneData.UI.scoreWidget.SetMovesLeftText(_gameState.MovesAvaliable);
                 if (_gameState.MovesAvaliable == 0)
                 {
