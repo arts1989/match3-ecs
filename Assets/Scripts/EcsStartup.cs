@@ -34,7 +34,7 @@ namespace Match3
                 .Add (new CheckMoveSystem ()) //�������� ����� �� �����������
                 .Add (new MoveSystem()) // ������ �������
                 .Add (new CheckMatchSystem())
-                //.Add (new DestroySystem()) // ��������� ��������� � ������ ����������
+                .Add (new DestroySystem()) // ��������� ��������� � ������ ����������
                 .Add (new SpawnSystem ()) // ������� ����� � ��������� � �������
                 .Add (new CheckWinSystem ()) // �������� ��� ���� ������ � WinEvent 
                 .Add (new CheckLoseSystem()) // �������� ��� ���� ������ � LoseEvent 
