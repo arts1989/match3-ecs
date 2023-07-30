@@ -12,7 +12,7 @@ namespace Match3
         {
             foreach(var index in _filter)
             {
-                Debug.Log(_filter.ToString());
+               // Debug.Log(_filter.ToString());
                 _filter.GetEntity(index).Del<WinEvent>();
                 _sceneData.UI.WinScreen.Show(true);
             }

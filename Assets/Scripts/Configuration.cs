@@ -11,6 +11,7 @@ namespace Match3
         
         public List<Level> levels = new List<Level>();
         public List<Block> blocks = new List<Block>();
+        public List<Booster> boosters = new List<Booster>();
 
         public Vector2 offset;
     }

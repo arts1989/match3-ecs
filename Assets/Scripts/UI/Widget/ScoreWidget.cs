@@ -10,13 +10,11 @@ namespace Match3
 
         public void SetMovesLeftText(int value)
         {
-            Debug.Log("--------------------- " + value.ToString());
             textMovesLeft.text = "Ходов осталось: " +  value.ToString(); 
         }
 
         public void SetPointsScoredText(int value)
         {
-            Debug.Log("--------------------- " + value.ToString());
             textPointsScored.text = "Очков набрано: " + value.ToString();
         }
     }

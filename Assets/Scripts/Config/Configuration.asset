@@ -21,4 +21,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c66bde6366d10c54195312425a26fb14, type: 2}
   - {fileID: 11400000, guid: e9795b327b568784ebd67709b40e010e, type: 2}
   - {fileID: 11400000, guid: 925d295a439049c499a80dded7539718, type: 2}
+  boosters:
+  - {fileID: 11400000, guid: 07653481b51521a43b75016713f15be7, type: 2}
+  - {fileID: 11400000, guid: 1d4905db2f83e774ba3bf8d9a60c157b, type: 2}
+  - {fileID: 11400000, guid: b9a3bf972626cc54a85a1aba15c925dd, type: 2}
+  - {fileID: 11400000, guid: ebfb0e3578be8724fbf33f298bc8606a, type: 2}
   offset: {x: 0, y: 0}

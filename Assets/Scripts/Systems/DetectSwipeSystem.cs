@@ -1,5 +1,6 @@
 ﻿using Leopotam.Ecs;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Match3
 {
@@ -22,7 +23,7 @@ namespace Match3
 
         public void Run()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) // 
             {
                 var camera = _sceneData.Camera;
                 var ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -37,7 +38,7 @@ namespace Match3
                 _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
                // _swipeStartTime = Time.time;
             }
-            else if(Input.GetMouseButtonUp(0))
+            else if(Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 _swipeEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 //_swipeEndTime = Time.time * Time.deltaTime;

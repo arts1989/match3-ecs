@@ -15,7 +15,7 @@ namespace Match3
             // установка камеры над полем
             var camera = _sceneData.Camera;
             camera.orthographic = true;
-            camera.orthographicSize = _gameState.Rows / 2f;
+            camera.orthographicSize = _gameState.Rows / 2f + .75f;
             // 3 3 - 1 1
             // 4 4 - 1.5 1.5
             _sceneData.CameraTransform.position = new Vector3(

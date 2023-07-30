@@ -1,5 +1,7 @@
 using Leopotam.Ecs;
- namespace Match3
+using UnityEngine;
+
+namespace Match3
 {
     internal class CheckMatchSystem : IEcsRunSystem
     {
@@ -13,6 +15,9 @@ using Leopotam.Ecs;
             foreach (var index in _filter)
             {
                 ref var position = ref _filter.Get3(index).value;
+
+                //Debug.Log("позиция энтети: "  + position);
+
                 var board = _gameState.Board;
 
                 foreach (var coords in board.getMatchCoords(position, _configuration.minChainLenght))
@@ -20,7 +25,7 @@ using Leopotam.Ecs;
                     board[coords].Get<DestroyEvent>();
                 }
 
-                break; //отладить проверку линий куда пришел кубик сосед, глючит
+                //break; //отладить проверку линий куда пришел кубик сосед, глючит
             }
         }
     }

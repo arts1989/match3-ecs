@@ -1,4 +1,5 @@
 using Leopotam.Ecs;
+using Leopotam.Ecs.Ui.Systems;
 using UnityEngine;
 
 namespace Match3
@@ -6,6 +7,8 @@ namespace Match3
     sealed partial class EcsStartup : MonoBehaviour {
         EcsWorld _world;
         EcsSystems _systems;
+
+        //[SerializeField] EcsUiEmitter _uiEmitter;
 
         public Configuration configuration;
         public SceneData sceneData;
@@ -28,6 +31,7 @@ namespace Match3
                 .Add (new GameStateInitSystem())
                 .Add (new UpdateScoreWidgetSystem())
                 .Add (new BoardInitSystem()) // спавним ентити, спавним префабы (связанные с энтити)
+                .Add (new BoosterInitSystem())
                 .Add (new CameraInitSystem()) // устанавливаем камеру над полем
                 .Add (new DetectSwipeSystem())  //пользователь передвигает
                 .Add (new CheckMoveSystem ()) //проверка можно ли передвинуть
@@ -50,6 +54,7 @@ namespace Match3
                 .Inject (saveManager)
                 .Inject (gameState)
                 .Inject (sceneData)
+                //.InjectUi(_uiEmitter)
                 .Init ();
         }
 
