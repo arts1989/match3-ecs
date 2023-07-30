@@ -1,7 +1,6 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace Match3
@@ -72,16 +71,21 @@ namespace Match3
                 Vector2Int.right, Vector2Int.left 
             };
 
-            foreach(var currentDirection in directions) 
+            foreach (var direction in directions) 
             {
-                if (currentDirection + swipeDirection == Vector2.zero) continue; // убираем обратное направление свайпа, там не может быть комбинации
+                if (direction + swipeDirection == Vector2.zero) 
+                    continue; // убираем обратное направление свайпа, там не может быть комбинации
 
                 var chainLenght = 1;
                 var startPos = position + swipeDirection;
                 var prevBlockType = BlockTypes.None;
+                var coordToCheck = 3;
 
-                if (currentDirection != swipeDirection && board.ContainsKey(startPos - currentDirection)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
-                    startPos -= currentDirection;
+                if (direction != swipeDirection && board.ContainsKey(startPos - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
+                {
+                    startPos -= direction;
+                    coordToCheck++;
+                } 
 
                 while (board.TryGetValue(startPos, out var entity))
                 {
@@ -93,10 +97,14 @@ namespace Match3
                         chainLenght++;
                    
                     prevBlockType = blockType;
-                    startPos += currentDirection;
+                    startPos += direction;
+                    coordToCheck--;
 
-                    if (chainLenght >= 3)
+                    if (chainLenght == 3)
                         return true;
+                    
+                    if (coordToCheck == 0)
+                        break;
                 }
             }
 

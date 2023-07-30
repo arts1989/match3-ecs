@@ -4,7 +4,7 @@ using Leopotam.Ecs;
 
 namespace Match3
 {
-    public class UIItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+    public class UIBooster : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         private CanvasGroup _CanvasGroup;
         private Canvas _mainCanvas;
@@ -36,16 +36,12 @@ namespace Match3
             _CanvasGroup.blocksRaycasts = true;
 
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.Log(Input.mousePosition);
             if (Physics.Raycast(ray, out var hitInfo))
             {
                 var entity = hitInfo.collider.GetComponent<LinkToEntity>();
-                if (entity)
+                if (entity) // попали в ентити
                 {
-                    Debug.Log(entity.entity.Get<BlockType>().value);
-
-                    Debug.Log("<<<<<<<<<<<<<<<>>>>>>>>>>>>");
-                    //_entityClicked = entity.entity;
+                    entity.entity.Get<HandleBoosterEvent>().boosterType = GetComponent<LinkToEntity>().entity.Get<BoosterType>().value;
                 }
             }
         }

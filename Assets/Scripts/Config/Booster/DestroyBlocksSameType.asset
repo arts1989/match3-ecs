@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a98c47eeb8ffc14fb26400b06e3f9b4, type: 3}
-  m_Name: Blue
+  m_Name: DestroyBlocksSameType
   m_EditorClassIdentifier: 
-  prefab: {fileID: 766291646047657348, guid: aa4be18f8580ace43bb2c1902b529e9b, type: 3}
-  type: 0
+  prefab: {fileID: 3898476524724032021, guid: aa4be18f8580ace43bb2c1902b529e9b, type: 3}
+  boosterType: 0

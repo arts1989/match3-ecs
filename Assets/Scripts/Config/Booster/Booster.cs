@@ -7,6 +7,6 @@ namespace Match3
     {
         public GameObject prefab;
 
-        [SerializeField] public BoosterTypes type;
+        [SerializeField] public BoosterTypes boosterType;
      }
 }

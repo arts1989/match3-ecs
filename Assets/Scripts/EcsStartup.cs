@@ -33,6 +33,7 @@ namespace Match3
                 .Add (new BoardInitSystem()) // спавним ентити, спавним префабы (связанные с энтити)
                 .Add (new BoosterInitSystem())
                 .Add (new CameraInitSystem()) // устанавливаем камеру над полем
+                .Add (new HandleBoosterSystem()) 
                 .Add (new DetectSwipeSystem())  //пользователь передвигает
                 .Add (new CheckMoveSystem ()) //проверка можно ли передвинуть
                 .Add (new MoveSystem()) // меняет местами
@@ -46,8 +47,10 @@ namespace Match3
                 .OneFrame<CheckMoveEvent> ()
                 .OneFrame<MoveEvent> ()
                 .OneFrame<CheckMatchEvent>()
+                .OneFrame<HandleBoosterEvent> ()
                 .OneFrame<DestroyEvent> ()
                 .OneFrame<SpawnEvent> ()
+
              
                 // inject service instances here (order doesn't important), for example:
                 .Inject (configuration)

@@ -11,14 +11,14 @@ namespace Match3
         private Vector3 _swipeStartPos;
         private Vector3 _swipeEndPos;
         
-        //private float _swipeStartTime;
-        //private float _swipeEndTime;
+        private float _swipeStartTime;
+        private float _swipeEndTime;
 
         private Vector2Int _swipeVector;
         private EcsEntity _entityClicked;
 
         private float swipeMinimumDistance = .2f;
-        //private float swipeMaximumTime = 1f;
+        private float swipeMaximumTime = 1f;
         private float swipeDirectionThreshold = .9f;
 
         public void Run()
@@ -33,40 +33,31 @@ namespace Match3
                     if(entity)
                     {
                         _entityClicked = entity.entity;
+                        _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
+                        _swipeStartTime = Time.time;
                     }
                 }
-                _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
-               // _swipeStartTime = Time.time;
             }
             else if(Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                _swipeEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                //_swipeEndTime = Time.time * Time.deltaTime;
+                if(!_entityClicked.IsNull()) {
+                    _swipeEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    _swipeEndTime = Time.time * Time.deltaTime;
 
-                if (Vector2.Distance(_swipeStartPos, _swipeEndPos) >= swipeMinimumDistance /*&& 
-                    (_swipeEndTime - _swipeStartTime) <= swipeMaximumTime*/)
-                {
-                    Vector3 swipeDirection = _swipeEndPos - _swipeStartPos;
-                    Vector2 swipeDirection2D = new Vector2(swipeDirection.x, swipeDirection.y).normalized;
+                    if (Vector2.Distance(_swipeStartPos, _swipeEndPos) >= swipeMinimumDistance && (_swipeEndTime - _swipeStartTime) <= swipeMaximumTime)
+                    {
+                        Vector3 swipeDirection = _swipeEndPos - _swipeStartPos;
+                        Vector2 swipeDirection2D = new Vector2(swipeDirection.x, swipeDirection.y).normalized;
 
-                    if(Vector2.Dot(Vector2.up, swipeDirection2D) > swipeDirectionThreshold)
-                    {
-                        _swipeVector = Vector2Int.up;
-                    }
-                    if (Vector2.Dot(Vector2.down, swipeDirection2D) > swipeDirectionThreshold)
-                    {
-                        _swipeVector = Vector2Int.down;
-                    }
-                    if (Vector2.Dot(Vector2.left, swipeDirection2D) > swipeDirectionThreshold)
-                    {
-                        _swipeVector = Vector2Int.left;
-                    }
-                    if (Vector2.Dot(Vector2.right, swipeDirection2D) > swipeDirectionThreshold)
-                    {
-                        _swipeVector = Vector2Int.right;
-                    }
+                        _swipeVector = (Vector2.Dot(Vector2.up, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.up
+                            : (Vector2.Dot(Vector2.down, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.down
+                            : (Vector2.Dot(Vector2.left, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.left
+                            : (Vector2.Dot(Vector2.right, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.right 
+                            : Vector2Int.zero;
 
-                    _entityClicked.Get<CheckMoveEvent>().direction = _swipeVector;
+                        if(_swipeVector != Vector2Int.zero)
+                            _entityClicked.Get<CheckMoveEvent>().direction = _swipeVector;
+                    }
                 }
             }
         }
