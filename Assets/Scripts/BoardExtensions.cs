@@ -11,8 +11,9 @@ namespace Match3
         {
             var horizontalCoords = board.getMatchInLine(position, minChainLenght, Vector2Int.right);
             var verticalCoords = board.getMatchInLine(position, minChainLenght, Vector2Int.up);
-            Debug.Log("horizontalChain === " + horizontalCoords.Count);
-            Debug.Log("verticalChain === " + verticalCoords.Count);
+            Debug.Log("horizontalChain ==== " + horizontalCoords.Count);
+            Debug.Log("verticalChain ====" + verticalCoords.Count);
+            Debug.Log("==========================");
             foreach (var coord in verticalCoords)
             {
                 if (!horizontalCoords.Contains(coord))
@@ -82,7 +83,7 @@ namespace Match3
                 var coordToCheck = 3;
 
                 if (direction != swipeDirection && board.ContainsKey(startPos - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
-                {
+                { 
                     startPos -= direction;
                     coordToCheck++;
                 } 

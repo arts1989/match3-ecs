@@ -14,5 +14,9 @@ namespace Match3
         public List<Booster> boosters = new List<Booster>();
 
         public Vector2 offset;
+
+        [Header("Effects")]
+        public GameObject deathVFX;
+        public float durationOfExplosion = 1f;
     }
 }

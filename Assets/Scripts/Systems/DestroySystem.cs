@@ -1,4 +1,5 @@
-﻿using Leopotam.Ecs;
+﻿using DG.Tweening;
+using Leopotam.Ecs;
 using UnityEngine;
 
 namespace Match3
@@ -7,6 +8,7 @@ namespace Match3
     {
         private EcsFilter<DestroyEvent, LinkToObject, Points> _filter;
         private GameState _gameState;
+        private Configuration _configuration;
 
         public void Run()
         {
@@ -17,6 +19,9 @@ namespace Match3
                 _gameState.PointsScored += points;
 
                 Object.Destroy(obj);
+                var explosion = Object.Instantiate(_configuration.deathVFX, obj.transform.position, obj.transform.rotation);
+                Object.Destroy(explosion, _configuration.durationOfExplosion);
+
                 _filter.GetEntity(index).Get<SpawnEvent>();
                 //_filter.GetEntity(index).Destroy();
             }
