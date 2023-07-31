@@ -4,28 +4,26 @@ using Match3;
 
 public class CheckingNeighboringGems
 {
-    private readonly EcsEntity _currentEntity;
+    private readonly Vector2Int _currentPosition;
     private readonly GameState _gameState;
-    private Vector2Int _currentPosition;
-
-    public CheckingNeighboringGems(EcsEntity currentEntity, GameState gameState, Vector2Int direction)
+    private readonly BlockTypes _currentBlockType;
+    
+    public CheckingNeighboringGems(Vector2Int currentPosition, GameState gameState, Vector2Int direction, BlockTypes currentBlockType)
     {
-        _currentEntity = currentEntity;
+        _currentPosition = currentPosition + direction;
         _gameState = gameState;
-        _currentPosition = currentEntity.Get<Position>().value + direction;
+        _currentBlockType = currentBlockType;
     }
     
     public int CheckRight()
     {
-        BlockTypes currentTypeGem = _currentEntity.Get<BlockType>().value;
         int match = 0;
             
         for (int x = _currentPosition.x + 1; x < _currentPosition.x + 3 && x < _gameState.Columns; x++)
         {
-            var positionGemRight = new Vector2Int(x, _currentPosition.y);
-            EcsEntity indexGem = _gameState.Board[positionGemRight];
+            EcsEntity indexGem = _gameState.Board[new Vector2Int(x, _currentPosition.y)];
             
-            if(currentTypeGem ==  indexGem.Get<BlockType>().value) match += 1;
+            if(_currentBlockType ==  indexGem.Get<BlockType>().value) match += 1;
             else return match;
         }
 
@@ -34,15 +32,13 @@ public class CheckingNeighboringGems
         
     public int CheckLeft()
     {
-        BlockTypes currentTypeGem = _currentEntity.Get<BlockType>().value;
         int match = 0;
             
         for (int x = _currentPosition.x - 1; x > _currentPosition.x - 3 && x > -1; x--)
         {
-            var positionGemRight = new Vector2Int(x, _currentPosition.y);
-            EcsEntity indexGem = _gameState.Board[positionGemRight];
+            EcsEntity indexGem = _gameState.Board[new Vector2Int(x, _currentPosition.y)];
             
-            if(currentTypeGem ==  indexGem.Get<BlockType>().value) match += 1;
+            if(_currentBlockType ==  indexGem.Get<BlockType>().value) match += 1;
             else return match;
         }
             
@@ -51,15 +47,13 @@ public class CheckingNeighboringGems
         
     public int CheckUp()
     {
-        BlockTypes currentTypeGem = _currentEntity.Get<BlockType>().value;
         int match = 0;
             
         for (int y = _currentPosition.y + 1; y < _currentPosition.y + 3 && y < _gameState.Rows; y++)
         {
-            var positionGemRight = new Vector2Int(_currentPosition.x, y);
-            EcsEntity indexGem = _gameState.Board[positionGemRight];
+            EcsEntity indexGem = _gameState.Board[new Vector2Int(_currentPosition.x, y)];
             
-            if(currentTypeGem ==  indexGem.Get<BlockType>().value) match += 1;
+            if(_currentBlockType ==  indexGem.Get<BlockType>().value) match += 1;
             else return match;
         }
             
@@ -68,15 +62,13 @@ public class CheckingNeighboringGems
         
     public int CheckDown()
     {
-        BlockTypes currentTypeGem = _currentEntity.Get<BlockType>().value;
         int match = 0;
             
         for (int y = _currentPosition.y - 1; y > _currentPosition.y - 3 && y > -1; y--)
         {
-            var positionGemRight = new Vector2Int(_currentPosition.x, y);
-            EcsEntity indexGem = _gameState.Board[positionGemRight];
+            EcsEntity indexGem = _gameState.Board[new Vector2Int(_currentPosition.x, y)];
             
-            if(currentTypeGem ==  indexGem.Get<BlockType>().value) match += 1;
+            if(_currentBlockType ==  indexGem.Get<BlockType>().value) match += 1;
             else return match;
         }
             
