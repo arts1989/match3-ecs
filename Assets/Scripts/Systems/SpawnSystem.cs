@@ -5,7 +5,7 @@ namespace Match3
 {
     internal class SpawnSystem : IEcsRunSystem
     {
-        private EcsFilter<SpawnEvent, LinkToObject, Position, BlockType, Points> _filter;
+        private EcsFilter<SpawnEvent, Position> _filter;
         private Configuration _configuration;
         private EcsWorld _world;
 
@@ -15,7 +15,7 @@ namespace Match3
             // и ставим геймобжекту ссылку на ентитю через компонент-монобех
             foreach(int index in  _filter)
             {
-                ref var position = ref _filter.Get3(index).value;
+                ref var position = ref _filter.Get2(index).value;
 
                 int randomNum = Random.Range(0, _configuration.blocks.Count);
                 var obj = Object.Instantiate(_configuration.blocks[randomNum].sprite);
@@ -27,9 +27,9 @@ namespace Match3
                     position.y + _configuration.offset.y * position.y
                 );
                 
-                _filter.Get2(index).value = obj;
-                _filter.Get4(index).value = _configuration.blocks[randomNum].type;
-                _filter.Get5(index).value = _configuration.blocks[randomNum].points;
+                _filter.GetEntity(index).Get<LinkToObject>().value = obj;
+                _filter.GetEntity(index).Get<BlockType>().value = _configuration.blocks[randomNum].type;
+                _filter.GetEntity(index).Get<Points>().value = _configuration.blocks[randomNum].points;
             }
 
             if(!_filter.IsEmpty())

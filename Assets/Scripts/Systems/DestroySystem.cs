@@ -14,7 +14,7 @@ namespace Match3
         {
             foreach(int index in _filter)
             {
-                ref var obj = ref _filter.Get2(index).value;
+                ref var obj    = ref _filter.Get2(index).value;
                 ref var points = ref _filter.Get3(index).value;
                 _gameState.PointsScored += points;
 
@@ -22,9 +22,13 @@ namespace Match3
                 var explosion = Object.Instantiate(_configuration.deathVFX, obj.transform.position, obj.transform.rotation);
                 Object.Destroy(explosion, _configuration.durationOfExplosion);
 
+                _filter.GetEntity(index).Del<BlockType>();
+                _filter.GetEntity(index).Del<LinkToObject>();
+                _filter.GetEntity(index).Del<Points>();
+
                 _filter.GetEntity(index).Get<SpawnEvent>();
                 //_filter.GetEntity(index).Destroy();
             }
         }
-    }
+      }
 }
