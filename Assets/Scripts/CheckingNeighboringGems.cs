@@ -8,7 +8,8 @@ public class CheckingNeighboringGems
     private readonly GameState _gameState;
     private readonly BlockTypes _currentBlockType;
     
-    public CheckingNeighboringGems(Vector2Int currentPosition, GameState gameState, Vector2Int direction, BlockTypes currentBlockType)
+    public CheckingNeighboringGems(Vector2Int currentPosition, GameState gameState, Vector2Int direction, 
+        BlockTypes currentBlockType)
     {
         _currentPosition = currentPosition + direction;
         _gameState = gameState;

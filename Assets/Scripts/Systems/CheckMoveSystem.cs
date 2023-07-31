@@ -9,8 +9,6 @@ namespace Systems
         private EcsFilter<CheckMoveEvent, LinkToObject, Position, BlockType> _filter;
         private GameState _gameState;
 
-        private CheckingNeighboringGems _checkingNeighboringGems;
-        
         public void Run()
         {
             //system to check if the heme can be moved in the direction
@@ -23,9 +21,13 @@ namespace Systems
                 ref var currentBlockType = ref _filter.Get4(0).value;
                 
                 var board = _gameState.Board;
-                
-                if()
-                
+
+                if (BoardExtensions.IsCheckMoveAvaliable(direction, currentPosition, _gameState, currentBlockType))
+                {
+                    board[currentPosition].Get<MoveEvent>();
+                    board[currentPosition + direction].Get<MoveEvent>();
+                }
+                else Debug.Log("Do not move");
             }
         }
     }  
