@@ -30,24 +30,24 @@ namespace Match3
                 // register your sys tems here, for example:
                 .Add (new GameStateInitSystem())
                 .Add (new UpdateScoreWidgetSystem())
-                .Add (new BoardInitSystem()) // спавним ентити, спавним префабы (связанные с энтити)
-                .Add (new BoosterInitSystem())
-                .Add (new CameraInitSystem()) // устанавливаем камеру над полем
-                .Add (new HandleBoosterSystem()) 
-                .Add (new DetectSwipeSystem())  //пользователь передвигает
-                .Add (new CheckMoveSystem ()) //проверка можно ли передвинуть
-                .Add (new MoveSystem()) // меняет местами
+                .Add (new BoardInitSystem()) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
+                //.Add (new BoosterInitSystem())
+                .Add (new CameraInitSystem()) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+                //.Add (new HandleBoosterSystem()) 
+                .Add (new DetectSwipeSystem())  //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                .Add (new CheckMoveSystem ()) //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                .Add (new MoveSystem()) // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 .Add (new CheckMatchSystem())
-                .Add (new DestroySystem()) // унитожает связанный с энтити геймобжект
-                .Add (new SpawnSystem ()) // спавнит новый и связывает с энтитей
-                .Add (new CheckWinSystem ()) // проверка что есть ентити с WinEvent 
-                .Add (new CheckLoseSystem()) // проверка что есть ентити с LoseEvent 
+                .Add (new DestroySystem()) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                .Add (new SpawnSystem ()) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                .Add (new CheckWinSystem ()) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ WinEvent 
+                .Add (new CheckLoseSystem()) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ LoseEvent 
 
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent> ()
                 .OneFrame<MoveEvent> ()
                 .OneFrame<CheckMatchEvent>()
-                .OneFrame<HandleBoosterEvent> ()
+                //.OneFrame<HandleBoosterEvent> ()
                 .OneFrame<DestroyEvent> ()
                 .OneFrame<SpawnEvent> ()
 
