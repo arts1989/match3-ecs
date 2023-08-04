@@ -40,7 +40,7 @@ namespace Match3
                 .Add (new CheckMatchSystem())
                 .Add (new DestroySystem()) // унитожает связанный с энтити геймобжект
                 .Add (new SpawnSystem ()) // спавнит новый и связывает с энтитей
-                //.Add (new CheckMoveAvailableSystem()) // Проверка на наличие ходов
+                .Add (new CheckMoveAvailableSystem()) // Проверка на наличие ходов
                 .Add (new CheckWinSystem ()) // проверка что есть ентити с WinEvent 
                 .Add (new CheckLoseSystem()) // проверка что есть ентити с LoseEvent 
 
@@ -51,8 +51,9 @@ namespace Match3
                 .OneFrame<HandleBoosterEvent> ()
                 .OneFrame<DestroyEvent> ()
                 .OneFrame<SpawnEvent> ()
+                //.OneFrame<CheckMoveAvailableEvent>()
 
-             
+
                 // inject service instances here (order doesn't important), for example:
                 .Inject (configuration)
                 .Inject (saveManager)

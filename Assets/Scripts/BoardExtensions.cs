@@ -111,5 +111,24 @@ namespace Match3
 
             return false;
         }
+
+        public static int checkBoardMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position)
+        {
+            var count = 0;
+            var directions = new List<Vector2Int>() {
+                Vector2Int.up, Vector2Int.down,
+                Vector2Int.right, Vector2Int.left
+            };
+
+            foreach (var direction in directions)
+            {
+                if (board.checkMoveAvaliable(position, direction))
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
     }
 }
