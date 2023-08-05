@@ -1,78 +1,122 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Match3
 {
     public static class BoardExtensions
     {
-        public static List<Vector2Int> getMatchCoords(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, int minChainLenght)
-        {
-            var horizontalCoords = board.getMatchInLine(position, minChainLenght, Vector2Int.right);
-            var verticalCoords = board.getMatchInLine(position, minChainLenght, Vector2Int.up);
-            Debug.Log("horizontalChain ==== " + horizontalCoords.Count);
-            Debug.Log("verticalChain ====" + verticalCoords.Count);
-            Debug.Log("==========================");
-            foreach (var coord in verticalCoords)
-            {
-                if (!horizontalCoords.Contains(coord))
-                { 
-                    horizontalCoords.Add(coord);
-                }
-            }  
-            return horizontalCoords;
-        }
+        
+        static private List<Vector2Int> _directions = new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.right, Vector2Int.left };
+        static private int _chainLenght = 3;
 
-        public static List<Vector2Int> getMatchInLine(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, int minChainLenght, Vector2Int direction)
+        public static List<Vector2Int> getMatchCoords(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, Vector2Int oldPosition)
         {
-            var startPos = direction == Vector2Int.right ? new Vector2Int(0, position.y) : new Vector2Int(position.x, 0); //Vector2Int.up
-            var reverseDirection = direction == Vector2Int.right ? Vector2Int.left : Vector2Int.down;
-
+            var matchCoords = new List<Vector2Int>();
             var coords = new List<Vector2Int>();
-            var prevBlockType = BlockTypes.None;
 
-            coords.Clear();
+            // провеяем матч 3 в ряд
+            foreach (var direction in _directions)
+            { 
+                if (direction + position == oldPosition)
+                    continue; // пришли отсюда, не проверям, там гем другого типа
 
-            while (board.TryGetValue(startPos, out var entity))
-            {
-                var blockType = entity.Get<BlockType>().value;
-                if (blockType == prevBlockType)
-                {
-                    coords.Add(startPos);
-                }
-                else if (coords.Count == 1)
-                {
-                    coords.Clear();
-                }
-                prevBlockType = blockType;
-                startPos += direction;
-            }
-
-            if (coords.Count >= minChainLenght - 1)
-            {
-                var firstBlockInChainPos = coords.First() + reverseDirection;
-                coords.Add(firstBlockInChainPos);
-            }
-            else
-            {
+                var chainLenght = 1;
+                var startPos = position;
+                var prevBlockType = BlockTypes.None;
                 coords.Clear();
+
+                if (direction != (oldPosition - position) && board.ContainsKey(position - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
+                {
+                    startPos -= direction;
+                }
+
+                while (board.TryGetValue(startPos, out var entity))
+                {
+                    var blockType = entity.Get<BlockType>().value;
+                    
+                    // 0 1 1 1 1 0 [выходим] 1 1 0 1 1 1 0 0 1 1 0
+                    if (blockType == prevBlockType) {
+                        coords.Add(startPos);
+                        chainLenght++;
+                    }
+                    else if (chainLenght >= _chainLenght - 1)
+                    {
+                        break;
+                    }
+
+                    prevBlockType = blockType;
+                    startPos += direction;
+                }
+
+                if (coords.Count >= _chainLenght - 1)
+                {
+                    var firstBlockInChainPos = coords[0] - direction;
+                    coords.Add(firstBlockInChainPos);
+
+                    foreach(var coord in coords)
+                    {
+                        if (!matchCoords.Contains(coord))
+                        {
+                            matchCoords.Add(coord);
+                        }
+                    }
+                }
             }
 
-            return coords;
+            // провеяем кобминацию квадрат из 4
+            var swipeDirection = position - oldPosition;
+            
+            foreach (var direction in _directions)
+            {
+                if (direction + position == oldPosition || position - direction == oldPosition)
+                    continue; // убираем направления свайпа и обратку
+
+                coords.Clear();
+                
+                coords.Add(position);
+                coords.Add(position + direction);
+                coords.Add(swipeDirection + position);
+                coords.Add(swipeDirection + position + direction);
+
+                var prevBlockType = BlockTypes.None;
+                var chainLenght = 1;
+
+                foreach (var coord in coords)
+                {
+                    if (board.TryGetValue(coord, out var entity))
+                    {
+                        var blockType = entity.Get<BlockType>().value;
+
+                        if (prevBlockType == blockType)
+                            chainLenght++;
+
+                        prevBlockType = blockType;
+                    }
+                }
+
+                if (chainLenght == 4)
+                {
+                    foreach (var coord in coords)
+                    {
+                        if (!matchCoords.Contains(coord))
+                        {
+                            matchCoords.Add(coord);
+                        }
+                    }
+                }
+            }
+
+            return matchCoords;
         }
 
         public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, Vector2Int swipeDirection)
         {
             if(!board.ContainsKey(position + swipeDirection)) // свайп за пределы доски
                 return false;
-            
-            var directions  = new List<Vector2Int>() { 
-                Vector2Int.up, Vector2Int.down, 
-                Vector2Int.right, Vector2Int.left 
-            };
 
-            foreach (var direction in directions) 
+            // провеяем матч 3 в ряд
+            foreach (var direction in _directions) 
             {
                 if (direction + swipeDirection == Vector2.zero) 
                     continue; // убираем обратное направление свайпа, там не может быть комбинации
@@ -101,12 +145,51 @@ namespace Match3
                     startPos += direction;
                     coordToCheck--;
 
-                    if (chainLenght == 3)
+                    if (chainLenght == _chainLenght)
                         return true;
                     
                     if (coordToCheck == 0)
                         break;
                 }
+            }
+
+            // провеяем кобминацию квадрат из 4
+            var coords = new List<Vector2Int>();
+
+            foreach (var direction in _directions)
+            {
+                if (direction + swipeDirection == Vector2.zero || direction == swipeDirection)
+                    continue; // убираем направления свайпа и обратку
+
+                coords.Clear();
+
+                var startPos = position + swipeDirection;
+
+                coords.Add(startPos);
+                coords.Add(startPos + direction);
+                coords.Add(swipeDirection + startPos);
+                coords.Add(swipeDirection + startPos + direction);
+
+                var prevBlockType = BlockTypes.None;
+                var chainLenght = 1;
+
+                foreach (var coord in coords)
+                {
+                    if (board.TryGetValue(coord, out var entity))
+                    {
+                        var blockType = (coord == position + swipeDirection)
+                            ? board[position].Get<BlockType>().value // виртуальная подмена
+                            : entity.Get<BlockType>().value;
+
+                        if (prevBlockType == blockType)
+                            chainLenght++;
+
+                        prevBlockType = blockType;
+                    }
+                }
+
+                if (chainLenght == 4)
+                    return true;
             }
 
             return false;

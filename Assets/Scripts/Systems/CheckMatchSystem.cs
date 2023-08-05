@@ -7,25 +7,21 @@ namespace Match3
     {
         private EcsFilter<CheckMatchEvent, Position> _filter;
         private GameState _gameState;
-        private Configuration _configuration;
 
         public void Run()
         {
             //система помечает какие ентити уничтожить
             foreach (var index in _filter)
             {
-                ref var position = ref _filter.Get2(index).value;
-
-                //Debug.Log("позиция энтети: "  + position);
+                ref var oldPosition = ref _filter.Get1(index).oldPosition;
+                ref var position    = ref _filter.Get2(index).value;
 
                 var board = _gameState.Board;
 
-                foreach (var coords in board.getMatchCoords(position, _configuration.minChainLenght))
+                foreach (var coords in board.getMatchCoords(position, oldPosition))
                 {
                     board[coords].Get<DestroyEvent>();
                 }
-
-                break; //отладить проверку линий куда пришел кубик сосед, глючит
             }
         }
     }

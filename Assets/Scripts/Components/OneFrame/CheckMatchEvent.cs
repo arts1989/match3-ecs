@@ -1,6 +1,9 @@
-﻿namespace Match3
+﻿using UnityEngine;
+
+namespace Match3
 {
     internal struct CheckMatchEvent
     {
+        public Vector2Int oldPosition;
     }
 }
