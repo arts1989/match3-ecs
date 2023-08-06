@@ -58,7 +58,7 @@ namespace Match3
                     {
                         if (!matchCoords.Contains(coord))
                         {
-                            matchCoords.Add(coord);
+                            matchCoords.Add(coord); 
                         }
                     }
                 }

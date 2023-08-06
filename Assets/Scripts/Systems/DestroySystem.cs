@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using Leopotam.Ecs;
+﻿using Leopotam.Ecs;
 using UnityEngine;
 
 namespace Match3

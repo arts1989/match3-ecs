@@ -1,7 +1,4 @@
 using Leopotam.Ecs;
-using System;
-using System.Reflection;
-using UnityEngine;
 
 namespace Match3
 {
