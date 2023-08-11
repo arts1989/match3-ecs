@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Green
   m_EditorClassIdentifier: 
   points: 5
-  sprite: {fileID: 5841099316189808560, guid: 4c347aa0b81ddbe43868b5da4d0652ff, type: 3}
+  sprite: {fileID: 1816117289653186324, guid: 10f190f0ee38e9b4ca23c3ffc666abaa, type: 3}
   type: 4

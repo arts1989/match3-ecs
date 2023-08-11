@@ -10,17 +10,20 @@ namespace Match3
 
         public void Run()
         {
-            //система помечает какие ентити уничтожить
+            //система помечает какие ентити уничтожить и прокидывает тип блока который спавнить на месте старой
             foreach (var index in _filter)
             {
                 ref var oldPosition = ref _filter.Get1(index).oldPosition;
                 ref var position    = ref _filter.Get2(index).value;
 
                 var board = _gameState.Board;
+                var matchCoords = board.getMatchCoords(position, oldPosition);
 
-                foreach (var coords in board.getMatchCoords(position, oldPosition))
+                Debug.Log(matchCoords.blockType + " ========== " + matchCoords.coords.Count);
+
+                foreach (var coords in matchCoords.coords)
                 {
-                    board[coords].Get<DestroyEvent>();
+                    board[coords].Get<DestroyAndSpawnEvent>().value = (coords == position) ? matchCoords.blockType : BlockTypes.Default;
                 }
             }
         }

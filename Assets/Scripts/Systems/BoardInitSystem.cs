@@ -11,9 +11,9 @@ namespace Match3
 
         public void Init() 
         {
-             for (int x = 0; x < _gameState.Rows; x++)
+             for (int x = 0; x < _gameState.Columns; x++)
              {
-                for (int y = 0; y < _gameState.Columns; y++)
+                for (int y = 0; y < _gameState.Rows; y++)
                 {
                     var entity = _world.NewEntity();
 

@@ -30,6 +30,7 @@ namespace Match3
                 // register your sys tems here, for example:
                 .Add (new GameStateInitSystem())
                 .Add (new UpdateScoreWidgetSystem())
+                .Add (new TilemapInitSystem()) // подложка доски
                 .Add (new BoardInitSystem()) // спавним ентити, спавним префабы (связанные с энтити)
                 .Add (new BoosterInitSystem())
                 .Add (new CameraInitSystem()) // устанавливаем камеру над полем
@@ -38,8 +39,7 @@ namespace Match3
                 .Add (new CheckMoveSystem ()) //проверка можно ли передвинуть
                 .Add (new MoveSystem()) // меняет местами
                 .Add (new CheckMatchSystem())
-                .Add (new DestroySystem()) // унитожает связанный с энтити геймобжект
-                .Add (new SpawnSystem ()) // спавнит новый и связывает с энтитей
+                .Add (new DestroyAndSpawnSystem()) // унитожает связанный с энтити геймобжект
                 .Add (new CheckWinSystem ()) // проверка что есть ентити с WinEvent 
                 .Add (new CheckLoseSystem()) // проверка что есть ентити с LoseEvent 
 
@@ -48,8 +48,7 @@ namespace Match3
                 .OneFrame<MoveEvent> ()
                 .OneFrame<CheckMatchEvent>()
                 .OneFrame<HandleBoosterEvent> ()
-                .OneFrame<DestroyEvent> ()
-                .OneFrame<SpawnEvent> ()
+                .OneFrame<DestroyAndSpawnEvent> ()
 
              
                 // inject service instances here (order doesn't important), for example:

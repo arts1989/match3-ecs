@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Red
   m_EditorClassIdentifier: 
   points: 5
-  sprite: {fileID: 190868633864949082, guid: 631f1e3e6037b13448ce3e7982ed10b2, type: 3}
+  sprite: {fileID: 6576167762424881808, guid: 3c00c842bf30f274088a781f221a9381, type: 3}
   type: 2

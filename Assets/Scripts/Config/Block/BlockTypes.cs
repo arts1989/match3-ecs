@@ -2,10 +2,16 @@
 {
     public enum BlockTypes
     {
-        None,
+        Default,
+        // blocks
         Blue,
         Red,
-        Pink,
-        Green
+        Purple,
+        Green,
+        Yellow,
+        // boosters
+        Teewee,
+        Line,
+        Square
     }
 }
