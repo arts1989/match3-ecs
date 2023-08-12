@@ -7,10 +7,26 @@ namespace Match3
     public class SaveManager
     {
         private readonly string _filePath;
+        public static string SavesPath { get; private set; }
 
         public SaveManager()
         {
-            _filePath = Application.dataPath + "/Config/Save/Save.json";
+#if !UNITY_EDITOR
+        SavesPath = Application.persistentDataPath + "/Saves/";
+#else
+            SavesPath = "Saves/";
+
+#endif
+            if (!Directory.Exists(SavesPath))
+            {
+                Directory.CreateDirectory(SavesPath);
+            }
+
+            _filePath = SavesPath + "/Save.json";
+            if (!File.Exists(_filePath))
+            {
+                File.WriteAllText(_filePath, "");
+            }
         }
 
         // json save
