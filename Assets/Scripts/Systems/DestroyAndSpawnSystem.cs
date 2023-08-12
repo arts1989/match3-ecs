@@ -1,5 +1,7 @@
 ﻿using Leopotam.Ecs;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.UIElements;
 
 namespace Match3
 {
@@ -30,13 +32,12 @@ namespace Match3
                 if (SpawnBlockType == BlockTypes.Default)
                 {
                     int randomNum = Random.Range(0, _configuration.blocks.Count);
-                    var obj = Object.Instantiate(_configuration.blocks[randomNum].sprite);
-
-                    obj.AddComponent<LinkToEntity>().entity = _filter.GetEntity(index); //link from gameobject to entity
-                    obj.AddComponent<BoxCollider>();
-                    obj.transform.position = new Vector2(
-                        Position.x + _configuration.offset.x * Position.x,
-                        Position.y + _configuration.offset.y * Position.y
+                   
+                    var obj = _world.spawnGameObject(
+                        Position,
+                        _filter.GetEntity(index),
+                        _configuration.blocks[randomNum].prefab,
+                        _configuration.blocks[randomNum].sprites[0]
                     );
 
                     LinkToObject = obj;
@@ -50,13 +51,11 @@ namespace Match3
                     {
                         if(booster.type == BlockTypes.Teewee)
                         {
-                            var obj = Object.Instantiate(booster.sprite);
-
-                            obj.AddComponent<LinkToEntity>().entity = _filter.GetEntity(index); //link from gameobject to entity
-                            obj.AddComponent<BoxCollider>();
-                            obj.transform.position = new Vector2(
-                                Position.x + _configuration.offset.x * Position.x,
-                                Position.y + _configuration.offset.y * Position.y
+                            var obj = _world.spawnGameObject(
+                                Position,
+                                _filter.GetEntity(index),
+                                booster.prefab,
+                                booster.sprites[0]
                             );
 
                             LinkToObject = obj;
@@ -71,13 +70,11 @@ namespace Match3
                     {
                         if (booster.type == BlockTypes.Line)
                         {
-                            var obj = Object.Instantiate(booster.sprite);
-
-                            obj.AddComponent<LinkToEntity>().entity = _filter.GetEntity(index); //link from gameobject to entity
-                            obj.AddComponent<BoxCollider>();
-                            obj.transform.position = new Vector2(
-                                Position.x + _configuration.offset.x * Position.x,
-                                Position.y + _configuration.offset.y * Position.y
+                            var obj = _world.spawnGameObject(
+                                Position,
+                                _filter.GetEntity(index),
+                                booster.prefab,
+                                booster.sprites[0]
                             );
 
                             LinkToObject = obj;
@@ -92,13 +89,11 @@ namespace Match3
                     {
                         if (booster.type == BlockTypes.Square)
                         {
-                            var obj = Object.Instantiate(booster.sprite);
-
-                            obj.AddComponent<LinkToEntity>().entity = _filter.GetEntity(index); //link from gameobject to entity
-                            obj.AddComponent<BoxCollider>();
-                            obj.transform.position = new Vector2(
-                                Position.x + _configuration.offset.x * Position.x,
-                                Position.y + _configuration.offset.y * Position.y
+                            var obj = _world.spawnGameObject(
+                                Position,
+                                _filter.GetEntity(index),
+                                booster.prefab,
+                                booster.sprites[0]
                             );
 
                             LinkToObject = obj;

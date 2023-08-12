@@ -60,25 +60,10 @@ namespace Match3
             var topRight = new Vector3Int(_gameState.Rows, _gameState.Columns);
             var bottomRight = new Vector3Int(_gameState.Columns, -1);
 
-
-    
-
-            //tiles[2].transform.rotation = ;
-
-
             tilemap.SetTile(bottomLeft, tiles[2]);
-           // tilemap.SetTransformMatrix(bottomLeft, Matrix4x4.Rotate(Quaternion.Euler(0, 0, 90f)));
-
-            //Quaternion.identity
             tilemap.SetTile(topLeft, tiles[3]);
-          //  tilemap.SetTransformMatrix(topLeft, Matrix4x4.Rotate(Quaternion.Euler(0, 0, 180f)));
-
             tilemap.SetTile(topRight, tiles[4]);
-          //  tilemap.SetTransformMatrix(topRight, Matrix4x4.Rotate(Quaternion.Euler(0, 0, -90f)));
-
             tilemap.SetTile(bottomRight, tiles[5]);
-          //  tilemap.SetTransformMatrix(bottomRight, Matrix4x4.Rotate(Quaternion.Euler(0, 0, -90f)));
-
         }
     }
 }

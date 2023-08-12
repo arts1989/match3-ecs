@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Green
   m_EditorClassIdentifier: 
   points: 5
-  sprite: {fileID: 1816117289653186324, guid: 10f190f0ee38e9b4ca23c3ffc666abaa, type: 3}
+  prefab: {fileID: 7369318952509992445, guid: a8549836b68e0a74d8b7749a7c55c79d, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: 4d04a7a2e972357439f92bf04c5f0953, type: 3}
   type: 4

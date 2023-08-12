@@ -12,6 +12,8 @@
         // boosters
         Teewee,
         Line,
-        Square
+        Square,
+        // obstacle
+        Obstacle,
     }
 }

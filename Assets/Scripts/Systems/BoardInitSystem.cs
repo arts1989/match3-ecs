@@ -15,19 +15,18 @@ namespace Match3
              {
                 for (int y = 0; y < _gameState.Rows; y++)
                 {
-                    var entity = _world.NewEntity();
+                    var entity   = _world.NewEntity();
+                    var position = new Vector2Int(x, y);
 
                     int randomNum = Random.Range(0, _configuration.blocks.Count);
-                    var obj = Object.Instantiate(_configuration.blocks[randomNum].sprite);
 
-                    obj.AddComponent<LinkToEntity>().entity = entity; //link from gameobject to entity
-                    obj.AddComponent<BoxCollider>();
-                    obj.transform.position = new Vector3(
-                        x + _configuration.offset.x * x,
-                        y + _configuration.offset.y * y
+                    var obj = _world.spawnGameObject(
+                        position,
+                        entity,
+                        _configuration.blocks[randomNum].prefab,
+                        _configuration.blocks[randomNum].sprites[0]
                     );
-                    
-                    var position = new Vector2Int(x, y);
+
                     entity.Get<Position>().value = position;
                     entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
                     entity.Get<Points>().value = _configuration.blocks[randomNum].points;

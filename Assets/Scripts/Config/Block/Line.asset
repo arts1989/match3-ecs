@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f853e853ac21a8d44b3f980b395ed8cc, type: 3}
   m_Name: Line
   m_EditorClassIdentifier: 
-  points: 5
-  sprite: {fileID: 8335330500630160406, guid: 967213465e6267f4b8460a4e3826c9df, type: 3}
+  points: 0
+  prefab: {fileID: 7369318952509992445, guid: a8549836b68e0a74d8b7749a7c55c79d, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: 74ff375bc488a83438fa8f32af4958b3, type: 3}
   type: 7

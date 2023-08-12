@@ -1,6 +1,5 @@
-﻿ using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Match3
 {

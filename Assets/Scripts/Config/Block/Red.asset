@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Red
   m_EditorClassIdentifier: 
   points: 5
-  sprite: {fileID: 6576167762424881808, guid: 3c00c842bf30f274088a781f221a9381, type: 3}
+  prefab: {fileID: 7369318952509992445, guid: a8549836b68e0a74d8b7749a7c55c79d, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: e497960c900cc974190b08aca6892896, type: 3}
   type: 2
