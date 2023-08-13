@@ -12,5 +12,6 @@ namespace Match3
 
 		public int MovesAvailable = 5;
 
+		public int ObstacleCount = 0;
     }
 }

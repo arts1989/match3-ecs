@@ -14,6 +14,7 @@ namespace Match3
         public int MovesAvaliable;
         public int PointsScored;
         public int PointsToWin;
+        public int ObstacleCount;
 
         /*
         private int[] _cells;

@@ -15,6 +15,8 @@ namespace Match3
 
         public List<Block> boosters = new List<Block>();
 
+        public List<Block> obstacles = new List<Block>();
+
         public List<Booster> UIBoosters = new List<Booster>();
 
         public Vector2 offset;

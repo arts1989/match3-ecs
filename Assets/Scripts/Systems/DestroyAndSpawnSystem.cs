@@ -1,5 +1,8 @@
 ﻿using Leopotam.Ecs;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Match3
 {
@@ -12,91 +15,108 @@ namespace Match3
 
         public void Run()
         {
-            foreach(int index in _filter)
+            var nearbyObstaclesCoords = new List<Vector2Int>();
+            var board = _gameState.Board;
+
+            foreach (int index in _filter)
             {
-                ref var SpawnBlockType = ref _filter.Get1(index).value;
-                ref var LinkToObject   = ref _filter.Get2(index).value;
-                ref var Points         = ref _filter.Get3(index).value;
-                ref var Position       = ref _filter.Get4(index).value;   
-                ref var BlockType      = ref _filter.Get5(index).value;
+                ref var spawnBlockType = ref _filter.Get1(index).value;
+                ref var linkToObject   = ref _filter.Get2(index).value;
+                ref var points         = ref _filter.Get3(index).value;
+                ref var position       = ref _filter.Get4(index).value;   
+                ref var blockType      = ref _filter.Get5(index).value;
 
-                _gameState.PointsScored += Points;
+                //запишем соседей-ящики
+                var nearbyObstacles = board.getNearbyObstacles(position);
+                if (nearbyObstacles.Count > 0)
+                {
+                    foreach(var coord in nearbyObstacles)
+                    {
+                        if(!nearbyObstaclesCoords.Contains(coord))
+                        {
+                            nearbyObstaclesCoords.Add(coord);
+                        }
+                    }
+                }
+                //nearbyObstaclesCoords()
 
-                Object.Destroy(LinkToObject);
+                _gameState.PointsScored += points;
 
-                var explosion = Object.Instantiate(_configuration.deathVFX, LinkToObject.transform.position, LinkToObject.transform.rotation);
+                Object.Destroy(linkToObject);
+
+                var explosion = Object.Instantiate(_configuration.deathVFX, linkToObject.transform.position, linkToObject.transform.rotation);
                 Object.Destroy(explosion, _configuration.durationOfExplosion);
 
-                if (SpawnBlockType == BlockTypes.Default)
+                if (spawnBlockType == BlockTypes.Default)
                 {
                     int randomNum = Random.Range(0, _configuration.blocks.Count);
                    
                     var obj = _world.spawnGameObject(
-                        Position,
+                        position,
                         _filter.GetEntity(index),
                         _configuration.blocks[randomNum].prefab,
                         _configuration.blocks[randomNum].sprites[0]
                     );
 
-                    LinkToObject = obj;
-                    BlockType    = _configuration.blocks[randomNum].type;
-                    Points       = _configuration.blocks[randomNum].points;
+                    linkToObject = obj;
+                    blockType    = _configuration.blocks[randomNum].type;
+                    points       = _configuration.blocks[randomNum].points;
 
                 }
-                else if (SpawnBlockType == BlockTypes.Teewee)
+                else if (spawnBlockType == BlockTypes.Teewee)
                 {
                     foreach(var booster in _configuration.boosters)
                     {
                         if(booster.type == BlockTypes.Teewee)
                         {
                             var obj = _world.spawnGameObject(
-                                Position,
+                                position,
                                 _filter.GetEntity(index),
                                 booster.prefab,
                                 booster.sprites[0]
                             );
 
-                            LinkToObject = obj;
-                            BlockType = booster.type;
-                            Points = booster.points;
+                            linkToObject = obj;
+                            blockType = booster.type;
+                            points = booster.points;
                         }
                     }
                 }
-                else if (SpawnBlockType == BlockTypes.Line)
+                else if (spawnBlockType == BlockTypes.Line)
                 {
                     foreach (var booster in _configuration.boosters)
                     {
                         if (booster.type == BlockTypes.Line)
                         {
                             var obj = _world.spawnGameObject(
-                                Position,
+                                position,
                                 _filter.GetEntity(index),
                                 booster.prefab,
                                 booster.sprites[0]
                             );
 
-                            LinkToObject = obj;
-                            BlockType = booster.type;
-                            Points = booster.points;
+                            linkToObject = obj;
+                            blockType = booster.type;
+                            points = booster.points;
                         }
                     }
                 }
-                else if (SpawnBlockType == BlockTypes.Square)
+                else if (spawnBlockType == BlockTypes.Square)
                 {
                     foreach (var booster in _configuration.boosters)
                     {
                         if (booster.type == BlockTypes.Square)
                         {
                             var obj = _world.spawnGameObject(
-                                Position,
+                                position,
                                 _filter.GetEntity(index),
                                 booster.prefab,
                                 booster.sprites[0]
                             );
 
-                            LinkToObject = obj;
-                            BlockType = booster.type;
-                            Points = booster.points;
+                            linkToObject = obj;
+                            blockType = booster.type;
+                            points = booster.points;
                         }
                     }
                 }
@@ -105,6 +125,50 @@ namespace Match3
             if (!_filter.IsEmpty())
             {
                 _world.NewEntity().Get<UpdateScoreEvent>();
+            }
+
+            if(nearbyObstaclesCoords.Count > 0)
+            {
+                foreach(var obstacleCoord in nearbyObstaclesCoords)
+                {
+                    var entity = board[obstacleCoord];
+
+                    var obj = entity.Get<LinkToObject>().value;
+                    ref var health = ref entity.Get<Health>().value;
+
+                    //h - 4 c - 0
+                    //h - 3 c - 1 -- 4 - 3 = 1
+                    //h - 2 c - 2 -- 4 - 2 = 2
+                    //h - 1 c - 3 -- 4 - 1 = 3
+                    if (health > 0)
+                    {
+                        var sprites = _configuration.obstacles[0].sprites;
+                        obj.GetComponent<SpriteRenderer>().sprite = _configuration.obstacles[0].sprites[sprites.Length - health];
+                        health--;
+                    }
+                    else
+                    {
+                        Object.Destroy(obj);
+                        entity.Destroy();
+
+                        entity = _world.NewEntity();
+                        int randomNum = Random.Range(0, _configuration.blocks.Count);
+
+                        obj = _world.spawnGameObject(
+                            obstacleCoord,
+                            entity,
+                            _configuration.blocks[randomNum].prefab,
+                            _configuration.blocks[randomNum].sprites[0]
+                        );
+
+                        entity.Get<Position>().value = obstacleCoord;
+                        entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
+                        entity.Get<Points>().value = _configuration.blocks[randomNum].points;
+                        entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
+
+                        board[obstacleCoord] = entity;
+                    }
+                }
             }
         }
     }

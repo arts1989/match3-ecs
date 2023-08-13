@@ -26,9 +26,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 92b2c2245a2aea34d85341442939cfbd, type: 2}
   - {fileID: 11400000, guid: 0ddaa913992d14d4b9d36d55a2f9b549, type: 2}
   - {fileID: 11400000, guid: 0e08d027c69e6044b89e398c22a9dc99, type: 2}
+  obstacles:
+  - {fileID: 11400000, guid: 37db2ca008b80c448808014c4ef335f9, type: 2}
   UIBoosters:
   - {fileID: 11400000, guid: 4815a8f1d8735ea44a213a407f6f56e3, type: 2}
   offset: {x: 0, y: 0}
   deathVFX: {fileID: 1368954464598970, guid: 334f3e6344827ea468077b5d60f1b84e, type: 3}
   durationOfExplosion: 1
-  tile: {fileID: 11400000, guid: 81ba048e73b98f141865f0bcb7093873, type: 2}

@@ -10,5 +10,7 @@ namespace Match3
         public Sprite[] sprites;
 
         [SerializeField] public BlockTypes type;
+
+        public int health = 0;
     }
 }

@@ -1,5 +1,7 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
+using System.IO.Pipes;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Match3
@@ -147,6 +149,12 @@ namespace Match3
             if(!board.ContainsKey(position + swipeDirection)) // свайп за пределы доски
                 return false;
 
+            if (board[position].Get<BlockType>().value == BlockTypes.Obstacle ||
+                board[position + swipeDirection].Get<BlockType>().value == BlockTypes.Obstacle) {
+                //Debug.Log("ящики не двигаем, с ящиками не свапаемся");
+                return false;
+            }
+
             // провеяем матч 3 в ряд
             foreach (var direction in _directions)
             {
@@ -224,5 +232,20 @@ namespace Match3
             return true;
         }
 
+        public static List<Vector2Int> getNearbyObstacles(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position)
+        {
+            var coords = new List<Vector2Int>();
+
+            foreach(var direction in _directions)
+            {
+                var coordToCheck = position + direction;
+                if (board.ContainsKey(coordToCheck) && board[coordToCheck].Get<BlockType>().value == BlockTypes.Obstacle)
+                {
+                    coords.Add(coordToCheck);
+                }
+            }
+
+            return coords;
+        }
     }
 }
