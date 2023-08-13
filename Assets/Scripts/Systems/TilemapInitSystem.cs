@@ -12,6 +12,7 @@ namespace Match3
         {
             var tilemap = _sceneData.tileMap;
             var tiles = _sceneData.tiles;
+            var underlayTiles = _sceneData.underlayTiles;
 
             //подложка
             for (int x = 0; x < _gameState.Columns; x++)
@@ -21,6 +22,19 @@ namespace Match3
                     var coord = new Vector3Int(x, y);
                     tilemap.SetTile(coord, tiles[0]);
                 }
+            }
+
+            //покрытия
+            var underlayCount = _gameState.UnderlayCount;
+            while (underlayCount > 0)
+            {
+                var coord = new Vector3Int(
+                    Random.Range(0, _gameState.Columns - 1),
+                    Random.Range(0, _gameState.Rows - 1)
+                );
+
+                tilemap.SetTile(coord, underlayTiles[0]);
+                underlayCount--;
             }
 
             //бордеры
@@ -51,7 +65,6 @@ namespace Match3
             {
                 var coord = new Vector3Int(_gameState.Columns, y);
                 tilemap.SetTile(coord, tiles[1]);
-
             }
 
             //углы

@@ -17,3 +17,4 @@ MonoBehaviour:
   Rows: 7
   MovesAvailable: 7
   ObstacleCount: 5
+  UnderlayCount: 3
