@@ -30,7 +30,7 @@ namespace Match3
 
                     entity.Get<Position>().value = position;
                     entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
-                    entity.Get<Points>().value = _configuration.blocks[randomNum].points;
+                    entity.Get<Points>().value = _configuration.blocks[randomNum].points;  
                     entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
 
                     _gameState.Board[position] = entity;
@@ -52,11 +52,11 @@ namespace Match3
                 entity = _world.NewEntity();
 
                 var obj = _world.spawnGameObject(
-                            position,
-                            entity,
-                            _configuration.obstacles[0].prefab,
-                            _configuration.obstacles[0].sprites[0]
-                        );
+                    position,
+                    entity,
+                    _configuration.obstacles[0].prefab,
+                    _configuration.obstacles[0].sprites[0]
+                );
 
                 entity.Get<Position>().value = position;
                 entity.Get<BlockType>().value = _configuration.obstacles[0].type;
