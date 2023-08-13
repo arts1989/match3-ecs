@@ -25,23 +25,21 @@ namespace Match3
                 ref var points         = ref _filter.Get3(index).value;
                 ref var position       = ref _filter.Get4(index).value;   
                 ref var blockType      = ref _filter.Get5(index).value;
-
+                
                 //запишем соседей-ящики
                 var nearbyObstacles = board.getNearbyObstacles(position);
                 if (nearbyObstacles.Count > 0)
                 {
-                    foreach(var coord in nearbyObstacles)
+                    foreach (var coord in nearbyObstacles)
                     {
-                        if(!nearbyObstaclesCoords.Contains(coord))
+                        if (!nearbyObstaclesCoords.Contains(coord))
                         {
                             nearbyObstaclesCoords.Add(coord);
                         }
                     }
                 }
-                //nearbyObstaclesCoords()
 
                 _gameState.PointsScored += points;
-
                 Object.Destroy(linkToObject);
 
                 var explosion = Object.Instantiate(_configuration.deathVFX, linkToObject.transform.position, linkToObject.transform.rotation);
@@ -63,49 +61,11 @@ namespace Match3
                     points       = _configuration.blocks[randomNum].points;
 
                 }
-                else if (spawnBlockType == BlockTypes.Teewee)
+                else
                 {
                     foreach(var booster in _configuration.boosters)
                     {
-                        if(booster.type == BlockTypes.Teewee)
-                        {
-                            var obj = _world.spawnGameObject(
-                                position,
-                                _filter.GetEntity(index),
-                                booster.prefab,
-                                booster.sprites[0]
-                            );
-
-                            linkToObject = obj;
-                            blockType = booster.type;
-                            points = booster.points;
-                        }
-                    }
-                }
-                else if (spawnBlockType == BlockTypes.Line)
-                {
-                    foreach (var booster in _configuration.boosters)
-                    {
-                        if (booster.type == BlockTypes.Line)
-                        {
-                            var obj = _world.spawnGameObject(
-                                position,
-                                _filter.GetEntity(index),
-                                booster.prefab,
-                                booster.sprites[0]
-                            );
-
-                            linkToObject = obj;
-                            blockType = booster.type;
-                            points = booster.points;
-                        }
-                    }
-                }
-                else if (spawnBlockType == BlockTypes.Square)
-                {
-                    foreach (var booster in _configuration.boosters)
-                    {
-                        if (booster.type == BlockTypes.Square)
+                        if(booster.type == spawnBlockType)
                         {
                             var obj = _world.spawnGameObject(
                                 position,
