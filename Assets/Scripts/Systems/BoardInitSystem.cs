@@ -15,25 +15,25 @@ namespace Match3
             for (int x = 0; x < _gameState.Columns; x++)
             {
                 for (int y = 0; y < _gameState.Rows; y++)
-                    {
-                        var entity   = _world.NewEntity();
-                        var position = new Vector2Int(x, y);
+                {
+                    var entity   = _world.NewEntity();
+                    var position = new Vector2Int(x, y);
 
-                        int randomNum = Random.Range(0, _configuration.blocks.Count);
+                    int randomNum = Random.Range(0, _configuration.blocks.Count);
 
-                        var obj = _world.spawnGameObject(
-                            position,
-                            entity,
-                            _configuration.blocks[randomNum].prefab,
-                            _configuration.blocks[randomNum].sprites[0]
-                        );
+                    var obj = _world.spawnGameObject(
+                        position,
+                        entity,
+                        _configuration.blocks[randomNum].prefab,
+                        _configuration.blocks[randomNum].sprites[0]
+                    );
 
-                        entity.Get<Position>().value = position;
-                        entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
-                        entity.Get<Points>().value = _configuration.blocks[randomNum].points;
-                        entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
+                    entity.Get<Position>().value = position;
+                    entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
+                    entity.Get<Points>().value = _configuration.blocks[randomNum].points;
+                    entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
 
-                        _gameState.Board[position] = entity;
+                    _gameState.Board[position] = entity;
                 }
             }
 
@@ -46,7 +46,7 @@ namespace Match3
                 var position = _gameState.Board.Keys.ElementAt(index);
                 var entity = _gameState.Board.Values.ElementAt(index);
 
-                Object.Destroy(entity.Get<LinkToObject>().value);
+                Object.Destroy(entity.Get<LinkToObject>().value); 
                 entity.Destroy();
 
                 entity = _world.NewEntity();
