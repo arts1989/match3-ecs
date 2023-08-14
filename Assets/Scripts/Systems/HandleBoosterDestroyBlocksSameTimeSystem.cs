@@ -2,7 +2,7 @@ using Leopotam.Ecs;
 
 namespace Match3
 {
-    internal class HandleBoosterSystem : IEcsRunSystem
+    internal class HandleBoosterDestroyBlocksSameTimeSystem : IEcsRunSystem
     {
         private EcsFilter<HandleBoosterEvent, BlockType> _filter;
         private GameState _gameState;

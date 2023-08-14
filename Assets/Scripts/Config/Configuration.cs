@@ -24,5 +24,8 @@ namespace Match3
         [Header("Effects")]
         public GameObject deathVFX;
         public float durationOfExplosion = 1f;
+        [Header("UI")]
+        public UIBoosterView uIBoosterView;
+
     }
 }

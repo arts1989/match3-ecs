@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a98c47eeb8ffc14fb26400b06e3f9b4, type: 3}
+  m_Name: DestroyBlocksInLine
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1140331186449854144, guid: 76b624a8ff1f61b41ac376fc5ecf69a7, type: 3}
+  boosterType: 1
