@@ -8,7 +8,7 @@ namespace Match3
     internal class CameraInitSystem : IEcsInitSystem
     {
         private SceneData _sceneData;
-        private GameState _gameState;
+        private GameStates _gameState;
          
         public void Init() 
         {

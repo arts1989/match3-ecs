@@ -6,7 +6,7 @@ namespace Match3
     internal partial class MoveSystem : IEcsRunSystem
     {
         private EcsFilter<MoveEvent, LinkToObject, Position> _filter;
-        private GameState _gameState;
+        private GameStates _gameState;
 
         public void Run()
         {

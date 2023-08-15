@@ -6,7 +6,7 @@ namespace Match3
     internal class GameStateInitSystem : IEcsInitSystem
     {
         private Configuration _configuration;
-        private GameState _gameState;
+        private GameStates _gameState;
         private SaveManager _saveManager;
 
         public void Init()

@@ -6,7 +6,7 @@ namespace Match3
     internal partial class UpdateScoreWidgetSystem : IEcsRunSystem, IEcsInitSystem
     {
         private EcsFilter<UpdateScoreEvent> _filter;
-        private GameState _gameState;
+        private GameStates _gameState;
         private SceneData _sceneData;
 
         public void Init()

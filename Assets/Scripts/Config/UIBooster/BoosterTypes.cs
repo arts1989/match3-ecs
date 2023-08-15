@@ -3,6 +3,6 @@
     public enum BoosterTypes
     {
         DestroyBlocksSameType,
-        DestroyBlocksInLine
+        DestroyBlocksInRow
     }
 }

@@ -9,7 +9,7 @@ namespace Match3
     internal class DestroyAndSpawnSystem : IEcsRunSystem
     {
         private EcsFilter<DestroyAndSpawnEvent, LinkToObject, Points, Position, BlockType> _filter;
-        private GameState _gameState;
+        private GameStates _gameState;
         private Configuration _configuration;
         private EcsWorld _world;
 

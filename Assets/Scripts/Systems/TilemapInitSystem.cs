@@ -5,7 +5,7 @@ namespace Match3
 {
     internal class TilemapInitSystem : IEcsInitSystem
     {
-        private GameState _gameState;
+        private GameStates _gameState;
         private SceneData _sceneData;
 
         public void Init()

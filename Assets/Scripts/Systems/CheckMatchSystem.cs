@@ -6,7 +6,7 @@ namespace Match3
     internal class CheckMatchSystem : IEcsRunSystem
     {
         private EcsFilter<CheckMatchEvent, Position> _filter;
-        private GameState _gameState;
+        private GameStates _gameState;
 
         public void Run()
         {

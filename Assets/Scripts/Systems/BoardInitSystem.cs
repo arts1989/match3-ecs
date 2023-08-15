@@ -8,7 +8,7 @@ namespace Match3
     {
         private EcsWorld _world;
         private Configuration _configuration;
-        private GameState _gameState;
+        private GameStates _gameState;
 
         public void Init() 
         {
