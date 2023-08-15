@@ -30,7 +30,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 37db2ca008b80c448808014c4ef335f9, type: 2}
   UIBoosters:
   - {fileID: 11400000, guid: 4815a8f1d8735ea44a213a407f6f56e3, type: 2}
+  - {fileID: 11400000, guid: b9dd171049b759d41890b7b32aae01bf, type: 2}
   offset: {x: 0, y: 0}
   deathVFX: {fileID: 1368954464598970, guid: 334f3e6344827ea468077b5d60f1b84e, type: 3}
   durationOfExplosion: 1
-  uIBoosterView: {fileID: 8638981240168880832, guid: 24e44f73b1f4c7f4db4b9aa8d819ecce, type: 3}
+  uIBoosterView: {fileID: 3482580688489634266, guid: 444f474b9fae47a4a85188c737a1b5d2, type: 3}

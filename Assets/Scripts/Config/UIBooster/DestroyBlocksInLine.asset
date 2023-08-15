@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a98c47eeb8ffc14fb26400b06e3f9b4, type: 3}
   m_Name: DestroyBlocksInLine
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1140331186449854144, guid: 76b624a8ff1f61b41ac376fc5ecf69a7, type: 3}
+  prefab: {fileID: 7248163879216679639, guid: 76b624a8ff1f61b41ac376fc5ecf69a7, type: 3}
   boosterType: 1
