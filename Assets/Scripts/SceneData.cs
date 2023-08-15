@@ -11,6 +11,5 @@ namespace Match3
         public UI UI;
         public Tilemap tileMap;
         public List<Tile> tiles = new List<Tile>();
-        public List<Tile> underlayTiles = new List<Tile>();
     }
 }

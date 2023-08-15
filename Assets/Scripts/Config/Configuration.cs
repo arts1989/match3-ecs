@@ -19,6 +19,8 @@ namespace Match3
 
         public List<Booster> UIBoosters = new List<Booster>();
 
+        public List<Underlay> underlays = new List<Underlay>();
+
         public Vector2 offset;
 
         [Header("Effects")]

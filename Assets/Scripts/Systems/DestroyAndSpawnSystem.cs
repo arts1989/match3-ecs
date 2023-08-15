@@ -84,8 +84,6 @@ namespace Match3
                     }
                 }
 
-                _world.NewEntity().Get<UpdateScoreEvent>();
-
                 if (nearbyObstaclesCoords.Count > 0)
                 {
                     foreach (var obstacleCoord in nearbyObstaclesCoords)
@@ -129,6 +127,8 @@ namespace Match3
                         }
                     }
                 }
+
+                _world.NewEntity().Get<UpdateScoreEvent>();
             }
         }
     }

@@ -14,8 +14,6 @@ namespace Match3
             var level = _saveManager.GetData().Level;
             var levelConfig = _configuration.levels[level];
 
-            Debug.Log("current level: " + level);
-
             _gameState.currentLevel = level;
             _gameState.MovesAvaliable = _configuration.levels[level].MovesAvailable;
             _gameState.Rows = levelConfig.Rows;

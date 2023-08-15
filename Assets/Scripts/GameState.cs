@@ -38,6 +38,6 @@ namespace Match3
             _cellsAmount = _rows * _columns;
             _cells = new int[_cellsAmount];
         }
-        */
+        */ 
     }
 }

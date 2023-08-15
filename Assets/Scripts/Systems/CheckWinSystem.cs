@@ -9,10 +9,8 @@ namespace Match3
 
         public void Run()
         {
-            foreach(var index in _filter)
+            if (!_filter.IsEmpty())
             {
-               // Debug.Log(_filter.ToString());
-                _filter.GetEntity(index).Del<WinEvent>();
                 _sceneData.UI.WinScreen.Show(true);
             }
         }

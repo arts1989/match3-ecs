@@ -7,12 +7,13 @@ namespace Match3
     {
         private GameState _gameState;
         private SceneData _sceneData;
+        private Configuration _configuration;
 
         public void Init()
         {
             var tilemap = _sceneData.tileMap;
             var tiles = _sceneData.tiles;
-            var underlayTiles = _sceneData.underlayTiles;
+            var underlays = _configuration.underlays;
 
             //подложка
             for (int x = 0; x < _gameState.Columns; x++)
@@ -33,7 +34,7 @@ namespace Match3
                     Random.Range(0, _gameState.Rows - 1)
                 );
 
-                tilemap.SetTile(coord, underlayTiles[0]);
+                tilemap.SetTile(coord, underlays[0].tiles[0]);
                 underlayCount--;
             }
 

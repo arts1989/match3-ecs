@@ -1,7 +1,5 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
-using System.IO.Pipes;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Match3
@@ -144,7 +142,7 @@ namespace Match3
             return (matchCoords, BlockTypes.Default);
         } 
 
-        public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, Vector2Int swipeDirection)
+        public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, Vector2Int swipeDirection) 
         {
             if(!board.ContainsKey(position + swipeDirection)) // свайп за пределы доски
                 return false;
