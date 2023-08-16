@@ -18,3 +18,5 @@ MonoBehaviour:
   MovesAvailable: 7
   ObstacleCount: 5
   UnderlayCount: 3
+  blocksProperties: []
+  underlaysProperties: []
