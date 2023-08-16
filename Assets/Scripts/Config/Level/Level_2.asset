@@ -16,3 +16,27 @@ MonoBehaviour:
   Columns: 5
   Rows: 5
   MovesAvailable: 6
+  ObstacleCount: 0
+  UnderlayCount: 0
+  blocksProperties:
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 0, y: 0}
+    _value: 0
+  underlaysProperties: []

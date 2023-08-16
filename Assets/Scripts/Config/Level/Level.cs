@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using Config.Level;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Match3
 {
@@ -19,8 +16,8 @@ namespace Match3
 		public int ObstacleCount = 0;
 		public int UnderlayCount = 0;
 
-		[Header("Board properties")]
-		public List<ItemsDictionaryService<BlockTypes, Vector2Int>> blocksProperties;
-		public List<ItemsDictionaryService<BlockTypes, Vector2Int>> underlaysProperties;
+		[Header("Blocks and underlays properties")]
+		public List<SerializeItem<Vector2Int,BlockTypes>> blocksProperties;
+		public List<SerializeItem<Vector3Int,UnderlayTypes>> underlaysProperties;
 	}	
 }

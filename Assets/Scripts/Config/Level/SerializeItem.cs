@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Config.Level
+namespace Match3
 {
     [Serializable]
-    public class ItemsDictionaryService<TKey, TValue>
+    public class SerializeItem<TKey, TValue>
     {
         [SerializeField] private TKey _key;
         [SerializeField] private TValue _value;

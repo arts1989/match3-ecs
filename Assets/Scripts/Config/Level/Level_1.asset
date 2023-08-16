@@ -18,5 +18,29 @@ MonoBehaviour:
   MovesAvailable: 7
   ObstacleCount: 5
   UnderlayCount: 3
-  blocksProperties: []
-  underlaysProperties: []
+  blocksProperties:
+  - _key: {x: 0, y: 0}
+    _value: 1
+  - _key: {x: 0, y: 1}
+    _value: 2
+  - _key: {x: 0, y: 2}
+    _value: 3
+  - _key: {x: 1, y: 0}
+    _value: 1
+  - _key: {x: 1, y: 1}
+    _value: 2
+  - _key: {x: 1, y: 2}
+    _value: 3
+  - _key: {x: 2, y: 0}
+    _value: 2
+  - _key: {x: 2, y: 1}
+    _value: 3
+  - _key: {x: 2, y: 2}
+    _value: 1
+  underlaysProperties:
+  - _key: {x: 0, y: 0}
+    _value: 0
+  - _key: {x: 1, y: 1}
+    _value: 0
+  - _key: {x: 2, y: 2}
+    _value: 0
