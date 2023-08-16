@@ -16,3 +16,5 @@ MonoBehaviour:
   Columns: 5
   Rows: 5
   MovesAvailable: 7
+  gemsProperties: []
+  substratesProperties: []
