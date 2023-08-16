@@ -8,5 +8,7 @@ namespace Match3
     {
         public int points = 5;
         public Tile[] tiles;
+
+        [SerializeField] public UnderlayTypes underlayType;
     }
 }
