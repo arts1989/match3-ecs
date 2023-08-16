@@ -15,9 +15,11 @@ namespace Match3
 		public int Rows = 5;
 
 		public int MovesAvailable = 5;
-		
+    
+    public int ObstacleCount = 0;
+		public int UnderlayCount = 0;
+	
 		[Header("Board properties")]
-		public List<ItemsDictionaryService<BlockTypes, Vector2Int>> gemsProperties;
-		public List<ItemsDictionaryService<BlockTypes, Vector2Int>> substratesProperties;
-	}
+		public List<ItemsDictionaryService<BlockTypes, Vector2Int>> blocksProperties;
+		public List<ItemsDictionaryService<BlockTypes, Vector2Int>> underlaysProperties;
 }

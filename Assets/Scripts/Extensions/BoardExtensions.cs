@@ -1,0 +1,249 @@
+using Leopotam.Ecs;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Match3
+{
+    public static class BoardExtensions
+    {
+        
+        static private List<Vector2Int> _directions = new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.right, Vector2Int.left };
+        static private int _chainLenght = 3;
+
+        public static (List<Vector2Int> coords, BlockTypes blockType) getMatchCoords(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, Vector2Int oldPosition)
+        {
+            var matchCoords = new List<Vector2Int>();
+            var coords = new List<Vector2Int>();
+
+            // провеяем матч 3 в ряд
+            foreach (var direction in _directions)
+            { 
+                if (direction + position == oldPosition)
+                    continue; // пришли отсюда, не проверям, там гем другого типа
+
+                var chainLenght = 1;
+                var startPos = position;
+                coords.Clear();
+
+                if (direction != (oldPosition - position) && board.ContainsKey(position - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
+                {
+                    startPos -= direction;
+                }
+
+                while (board.TryGetValue(startPos, out var entity))
+                {
+                    if (board.checkBlocksSameType(startPos, startPos + direction)) {
+                        coords.Add(startPos);
+                        chainLenght++;
+                    }
+                    else if (chainLenght >= _chainLenght - 1)
+                    {
+                        break;
+                    }
+
+                    startPos += direction;
+                }
+
+                if (coords.Count >= _chainLenght - 1)
+                {
+                    var lastBlockInChainPos = coords[coords.Count - 1] + direction;
+                    coords.Add(lastBlockInChainPos);
+
+                    // тетрис _|_ - зацепим отросток если он есть и обрежем линию больше трех если он (отросток) есть
+                    if (coords.Count >= 3)   
+                    {
+                        var coordToCheck = Vector2Int.zero; 
+
+                        if (direction == Vector2Int.left || direction == Vector2Int.right)
+                        {
+                            coordToCheck = coords[1] + Vector2Int.down;
+                            if(board.checkBlocksSameType(coords[1], coordToCheck))
+                            {
+                                var teeweeCoords = coords.GetRange(0, 3);
+                                teeweeCoords.Add(coordToCheck);
+
+                                return (teeweeCoords, BlockTypes.Teewee);
+                            }
+
+                            coordToCheck = coords[1] + Vector2Int.up;
+                            if (board.checkBlocksSameType(coords[1], coordToCheck))
+                            {
+                                var teeweeCoords = coords.GetRange(0, 3);
+                                teeweeCoords.Add(coordToCheck);
+
+                                return (teeweeCoords, BlockTypes.Teewee);
+                            }
+                        }
+                        else if (direction == Vector2Int.down || direction == Vector2Int.up)
+                        {
+                            coordToCheck = coords[1] + Vector2Int.left;
+                            if (board.checkBlocksSameType(coords[1], coordToCheck))
+                            {
+                                var teeweeCoords = coords.GetRange(0, 3);
+                                teeweeCoords.Add(coordToCheck);
+
+                                return (teeweeCoords, BlockTypes.Teewee);
+                            }
+
+                            coordToCheck = coords[1] + Vector2Int.right;
+                            if (board.checkBlocksSameType(coords[1], coordToCheck))
+                            {
+                                var teeweeCoords = coords.GetRange(0, 3);
+                                teeweeCoords.Add(coordToCheck);
+
+                                return (teeweeCoords, BlockTypes.Teewee);
+                            }
+                        }
+                    }
+
+                    foreach (var coord in coords)
+                    {
+                        if (!matchCoords.Contains(coord))
+                        {
+                            matchCoords.Add(coord);
+                        }
+                    }
+                }
+            }
+
+            if(matchCoords.Count == 5) // 5 в ряд или 2 матч3 уголком
+            {
+                return (matchCoords, BlockTypes.Line);
+            }
+
+            // провеяем кобминацию квадрат из 4
+            var swipeDirection = position - oldPosition;
+            foreach (var direction in _directions)
+            {
+                if (direction + position == oldPosition || position - direction == oldPosition)
+                    continue; // убираем направления свайпа и обратку
+
+                var pos1 = position;
+                var pos2 = position + direction;
+                var pos3 = swipeDirection + position;
+                var pos4 = swipeDirection + position + direction;
+
+                if(board.checkBlocksSameType(pos1, pos2, pos3, pos4))
+                {
+                    coords.Clear();
+                    
+                    coords.Add(pos1);
+                    coords.Add(pos2);
+                    coords.Add(pos3);
+                    coords.Add(pos4);
+
+                    return (coords, BlockTypes.Square);
+                }
+            }
+
+            if(matchCoords.Count < _chainLenght)
+                matchCoords.Clear();
+
+            return (matchCoords, BlockTypes.Default);
+        } 
+
+        public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, Vector2Int swipeDirection) 
+        {
+            if(!board.ContainsKey(position + swipeDirection)) // свайп за пределы доски
+                return false;
+
+            if (board[position].Get<BlockType>().value == BlockTypes.Obstacle ||
+                board[position + swipeDirection].Get<BlockType>().value == BlockTypes.Obstacle) {
+                //Debug.Log("ящики не двигаем, с ящиками не свапаемся");
+                return false;
+            }
+
+            // провеяем матч 3 в ряд
+            foreach (var direction in _directions)
+            {
+                if (direction + swipeDirection == Vector2.zero)
+                    continue; // убираем обратное направление свайпа, там не может быть комбинации
+
+                var chainLenght = 1;
+                var startPos = position + swipeDirection;
+                var coordToCheck = 2;
+
+                if (direction != swipeDirection && board.ContainsKey(startPos - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
+                {
+                    startPos -= direction;
+                    coordToCheck++;
+                }
+
+                while (board.TryGetValue(startPos, out var entity))
+                {
+                    var posToCheck = (startPos == position + swipeDirection) ? position : startPos;
+                    var nextPosToCheck = (startPos + direction == position + swipeDirection) ? position : startPos + direction;
+
+                    if (board.checkBlocksSameType(posToCheck, nextPosToCheck))
+                    {
+                         chainLenght++;
+                    }
+
+                    startPos += direction;
+                    coordToCheck--;
+
+                    if (chainLenght == _chainLenght)
+                        return true;
+
+                    if (coordToCheck == 0)
+                        break;
+                }
+            }
+
+            // провеяем кобминацию квадрат из 4
+            foreach (var direction in _directions)
+            {
+                if (direction + swipeDirection == Vector2.zero || direction == swipeDirection)
+                    continue; // убираем направления свайпа и обратку
+
+                var startPos = position + swipeDirection;
+
+                var pos1 = position;
+                var pos2 = startPos + direction;
+                var pos3 = swipeDirection + startPos;
+                var pos4 = swipeDirection + startPos + direction;
+
+                if (board.checkBlocksSameType(pos1, pos2, pos3, pos4))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool checkBlocksSameType(this Dictionary<Vector2Int, EcsEntity> board, params Vector2Int[] positions)
+        {
+            for (int i = 0; i < positions.Length - 1; i++)
+            {
+                if (board.ContainsKey(positions[i]) && board.ContainsKey(positions[i + 1]))
+                {
+                    if (board[positions[i]].Get<BlockType>().value != board[positions[i + 1]].Get<BlockType>().value)
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static List<Vector2Int> getNearbyObstacles(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position)
+        {
+            var coords = new List<Vector2Int>();
+
+            foreach(var direction in _directions)
+            {
+                var coordToCheck = position + direction;
+                if (board.ContainsKey(coordToCheck) && board[coordToCheck].Get<BlockType>().value == BlockTypes.Obstacle)
+                {
+                    coords.Add(coordToCheck);
+                }
+            }
+
+            return coords;
+        }
+    }
+}

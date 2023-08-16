@@ -11,7 +11,7 @@ namespace Match3
         public void Init()
         {
             float offsetX = 0;
-            foreach (var booster in _configuration.boosters)
+            foreach (var booster in _configuration.UIBoosters)
             {
                 var entity = _world.NewEntity();
                 

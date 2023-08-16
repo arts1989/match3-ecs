@@ -1,10 +1,6 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Match3
 {
@@ -18,6 +14,8 @@ namespace Match3
         public int MovesAvaliable;
         public int PointsScored;
         public int PointsToWin;
+        public int ObstacleCount;
+        public int UnderlayCount;
 
         /*
         private int[] _cells;
@@ -40,6 +38,6 @@ namespace Match3
             _cellsAmount = _rows * _columns;
             _cells = new int[_cellsAmount];
         }
-        */
+        */ 
     }
 }

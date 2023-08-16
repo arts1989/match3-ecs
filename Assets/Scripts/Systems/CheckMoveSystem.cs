@@ -14,15 +14,15 @@ namespace Match3
             //вектора - в соседний ряд в комбинацию или оставить на месте.
             if (!_filter.IsEmpty())
             {
-                ref var direction       = ref _filter.Get1(0).direction;
-                ref var currentPosition = ref _filter.Get2(0).value;
+                ref var direction = ref _filter.Get1(0).direction;
+                ref var position  = ref _filter.Get2(0).value;
 
                 var board = _gameState.Board;
 
-                if (board.checkMoveAvaliable(currentPosition, direction))
+                if (board.checkMoveAvaliable(position, direction))
                 {
-                    board[currentPosition].Get<MoveEvent>();
-                    board[currentPosition + direction].Get<MoveEvent>();
+                    board[position].Get<MoveEvent>();
+                    board[position + direction].Get<MoveEvent>();
                 } else
                 {
                     Debug.Log("Движение запрещено");
