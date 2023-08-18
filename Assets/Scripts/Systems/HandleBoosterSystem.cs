@@ -21,7 +21,7 @@ namespace Match3
                         ref var currentBlockType = ref entity.Get<BlockType>().value;
                         if(currentBlockType == blockType)
                         {
-                            entity.Get<DestroyEvent>();
+                            entity.Get<DestroyAndSpawnEvent>().value = BlockTypes.Default;
                         }
                     }
                 }

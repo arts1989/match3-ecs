@@ -1,5 +1,4 @@
 using Leopotam.Ecs;
-using Leopotam.Ecs.Ui.Systems;
 using UnityEngine;
 
 namespace Match3
@@ -29,7 +28,7 @@ namespace Match3
             _systems
                 // register your sys tems here, for example:
                 .Add (new GameStateInitSystem())
-                .Add (new UpdateScoreWidgetSystem())
+                .Add (new TilemapInitSystem()) // подложка доски
                 .Add (new BoardInitSystem()) // спавним ентити, спавним префабы (связанные с энтити)
                 .Add (new BoosterInitSystem())
                 .Add (new CameraInitSystem()) // устанавливаем камеру над полем
@@ -38,20 +37,23 @@ namespace Match3
                 .Add (new CheckMoveSystem ()) //проверка можно ли передвинуть
                 .Add (new MoveSystem()) // меняет местами
                 .Add (new CheckMatchSystem())
-                .Add (new DestroySystem()) // унитожает связанный с энтити геймобжект
-                .Add (new SpawnSystem ()) // спавнит новый и связывает с энтитей
+                .Add (new ClearUnderlaySystem())
+                .Add (new DestroyAndSpawnSystem()) // унитожает связанный с энтити геймобжект
+                .Add (new UpdateScoreWidgetSystem())
                 .Add (new CheckWinSystem ()) // проверка что есть ентити с WinEvent 
                 .Add (new CheckLoseSystem()) // проверка что есть ентити с LoseEvent 
 
-                // register one-frame components (order is important), for example:
-                .OneFrame<CheckMoveEvent> ()
-                .OneFrame<MoveEvent> ()
-                .OneFrame<CheckMatchEvent>()
-                .OneFrame<HandleBoosterEvent> ()
-                .OneFrame<DestroyEvent> ()
-                .OneFrame<SpawnEvent> ()
 
-             
+                // register one-frame components (order is important), for example:
+                .OneFrame<CheckMoveEvent>()
+                .OneFrame<MoveEvent>()
+                .OneFrame<CheckMatchEvent>()
+                .OneFrame<HandleBoosterEvent>()
+                .OneFrame<DestroyAndSpawnEvent>()
+                .OneFrame<UpdateScoreEvent>()
+                .OneFrame<LoseEvent>()
+                .OneFrame<WinEvent>()
+                             
                 // inject service instances here (order doesn't important), for example:
                 .Inject (configuration)
                 .Inject (saveManager)

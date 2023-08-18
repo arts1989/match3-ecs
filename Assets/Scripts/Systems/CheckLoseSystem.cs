@@ -9,9 +9,8 @@ namespace Match3
 
         public void Run()
         {
-            foreach (var index in _filter)
+            if (!_filter.IsEmpty())
             {
-                _filter.GetEntity(index).Del<LoseEvent>();
                 _sceneData.UI.LoseScreen.Show(true);
             }
         }

@@ -1,4 +1,5 @@
 using Leopotam.Ecs;
+using UnityEngine;
 
 namespace Match3
 {
@@ -17,6 +18,8 @@ namespace Match3
             _gameState.MovesAvaliable = _configuration.levels[level].MovesAvailable;
             _gameState.Rows = levelConfig.Rows;
             _gameState.Columns = levelConfig.Columns;
+            _gameState.ObstacleCount = levelConfig.ObstacleCount;
+            _gameState.UnderlayCount = levelConfig.UnderlayCount;
 
             _gameState.PointsToWin = _configuration.levels[level].PointsToWin;
             _gameState.PointsScored = 0;

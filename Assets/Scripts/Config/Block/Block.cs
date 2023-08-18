@@ -6,8 +6,11 @@ namespace Match3
     public class Block : ScriptableObject
     {
         public int points = 5;
-        public GameObject sprite;
+        public GameObject prefab;
+        public Sprite[] sprites;
 
         [SerializeField] public BlockTypes type;
+
+        public int health = 0;
     }
 }
