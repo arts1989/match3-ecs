@@ -32,7 +32,8 @@ namespace Match3
 
                 while (board.TryGetValue(startPos, out var entity))
                 {
-                    if (board.checkBlocksSameType(startPos, startPos + direction)) {
+                    var nextPos = startPos + direction;
+                    if (board.checkBlocksSameType(ref startPos, ref nextPos)) {
                         coords.Add(startPos);
                         chainLenght++;
                     }
@@ -52,12 +53,13 @@ namespace Match3
                     // тетрис _|_ - зацепим отросток если он есть и обрежем линию больше трех если он (отросток) есть
                     if (coords.Count >= 3)   
                     {
-                        var coordToCheck = Vector2Int.zero; 
+                        var coordToCheck = Vector2Int.zero;
+                        var coord1 = coords[1];
 
                         if (direction == Vector2Int.left || direction == Vector2Int.right)
                         {
                             coordToCheck = coords[1] + Vector2Int.down;
-                            if(board.checkBlocksSameType(coords[1], coordToCheck))
+                            if(board.checkBlocksSameType(ref coord1, ref coordToCheck))
                             {
                                 var teeweeCoords = coords.GetRange(0, 3);
                                 teeweeCoords.Add(coordToCheck);
@@ -66,7 +68,7 @@ namespace Match3
                             }
 
                             coordToCheck = coords[1] + Vector2Int.up;
-                            if (board.checkBlocksSameType(coords[1], coordToCheck))
+                            if (board.checkBlocksSameType(ref coord1, ref coordToCheck))
                             {
                                 var teeweeCoords = coords.GetRange(0, 3);
                                 teeweeCoords.Add(coordToCheck);
@@ -77,7 +79,7 @@ namespace Match3
                         else if (direction == Vector2Int.down || direction == Vector2Int.up)
                         {
                             coordToCheck = coords[1] + Vector2Int.left;
-                            if (board.checkBlocksSameType(coords[1], coordToCheck))
+                            if (board.checkBlocksSameType(ref coord1, ref coordToCheck))
                             {
                                 var teeweeCoords = coords.GetRange(0, 3);
                                 teeweeCoords.Add(coordToCheck);
@@ -86,7 +88,7 @@ namespace Match3
                             }
 
                             coordToCheck = coords[1] + Vector2Int.right;
-                            if (board.checkBlocksSameType(coords[1], coordToCheck))
+                            if (board.checkBlocksSameType(ref coord1, ref coordToCheck))
                             {
                                 var teeweeCoords = coords.GetRange(0, 3);
                                 teeweeCoords.Add(coordToCheck);
@@ -123,7 +125,7 @@ namespace Match3
                 var pos3 = swipeDirection + position;
                 var pos4 = swipeDirection + position + direction;
 
-                if(board.checkBlocksSameType(pos1, pos2, pos3, pos4))
+                if(board.checkBlocksSameType(ref pos1, ref pos2, ref pos3, ref pos4))
                 {
                     coords.Clear();
                     
@@ -174,7 +176,7 @@ namespace Match3
                     var posToCheck = (startPos == position + swipeDirection) ? position : startPos;
                     var nextPosToCheck = (startPos + direction == position + swipeDirection) ? position : startPos + direction;
 
-                    if (board.checkBlocksSameType(posToCheck, nextPosToCheck))
+                    if (board.checkBlocksSameType(ref posToCheck, ref nextPosToCheck))
                     {
                          chainLenght++;
                     }
@@ -203,7 +205,7 @@ namespace Match3
                 var pos3 = swipeDirection + startPos;
                 var pos4 = swipeDirection + startPos + direction;
 
-                if (board.checkBlocksSameType(pos1, pos2, pos3, pos4))
+                if (board.checkBlocksSameType(ref pos1, ref pos2, ref pos3, ref pos4))
                 {
                     return true;
                 }
@@ -212,6 +214,8 @@ namespace Match3
             return false;
         }
 
+        /*
+         * тут аллокации на массив из за params  
         public static bool checkBlocksSameType(this Dictionary<Vector2Int, EcsEntity> board, params Vector2Int[] positions)
         {
             for (int i = 0; i < positions.Length - 1; i++)
@@ -228,6 +232,24 @@ namespace Match3
             }
 
             return true;
+        }*/
+
+        public static bool checkBlocksSameType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int pos1, ref Vector2Int pos2)
+        {
+            if(board.ContainsKey(pos1) && board.ContainsKey(pos2))
+                return board[pos1].Get<BlockType>().value == board[pos2].Get<BlockType>().value ? true : false;
+
+            return false;
+        }
+
+        public static bool checkBlocksSameType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int pos1, ref Vector2Int pos2, ref Vector2Int pos3, ref Vector2Int pos4)
+        {
+            if (board.ContainsKey(pos1) && board.ContainsKey(pos2) && board.ContainsKey(pos3) && board.ContainsKey(pos4))
+                return (board[pos1].Get<BlockType>().value == board[pos2].Get<BlockType>().value 
+                    && board[pos1].Get<BlockType>().value == board[pos3].Get<BlockType>().value
+                    && board[pos1].Get<BlockType>().value == board[pos4].Get<BlockType>().value) ? true : false;
+
+            return false;
         }
 
         public static List<Vector2Int> getNearbyObstacles(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position)
