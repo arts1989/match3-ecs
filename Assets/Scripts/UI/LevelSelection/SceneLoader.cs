@@ -1,6 +1,4 @@
 using Match3;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,13 +13,12 @@ public class SceneLoader : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
         _saveManager = new SaveManager();
     }
 
     public void StartLevel(int numberLevel)
     {
-        _saveManager.SaveData(new SaveData() { Level = numberLevel });
+        _saveManager.SaveData(new SaveData() {Level = numberLevel});
         SceneManager.LoadScene("Game");
     }
 }
