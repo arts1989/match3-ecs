@@ -1,6 +1,7 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace Match3
 {
@@ -242,6 +243,15 @@ namespace Match3
             return false;
         }
 
+        public static bool checkBlocksSameType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int pos1, ref Vector2Int pos2, ref Vector2Int pos3)
+        {
+            if (board.ContainsKey(pos1) && board.ContainsKey(pos2) && board.ContainsKey(pos3))
+                return (board[pos1].Get<BlockType>().value == board[pos2].Get<BlockType>().value
+                    && board[pos1].Get<BlockType>().value == board[pos3].Get<BlockType>().value) ? true : false;
+
+            return false;
+        }
+
         public static bool checkBlocksSameType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int pos1, ref Vector2Int pos2, ref Vector2Int pos3, ref Vector2Int pos4)
         {
             if (board.ContainsKey(pos1) && board.ContainsKey(pos2) && board.ContainsKey(pos3) && board.ContainsKey(pos4))
@@ -272,13 +282,30 @@ namespace Match3
         {
             foreach (var direction in _directions)
             {
-                var firstCoordToCheck = position + direction;
-                var firstNearbyType = board.ContainsKey(firstCoordToCheck) ? board[firstCoordToCheck].Get<BlockType>().value : BlockTypes.Default;
+                // три в ряд
+                var firstNearbyInLine = position + direction;
+                var firstNearbyInLineType = board.ContainsKey(firstNearbyInLine) ? board[firstNearbyInLine].Get<BlockType>().value : BlockTypes.Default;
 
-                var secondCoordToCheck = position + direction + direction;
-                var secondNearbyType = board.ContainsKey(secondCoordToCheck) ? board[secondCoordToCheck].Get<BlockType>().value : BlockTypes.Default;
+                var secondNearbyInLine = position + direction + direction;
+                var secondNearbyInLineType = board.ContainsKey(secondNearbyInLine) ? board[secondNearbyInLine].Get<BlockType>().value : BlockTypes.Default;
 
-                if(firstNearbyType == blockType && secondNearbyType == blockType) 
+                if (firstNearbyInLineType == blockType && secondNearbyInLineType == blockType)
+                    return true;
+
+                // квадрат
+                var rightDirection = direction == Vector2Int.up ? Vector2Int.right 
+                    : direction == Vector2Int.right ? Vector2Int.down
+                    : direction == Vector2Int.down ? Vector2Int.left
+                    : direction == Vector2Int.left ? Vector2Int.up
+                    : Vector2Int.zero;
+
+                var nearbyRight = position + rightDirection;
+                var nearbyRightType = board.ContainsKey(nearbyRight) ? board[nearbyRight].Get<BlockType>().value : BlockTypes.Default;
+
+                var diagonally = position + direction + rightDirection;
+                var diagonallyType = board.ContainsKey(diagonally) ? board[diagonally].Get<BlockType>().value : BlockTypes.Default;
+
+                if (firstNearbyInLineType == blockType && nearbyRightType == blockType && diagonallyType == blockType)
                     return true;
             }
 

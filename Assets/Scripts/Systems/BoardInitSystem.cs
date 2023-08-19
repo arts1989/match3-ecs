@@ -19,6 +19,9 @@ namespace Match3
             {
                 for (int y = 0; y < _gameState.Rows; y++)
                 {
+                    Debug.Log(x + "," +y);
+                    
+                    
                     var entity   = _world.NewEntity();
                     var position = new Vector2Int(x, y);
 
