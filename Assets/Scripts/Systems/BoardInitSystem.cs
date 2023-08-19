@@ -12,6 +12,9 @@ namespace Match3
 
         public void Init() 
         {
+            var board = _gameState.Board;
+
+
             for (int x = 0; x < _gameState.Columns; x++)
             {
                 for (int y = 0; y < _gameState.Rows; y++)
@@ -20,8 +23,15 @@ namespace Match3
                     var position = new Vector2Int(x, y);
 
                     int randomNum = Random.Range(0, _configuration.blocks.Count);
+                    var blockType = _configuration.blocks[randomNum].type;
 
-                    var obj = _world.spawnGameObject(
+                    while(board.hasNearbySameType(ref position, ref blockType))
+                    {
+                        randomNum = Random.Range(0, _configuration.blocks.Count);
+                        blockType = _configuration.blocks[randomNum].type;
+                    }
+
+                    var obj = _world.spawnGameObject( 
                         position,
                         entity,
                         _configuration.blocks[randomNum].prefab,
@@ -33,7 +43,7 @@ namespace Match3
                     entity.Get<Points>().value = _configuration.blocks[randomNum].points;  
                     entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
 
-                    _gameState.Board[position] = entity;
+                    board[position] = entity;
                 }
             }
 

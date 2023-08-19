@@ -50,7 +50,14 @@ namespace Match3
                     if (spawnBlockType == BlockTypes.Default)
                     {
                         int randomNum = Random.Range(0, _configuration.blocks.Count);
-                   
+                        var newBlockType = _configuration.blocks[randomNum].type;
+
+                        while (board.hasNearbySameType(ref position, ref newBlockType))
+                        {
+                            randomNum = Random.Range(0, _configuration.blocks.Count);
+                            newBlockType = _configuration.blocks[randomNum].type;
+                        }
+
                         var obj = _world.spawnGameObject(
                             position,
                             _filter.GetEntity(index),

@@ -18,7 +18,7 @@ namespace Match3
             // провеяем матч 3 в ряд
             foreach (var direction in _directions)
             { 
-                if (direction + position == oldPosition)
+                if (direction + position == oldPosition) 
                     continue; // пришли отсюда, не проверям, там гем другого типа
 
                 var chainLenght = 1;
@@ -266,6 +266,23 @@ namespace Match3
             }
 
             return coords;
+        }
+
+        public static bool hasNearbySameType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref BlockTypes blockType)
+        {
+            foreach (var direction in _directions)
+            {
+                var firstCoordToCheck = position + direction;
+                var firstNearbyType = board.ContainsKey(firstCoordToCheck) ? board[firstCoordToCheck].Get<BlockType>().value : BlockTypes.Default;
+
+                var secondCoordToCheck = position + direction + direction;
+                var secondNearbyType = board.ContainsKey(secondCoordToCheck) ? board[secondCoordToCheck].Get<BlockType>().value : BlockTypes.Default;
+
+                if(firstNearbyType == blockType && secondNearbyType == blockType) 
+                    return true;
+            }
+
+            return false;
         }
     }
 }
