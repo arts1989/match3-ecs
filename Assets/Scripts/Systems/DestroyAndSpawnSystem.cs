@@ -68,11 +68,10 @@ namespace Match3
                         linkToObject = obj;
                         blockType    = _configuration.blocks[randomNum].type;
                         points       = _configuration.blocks[randomNum].points;
-
                     }
                     else
                     {
-                        foreach(var booster in _configuration.boosters)
+                        foreach(var booster in _configuration.boosters) 
                         {
                             if(booster.type == spawnBlockType)
                             {
