@@ -29,7 +29,7 @@ namespace Match3
                     ref var blockType      = ref _filter.Get5(index).value;
                 
                     //запишем соседей-ящики
-                    var nearbyObstacles = board.getNearbyObstacles(position);
+                    var nearbyObstacles = board.getNearbyObstacles(ref position);
                     if (nearbyObstacles.Count > 0)
                     {
                         foreach (var coord in nearbyObstacles)

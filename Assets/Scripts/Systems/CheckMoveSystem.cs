@@ -19,7 +19,7 @@ namespace Match3
 
                 var board = _gameState.Board;
 
-                if (board.checkMoveAvaliable(position, direction))
+                if (board.checkMoveAvaliable(ref position, ref direction))
                 {
                     board[position].Get<MoveEvent>();
                     board[position + direction].Get<MoveEvent>();

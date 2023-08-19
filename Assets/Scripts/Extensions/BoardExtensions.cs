@@ -10,7 +10,7 @@ namespace Match3
         static private List<Vector2Int> _directions = new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.right, Vector2Int.left };
         static private int _chainLenght = 3;
 
-        public static (List<Vector2Int> coords, BlockTypes blockType) getMatchCoords(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, Vector2Int oldPosition)
+        public static (List<Vector2Int> coords, BlockTypes blockType) getMatchCoords(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int oldPosition)
         {
             var matchCoords = new List<Vector2Int>();
             var coords = new List<Vector2Int>();
@@ -133,7 +133,7 @@ namespace Match3
                     coords.Add(pos2);
                     coords.Add(pos3);
                     coords.Add(pos4);
-
+                     
                     return (coords, BlockTypes.Square);
                 }
             }
@@ -144,7 +144,7 @@ namespace Match3
             return (matchCoords, BlockTypes.Default);
         } 
 
-        public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position, Vector2Int swipeDirection) 
+        public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int swipeDirection) 
         {
             if(!board.ContainsKey(position + swipeDirection)) // свайп за пределы доски
                 return false;
@@ -252,7 +252,7 @@ namespace Match3
             return false;
         }
 
-        public static List<Vector2Int> getNearbyObstacles(this Dictionary<Vector2Int, EcsEntity> board, Vector2Int position)
+        public static List<Vector2Int> getNearbyObstacles(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
         {
             var coords = new List<Vector2Int>();
 
