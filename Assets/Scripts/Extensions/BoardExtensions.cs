@@ -1,7 +1,6 @@
 using Leopotam.Ecs;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 namespace Match3
 {
@@ -143,7 +142,169 @@ namespace Match3
                 matchCoords.Clear();
 
             return (matchCoords, BlockTypes.Default);
-        } 
+        }
+
+        public static (List<Vector2Int> coords, BlockTypes blockType) getMatchCoordsV2(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int oldPosition)
+        {
+            var matchCoords = new List<Vector2Int>();
+            var coords = new List<Vector2Int>();
+
+            bool hasTeewee = false;
+            bool hasLine = false;
+            bool hasSquare = false;
+
+            // провеяем матч 3 в ряд
+            foreach (var direction in _directions)
+            {
+                if (direction + position == oldPosition)
+                    continue; // пришли отсюда, не проверям, там гем другого типа
+
+                var chainLenght = 1;
+                var startPos = position;
+                coords.Clear();
+
+                if (direction != (oldPosition - position) && board.ContainsKey(position - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
+                {
+                    startPos -= direction;
+                }
+
+                while (board.TryGetValue(startPos, out var entity))
+                {
+                    var nextPos = startPos + direction;
+                    if (board.checkBlocksSameType(ref startPos, ref nextPos))
+                    {
+                        coords.Add(startPos);
+                        chainLenght++;
+                    }
+                    else if (chainLenght >= _chainLenght - 1)
+                    {
+                        break;
+                    }
+
+                    startPos += direction;
+                }
+
+                if (coords.Count >= _chainLenght - 1)
+                {
+                    var lastBlockInChainPos = coords[coords.Count - 1] + direction;
+                    coords.Add(lastBlockInChainPos);
+
+                    // тетрис _|_ - зацепим отросток если он есть и обрежем линию больше трех если он (отросток) есть
+                    if (coords.Count >= 3)
+                    {
+                        var coordToCheck = Vector2Int.zero;
+                        var coord1 = coords[1];
+
+                        if (direction == Vector2Int.left || direction == Vector2Int.right)
+                        {
+                            coordToCheck = coords[1] + Vector2Int.down;
+                            if (board.checkBlocksSameType(ref coord1, ref coordToCheck))
+                            {
+                                if (!matchCoords.Contains(coordToCheck))
+                                {
+                                    matchCoords.Add(coordToCheck);
+                                    hasTeewee = true;
+                                }
+                            }
+
+                            coordToCheck = coords[1] + Vector2Int.up;
+                            if (board.checkBlocksSameType(ref coord1, ref coordToCheck))
+                            {
+                                if (!matchCoords.Contains(coordToCheck))
+                                {
+                                    matchCoords.Add(coordToCheck);
+                                    hasTeewee = true;
+                                }
+                            }
+                        }
+                        else if (direction == Vector2Int.down || direction == Vector2Int.up)
+                        {
+                            coordToCheck = coords[1] + Vector2Int.left;
+                            if (board.checkBlocksSameType(ref coord1, ref coordToCheck))
+                            {
+                                if (!matchCoords.Contains(coordToCheck))
+                                {
+                                    matchCoords.Add(coordToCheck);
+                                    hasTeewee = true;
+                                }
+                            }
+
+                            coordToCheck = coords[1] + Vector2Int.right;
+                            if (board.checkBlocksSameType(ref coord1, ref coordToCheck))
+                            {
+                                if (!matchCoords.Contains(coordToCheck))
+                                {
+                                    matchCoords.Add(coordToCheck);
+                                    hasTeewee = true;
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (var coord in coords)
+                    {
+                        if (!matchCoords.Contains(coord))
+                        {
+                            matchCoords.Add(coord);
+                        }
+                    }
+                }
+            }
+
+            if (matchCoords.Count >= 5) // боллее 5 в ряд или 2 матч3 уголком
+            {
+                hasLine = true;
+            }
+
+            // провеяем кобминацию квадрат из 4
+            var swipeDirection = position - oldPosition;
+            foreach (var direction in _directions)
+            {
+                if (direction + position == oldPosition || position - direction == oldPosition)
+                    continue; // убираем направления свайпа и обратку
+
+                var pos1 = position;
+                var pos2 = position + direction;
+                var pos3 = swipeDirection + position;
+                var pos4 = swipeDirection + position + direction;
+
+                if (board.checkBlocksSameType(ref pos1, ref pos2, ref pos3, ref pos4))
+                {
+                    if (!matchCoords.Contains(pos1))
+                    {
+                        matchCoords.Add(pos1);
+                    }
+
+                    if (!matchCoords.Contains(pos2))
+                    {
+                        matchCoords.Add(pos2);
+                    }
+
+                    if (!matchCoords.Contains(pos3))
+                    {
+                        matchCoords.Add(pos3);
+                    }
+
+                    if (!matchCoords.Contains(pos4))
+                    {
+                        matchCoords.Add(pos4);
+                    }
+
+                    hasSquare = true;
+                }
+            }
+
+            if (matchCoords.Count < _chainLenght)
+                matchCoords.Clear();
+
+            var boosterTypeToSpawnOnCurrentPosition = hasTeewee ? BlockTypes.Teewee
+                : hasLine ? BlockTypes.Line
+                : hasSquare ? BlockTypes.Square
+                : BlockTypes.Default;
+
+            return (matchCoords, boosterTypeToSpawnOnCurrentPosition);
+        }
+
 
         public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int swipeDirection) 
         {
@@ -278,7 +439,7 @@ namespace Match3
             return coords;
         }
 
-        public static bool hasNearbySameType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref BlockTypes blockType)
+        public static bool hasNearbySameType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref BlockTypes blockType, bool checkBetween = false)
         {
             foreach (var direction in _directions)
             {
@@ -307,6 +468,16 @@ namespace Match3
 
                 if (firstNearbyInLineType == blockType && nearbyRightType == blockType && diagonallyType == blockType)
                     return true;
+
+                //добавить проверку спавн между 2мя одного типа только для спавн системы
+                if (checkBetween)
+                {
+                    var prevNearbyInLine = position - direction;
+                    var prevNearbyInLineType = board.ContainsKey(prevNearbyInLine) ? board[prevNearbyInLine].Get<BlockType>().value : BlockTypes.Default;
+
+                    if (prevNearbyInLineType == blockType && firstNearbyInLineType == blockType)
+                        return true;
+                }
             }
 
             return false;

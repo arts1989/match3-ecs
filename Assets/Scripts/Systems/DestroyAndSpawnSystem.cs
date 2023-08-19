@@ -52,7 +52,7 @@ namespace Match3
                         int randomNum = Random.Range(0, _configuration.blocks.Count);
                         var newBlockType = _configuration.blocks[randomNum].type;
 
-                        while (board.hasNearbySameType(ref position, ref newBlockType))
+                        while (board.hasNearbySameType(ref position, ref newBlockType, true))
                         {
                             randomNum = Random.Range(0, _configuration.blocks.Count);
                             newBlockType = _configuration.blocks[randomNum].type;
