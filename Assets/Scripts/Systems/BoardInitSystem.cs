@@ -14,7 +14,6 @@ namespace Match3
         {
             var board = _gameState.Board;
 
-
             for (int x = 0; x < _gameState.Columns; x++)
             {
                 for (int y = 0; y < _gameState.Rows; y++)

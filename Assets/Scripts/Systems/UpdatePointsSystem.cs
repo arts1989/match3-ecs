@@ -1,11 +1,10 @@
 using Leopotam.Ecs;
-using UnityEngine;
 
 namespace Match3
 {
-    internal partial class UpdateScoreWidgetSystem : IEcsRunSystem, IEcsInitSystem
+    internal class UpdatePointsSystem : IEcsRunSystem, IEcsInitSystem
     {
-        private EcsFilter<UpdateScoreEvent> _filter;
+        private EcsFilter<SpawnEvent, Points> _filter;
         private GameState _gameState;
         private SceneData _sceneData;
 
@@ -13,16 +12,22 @@ namespace Match3
         {
             _sceneData.UI.scoreWidget.SetMovesLeftText(_gameState.MovesAvaliable);
             _sceneData.UI.scoreWidget.SetPointsScoredText(_gameState.PointsScored);
-
         }
+
         public void Run()
         {
             if (!_filter.IsEmpty())
             {
+                foreach (int index in _filter)
+                {
+                    ref var points = ref _filter.Get2(index).value;
+                    _gameState.PointsScored += points;
+                }
+
                 _gameState.MovesAvaliable--;
-                
+
                 _sceneData.UI.scoreWidget.SetPointsScoredText(_gameState.PointsScored);
-                if(_gameState.PointsScored > _gameState.PointsToWin)
+                if (_gameState.PointsScored > _gameState.PointsToWin)
                 {
                     _filter.GetEntity(0).Get<WinEvent>();
                 }
@@ -32,12 +37,7 @@ namespace Match3
                 {
                     _filter.GetEntity(0).Get<LoseEvent>();
                 }
-
-                _filter.GetEntity(0).Del<UpdateScoreEvent>(); //destroy entity with UpdateScoreEvent component
             }
         }
     }
 }
-
-
-

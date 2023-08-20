@@ -23,7 +23,8 @@ namespace Match3
 
                 foreach (var coords in matchCoords.coords)
                 {
-                    board[coords].Get<DestroyAndSpawnEvent>().value = (coords == position) ? matchCoords.blockType : BlockTypes.Default;
+                    board[coords].Get<SpawnType>().value = (coords == position) ? matchCoords.blockType : BlockTypes.Default;
+                    board[coords].Get<DestroyEvent>();
                 }
             }
         }
