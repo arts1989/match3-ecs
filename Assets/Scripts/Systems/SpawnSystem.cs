@@ -39,6 +39,9 @@ namespace Match3
                             _configuration.blocks[randomNum].sprites[0]
                         );
 
+                        var explosion = Object.Instantiate(_configuration.deathVFX, obj.transform.position, obj.transform.rotation);
+                        Object.Destroy(explosion, _configuration.durationOfExplosion);
+
                         _filter.GetEntity(index).Get<LinkToObject>().value = obj;
                         _filter.GetEntity(index).Get<BlockType>().value  = _configuration.blocks[randomNum].type;
                         _filter.GetEntity(index).Get<Points>().value = _configuration.blocks[randomNum].points;
@@ -58,6 +61,9 @@ namespace Match3
                                     booster.prefab,
                                     booster.sprites[0]
                                 );
+
+                                var explosion = Object.Instantiate(_configuration.deathVFX, obj.transform.position, obj.transform.rotation);
+                                Object.Destroy(explosion, _configuration.durationOfExplosion);
 
                                 _filter.GetEntity(index).Get<LinkToObject>().value = obj;
                                 _filter.GetEntity(index).Get<BlockType>().value = booster.type;
