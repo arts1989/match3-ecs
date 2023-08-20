@@ -14,6 +14,7 @@ namespace Match3
             if (!_filter.IsEmpty())
             {
                 var board = _gameState.Board;
+                var sequence = DOTween.Sequence();
 
                 foreach (int index in _filter)
                 {
@@ -35,7 +36,7 @@ namespace Match3
                             var obj = entity.Get<LinkToObject>().value;
                             var objPos = new Vector3(currentPosition.x, currentPosition.y);
 
-                            obj.transform.DOMove(objPos, .5f);
+                            sequence.Insert(0, obj.transform.DOMove(objPos, .5f));
 
                             board[checkPosition] = currentEntity; //позиция сверху меняем на текущую 
                             board[currentPosition] = entity;
@@ -45,8 +46,11 @@ namespace Match3
                     }
 
                     currentEntity.Del<WaterfallEvent>();
-                    currentEntity.Get<SpawnEvent>();
+                    currentEntity.Get<Spawn>();
                 }
+
+                _gameState.enableSpawn = false;
+                sequence.Play().OnComplete(() => { _gameState.enableSpawn = true; });
             }
         }
     }

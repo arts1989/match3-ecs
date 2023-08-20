@@ -18,6 +18,8 @@ namespace Match3
         public int UnderlayCount;
         public bool waterfallSpawnEnable;
 
+
+        public bool enableSpawn = true;
         /*
         private int[] _cells;
         private int _columns;

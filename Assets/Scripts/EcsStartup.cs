@@ -50,7 +50,6 @@ namespace Match3
                 .OneFrame<MoveEvent>()
                 .OneFrame<CheckMatchEvent>()
                 .OneFrame<HandleBoosterEvent>()
-                .OneFrame<SpawnEvent>()
                 .OneFrame<DestroyEvent>()
                 .OneFrame<LoseEvent>()
                 .OneFrame<WinEvent>()

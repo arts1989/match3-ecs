@@ -5,7 +5,7 @@ namespace Match3
 {
     internal class SpawnSystem : IEcsRunSystem
     {
-        private EcsFilter<SpawnEvent, SpawnType, Position> _filter;
+        private EcsFilter<Spawn, SpawnType, Position> _filter;
         private GameState _gameState;
         private Configuration _configuration;
         private EcsWorld _world;
@@ -21,7 +21,7 @@ namespace Match3
                     var spawnType = _filter.Get2(index).value;
                     var position  = _filter.Get3(index).value;
 
-                    if (spawnType == BlockTypes.Default)
+                    if (spawnType == BlockTypes.Default && _gameState.enableSpawn)
                     {
                         int randomNum = Random.Range(0, _configuration.blocks.Count);
                         var newBlockType = _configuration.blocks[randomNum].type;
@@ -44,6 +44,7 @@ namespace Match3
                         _filter.GetEntity(index).Get<Points>().value = _configuration.blocks[randomNum].points;
 
                         _filter.GetEntity(index).Del<SpawnType>();
+                        _filter.GetEntity(index).Del<Spawn>();
                     }
                     else
                     {
@@ -63,6 +64,7 @@ namespace Match3
                                 _filter.GetEntity(index).Get<Points>().value = booster.points;
 
                                 _filter.GetEntity(index).Del<SpawnType>();
+                                _filter.GetEntity(index).Del<Spawn>();
                             }
                         }
                     }

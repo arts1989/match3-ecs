@@ -34,13 +34,13 @@ namespace Match3
                         }
                         else 
                         {
-                            _filter.GetEntity(index).Get<SpawnEvent>();
+                            _filter.GetEntity(index).Get<Spawn>();
                             _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
                         }
                     }
                     else
                     {
-                        _filter.GetEntity(index).Get<SpawnEvent>();
+                        _filter.GetEntity(index).Get<Spawn>();
                         _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
                     }
                 }
