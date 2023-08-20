@@ -40,6 +40,7 @@ namespace Match3
                 .Add (new ClearUnderlaySystem())
                 .Add (new UpdatePointsSystem ())
                 .Add (new DestroySystem())
+                .Add (new WaterfallSystem ())
                 .Add (new SpawnSystem())
                 .Add (new CheckWinSystem ()) // проверка что есть ентити с WinEvent 
                 .Add (new CheckLoseSystem()) // проверка что есть ентити с LoseEvent 

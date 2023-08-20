@@ -15,11 +15,11 @@ namespace Match3
             if (!_filter.IsEmpty())
             {
                 var board = _gameState.Board;
-          
+
                 foreach (int index in _filter)
                 {
-                    ref var spawnType = ref _filter.Get2(index).value;
-                    ref var position  = ref _filter.Get3(index).value;
+                    var spawnType = _filter.Get2(index).value;
+                    var position  = _filter.Get3(index).value;
 
                     if (spawnType == BlockTypes.Default)
                     {
@@ -66,8 +66,6 @@ namespace Match3
                             }
                         }
                     }
-
-                    //board[position] = _filter.GetEntity(index);
                 }
             }
         }

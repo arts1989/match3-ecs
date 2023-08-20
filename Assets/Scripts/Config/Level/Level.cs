@@ -11,12 +11,14 @@ namespace Match3
 		public int Columns = 5;
 		public int Rows = 5;
 
-		public int MovesAvailable = 5;
+        public bool waterfallSpawnEnable = false;
+
+        public int MovesAvailable = 5;
 
 		public int ObstacleCount = 0;
 		public int UnderlayCount = 0;
 
-		[Header("Blocks and underlays properties")]
+		[Header("Board properties")]
 		public List<SerializeItem<Vector2Int,BlockTypes>> blocksProperties;
 		public List<SerializeItem<Vector3Int,UnderlayTypes>> underlaysProperties;
 	}	

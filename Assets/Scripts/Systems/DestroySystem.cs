@@ -8,7 +8,6 @@ namespace Match3
         private EcsFilter<DestroyEvent, SpawnType, LinkToObject> _filter;
         private GameState _gameState;
         private Configuration _configuration;
-        private EcsWorld _world;
 
         public void Run()
         {
@@ -21,22 +20,28 @@ namespace Match3
                     ref var spawnType    = ref _filter.Get2(index).value;
                     ref var linkToObject = ref _filter.Get3(index).value;
 
+                    Object.Destroy(linkToObject); //удаляем обжект на сцене
+
                     var explosion = Object.Instantiate(_configuration.deathVFX, linkToObject.transform.position, linkToObject.transform.rotation);
                     Object.Destroy(explosion, _configuration.durationOfExplosion);
 
                     if (spawnType == BlockTypes.Default)
                     {
-                        _filter.GetEntity(index).Get<SpawnEvent>();
-                        _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
-
-                        Object.Destroy(linkToObject); //удаляем обжект на сцене
+                        if(_gameState.waterfallSpawnEnable) //waterfall
+                        {
+                            _filter.GetEntity(index).Get<WaterfallEvent>();
+                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
+                        }
+                        else 
+                        {
+                            _filter.GetEntity(index).Get<SpawnEvent>();
+                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
+                        }
                     }
                     else
                     {
                         _filter.GetEntity(index).Get<SpawnEvent>();
                         _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
-
-                        Object.Destroy(linkToObject); //удаляем обжект на сцене
                     }
                 }
             }

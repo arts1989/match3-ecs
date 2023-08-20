@@ -16,6 +16,7 @@ namespace Match3
         public int PointsToWin;
         public int ObstacleCount;
         public int UnderlayCount;
+        public bool waterfallSpawnEnable;
 
         /*
         private int[] _cells;
