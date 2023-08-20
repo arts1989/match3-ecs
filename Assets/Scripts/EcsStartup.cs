@@ -38,6 +38,7 @@ namespace Match3
                 .Add (new MoveSystem()) // меняет местами
                 .Add (new CheckMatchSystem())
                 .Add (new ClearUnderlaySystem())
+                .Add (new CheckNearbyObstaclesSystem())
                 .Add (new UpdatePointsSystem ())
                 .Add (new DestroySystem())
                 .Add (new WaterfallSystem ())

@@ -6,7 +6,7 @@ namespace Match3
 {
     internal class CheckNearbyObstaclesSystem : IEcsRunSystem
     {
-        private EcsFilter<Spawn, Position> _filter;
+        private EcsFilter<DestroyEvent, Position> _filter;
         private GameState _gameState;
         private Configuration _configuration;
         private EcsWorld _world;
