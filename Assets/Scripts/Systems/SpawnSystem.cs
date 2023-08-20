@@ -21,9 +21,6 @@ namespace Match3
                     ref var spawnType = ref _filter.Get2(index).value;
                     ref var position  = ref _filter.Get3(index).value;
 
-                    Debug.Log(spawnType);
-                    Debug.Log(position);
-               
                     if (spawnType == BlockTypes.Default)
                     {
                         int randomNum = Random.Range(0, _configuration.blocks.Count);

@@ -4,7 +4,7 @@ namespace Match3
 {
     internal class UpdatePointsSystem : IEcsRunSystem, IEcsInitSystem
     {
-        private EcsFilter<SpawnEvent, Points> _filter;
+        private EcsFilter<DestroyEvent, Points> _filter;
         private GameState _gameState;
         private SceneData _sceneData;
 
