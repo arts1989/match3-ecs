@@ -23,6 +23,7 @@ namespace Match3
 		[Space] 
 		[SerializeField] private List<Vector2Int> precipiceProperty;
 
-		public IReadOnlyList<Vector2Int> PrecipiceProperty => precipiceProperty;
+		//public IReadOnlyList<Vector2Int> PrecipiceProperty => precipiceProperty;
+		public List<Vector2Int> PrecipiceProperty => precipiceProperty;
 	}	
 }

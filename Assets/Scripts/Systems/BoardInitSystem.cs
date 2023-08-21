@@ -16,6 +16,9 @@ namespace Match3
             {
                 for (int y = 0; y < _gameState.Rows; y++)
                 {
+                    if(_configuration.levels[_gameState.currentLevel].PrecipiceProperty.Contains
+                        (new Vector2Int(x, y))) continue;
+                    
                     var entity   = _world.NewEntity();
                     var position = new Vector2Int(x, y);
 
