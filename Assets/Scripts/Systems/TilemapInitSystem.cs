@@ -20,6 +20,9 @@ namespace Match3
             {
                 for (int y = 0; y < _gameState.Rows; y++)
                 {
+                    if(_configuration.levels[_gameState.currentLevel].PrecipiceProperty.Contains
+                        (new Vector2Int(x, y))) continue;
+                    
                     var coord = new Vector3Int(x, y);
                     tilemap.SetTile(coord, tiles[0]);
                 }
@@ -33,6 +36,9 @@ namespace Match3
                     Random.Range(0, _gameState.Columns - 1),
                     Random.Range(0, _gameState.Rows - 1)
                 );
+                
+                if(_configuration.levels[_gameState.currentLevel].PrecipiceProperty.Contains
+                    ((Vector2Int) coord)) continue;
 
                 tilemap.SetTile(coord, underlays[0].tiles[0]);
                 underlayCount--;
