@@ -1,14 +1,12 @@
-ï»¿using Leopotam.Ecs;
+using Leopotam.Ecs;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Match3
 {
-    internal class DestroyAndSpawnSystem : IEcsRunSystem
+    internal class CheckNearbyObstaclesSystem : IEcsRunSystem
     {
-        private EcsFilter<DestroyAndSpawnEvent, LinkToObject, Points, Position, BlockType> _filter;
+        private EcsFilter<DestroyEvent, Position> _filter;
         private GameState _gameState;
         private Configuration _configuration;
         private EcsWorld _world;
@@ -19,17 +17,13 @@ namespace Match3
             {
                 var nearbyObstaclesCoords = new List<Vector2Int>();
                 var board = _gameState.Board;
-          
+
                 foreach (int index in _filter)
                 {
-                    ref var spawnBlockType = ref _filter.Get1(index).value;
-                    ref var linkToObject   = ref _filter.Get2(index).value;
-                    ref var points         = ref _filter.Get3(index).value;
-                    ref var position       = ref _filter.Get4(index).value;   
-                    ref var blockType      = ref _filter.Get5(index).value;
-                
-                    //Ð·Ð°Ð¿Ð¸ÑˆÐµÐ¼ ÑÐ¾ÑÐµÐ´ÐµÐ¹-ÑÑ‰Ð¸ÐºÐ¸
-                    var nearbyObstacles = board.getNearbyObstacles(position);
+                    ref var position = ref _filter.Get2(index).value;
+
+                    //çàïèøåì ñîñåäåé-ÿùèêè
+                    var nearbyObstacles = board.getNearbyObstacles(ref position);
                     if (nearbyObstacles.Count > 0)
                     {
                         foreach (var coord in nearbyObstacles)
@@ -37,48 +31,6 @@ namespace Match3
                             if (!nearbyObstaclesCoords.Contains(coord))
                             {
                                 nearbyObstaclesCoords.Add(coord);
-                            }
-                        }
-                    }
-
-                    _gameState.PointsScored += points;
-                    Object.Destroy(linkToObject);
-
-                    var explosion = Object.Instantiate(_configuration.deathVFX, linkToObject.transform.position, linkToObject.transform.rotation);
-                    Object.Destroy(explosion, _configuration.durationOfExplosion);
-
-                    if (spawnBlockType == BlockTypes.Default)
-                    {
-                        int randomNum = Random.Range(0, _configuration.blocks.Count);
-                   
-                        var obj = _world.spawnGameObject(
-                            position,
-                            _filter.GetEntity(index),
-                            _configuration.blocks[randomNum].prefab,
-                            _configuration.blocks[randomNum].sprites[0]
-                        );
-
-                        linkToObject = obj;
-                        blockType    = _configuration.blocks[randomNum].type;
-                        points       = _configuration.blocks[randomNum].points;
-
-                    }
-                    else
-                    {
-                        foreach(var booster in _configuration.boosters)
-                        {
-                            if(booster.type == spawnBlockType)
-                            {
-                                var obj = _world.spawnGameObject(
-                                    position,
-                                    _filter.GetEntity(index),
-                                    booster.prefab,
-                                    booster.sprites[0]
-                                );
-
-                                linkToObject = obj;
-                                blockType = booster.type;
-                                points = booster.points;
                             }
                         }
                     }
@@ -127,8 +79,6 @@ namespace Match3
                         }
                     }
                 }
-
-                _world.NewEntity().Get<UpdateScoreEvent>();
             }
         }
     }

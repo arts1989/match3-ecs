@@ -17,13 +17,14 @@ namespace Match3
                 ref var position    = ref _filter.Get2(index).value;
 
                 var board = _gameState.Board;
-                var matchCoords = board.getMatchCoords(position, oldPosition);
+                var matchCoords = board.getMatchCoordsV2(ref position, ref oldPosition);
 
                 Debug.Log(matchCoords.blockType + " ========== " + matchCoords.coords.Count);
 
                 foreach (var coords in matchCoords.coords)
                 {
-                    board[coords].Get<DestroyAndSpawnEvent>().value = (coords == position) ? matchCoords.blockType : BlockTypes.Default;
+                    board[coords].Get<SpawnType>().value = (coords == position) ? matchCoords.blockType : BlockTypes.Default;
+                    board[coords].Get<DestroyEvent>();
                 }
             }
         }
