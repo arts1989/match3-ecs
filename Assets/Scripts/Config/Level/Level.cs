@@ -17,7 +17,6 @@ namespace Match3
 
 		public int ObstacleCount = 0;
 		public int UnderlayCount = 0;
-		public GameObject background;
 
 		[Header("Board properties")]
 		public List<SerializeItem<Vector2Int,BlockTypes>> blocksProperties;

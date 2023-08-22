@@ -12,11 +12,11 @@ namespace Match3
         {
             foreach (var background in _configuration.levels)
             {
-                var entity = _world.NewEntity();
-                var obj = Object.Instantiate(background.background);
-                obj.transform.SetParent(GameObject.Find("Background").transform);
-                obj.AddComponent<LinkToEntity>().entity = entity;
-                entity.Get<LinkToObject>().value = obj;
+                //var entity = _world.NewEntity();
+                //var obj = Object.Instantiate(background.background);
+                //obj.transform.SetParent(GameObject.Find("Background").transform);
+                //obj.AddComponent<LinkToEntity>().entity = entity;
+                //entity.Get<LinkToObject>().value = obj;
             }
         }
     }
