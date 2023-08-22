@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class QuizController : MonoBehaviour
+public class ControllerButtonImprovements : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text _questionTextElement;
+    private TMP_Text _textElement;
     [SerializeField]
     private Button[] _buttons;
 
@@ -31,7 +31,7 @@ public class QuizController : MonoBehaviour
     private void PresentCurrentQuestion()
     {
         var question = GetCurrentQuestion();
-        _questionTextElement.text = question.QuestionText;
+        _textElement.text = question.QuestionText;
 
         for (int i = 0; i < _buttons.Length; i++)
         {
@@ -62,7 +62,7 @@ public class QuizController : MonoBehaviour
     private void ShowResponse(int buttonIndex)
     {
         var question = GetCurrentQuestion();
-        _questionTextElement.text = question.Responses[buttonIndex];
+        _textElement.text = question.Responses[buttonIndex];
 
         StartCoroutine(MoveToNextQuestionAfterDelay());
     }
