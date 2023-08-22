@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f84b8d4a19177164b9d66a9286b6712e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textElement: {fileID: 0}
+  _textElement: {fileID: 1379447677}
   _buttons:
   - {fileID: 2016387617}
   - {fileID: 852197247}
@@ -4427,7 +4427,7 @@ GameObject:
   - component: {fileID: 1379447678}
   - component: {fileID: 1379447677}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TextElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
