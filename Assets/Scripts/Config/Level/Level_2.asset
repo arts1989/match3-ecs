@@ -19,7 +19,7 @@ MonoBehaviour:
   MovesAvailable: 6
   ObstacleCount: 0
   UnderlayCount: 0
-  background: {fileID: 1324466106439922652, guid: 9f4ded683bd1f234b925267b8ac856fe, type: 3}
+  background: {fileID: -1054172182, guid: 68b54782fc658834c8840806d12cbf68, type: 3}
   blocksProperties:
   - _key: {x: 0, y: 0}
     _value: 0

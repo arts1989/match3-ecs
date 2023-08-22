@@ -10,6 +10,8 @@ namespace Match3
 
         // game widgets on scene
         public ScoreWidget scoreWidget;
-        public BoosterWidget boosterWidget; 
+        public BoosterWidget boosterWidget;
+        public Background background;
+        public Sprite _background;
     }
 }
