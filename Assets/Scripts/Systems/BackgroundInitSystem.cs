@@ -9,13 +9,17 @@ namespace Match3
         private SceneData _sceneData;
         private GameState _gameState;
         private Configuration _configuration;
+        private SaveManager _saveManager;
+        private UI _ui;
+
 
         public void Init()
         {
-            foreach (var background in _configuration.levels)
-            {
-               
-            }    
+            var level = _saveManager.GetData().Level;
+            var levelConfig = _configuration.levels[level];
+            _sceneData.UI.backgroundSprite.sprite = levelConfig.background;
+           // var backgroundObject = Object.Instantiate(_sceneData.UI);
+
         }
     }
 }

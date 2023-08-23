@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Match3
 {
@@ -12,6 +13,6 @@ namespace Match3
         public ScoreWidget scoreWidget;
         public BoosterWidget boosterWidget;
         public Background background;
-        public Sprite _background;
+        public Image backgroundSprite;
     }
 }
