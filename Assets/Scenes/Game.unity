@@ -250,6 +250,7 @@ MonoBehaviour:
   CameraTransform: {fileID: 519420032}
   Camera: {fileID: 519420031}
   UI: {fileID: 750212937}
+  background: {fileID: 1612667122}
   tileMap: {fileID: 6781940958105513177}
   tiles:
   - {fileID: 11400000, guid: 81ba048e73b98f141865f0bcb7093873, type: 2}
@@ -405,6 +406,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1311876347416401787, guid: 85f1f7b592d2a11488196b867cc6d16f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 214.20001
+      objectReference: {fileID: 0}
     - target: {fileID: 3294765315337763906, guid: 85f1f7b592d2a11488196b867cc6d16f, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -499,7 +504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3294765316738970619, guid: 85f1f7b592d2a11488196b867cc6d16f, type: 3}
       propertyPath: m_PlaneDistance
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3294765316738970619, guid: 85f1f7b592d2a11488196b867cc6d16f, type: 3}
       propertyPath: m_SortingLayerID
@@ -525,6 +530,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6092509717968617271, guid: 85f1f7b592d2a11488196b867cc6d16f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 214.20001
+      objectReference: {fileID: 0}
     - target: {fileID: 8455475654045321720, guid: 85f1f7b592d2a11488196b867cc6d16f, type: 3}
       propertyPath: m_Maskable
       value: 1

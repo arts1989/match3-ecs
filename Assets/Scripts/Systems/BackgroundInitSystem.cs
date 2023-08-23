@@ -15,7 +15,8 @@ namespace Match3
         {
             var level = _saveManager.GetData().Level;
             var levelConfig = _configuration.levels[level];
-            _sceneData.UI.backgroundSprite.sprite = levelConfig.background;
+
+            _sceneData.background.sprite = levelConfig.background;
 
         }
     }
