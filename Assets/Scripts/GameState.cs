@@ -17,6 +17,7 @@ namespace Match3
         public int ObstacleCount;
         public int UnderlayCount;
         public bool waterfallSpawnEnable;
+        public Sprite background;
 
 
         public bool enableSpawn = true;

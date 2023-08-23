@@ -1,5 +1,4 @@
 using Leopotam.Ecs;
-using UnityEngine;
 
 namespace Match3
 {
@@ -24,7 +23,8 @@ namespace Match3
             _gameState.PointsToWin = _configuration.levels[level].PointsToWin;
             _gameState.PointsScored = 0;
 
-            _gameState.waterfallSpawnEnable = _configuration.levels[level].waterfallSpawnEnable;
+            _gameState.waterfallSpawnEnable = _configuration.levels[level].waterfallSpawnEnable; 
+            _gameState.background = levelConfig.background;
         }
     }
 }
