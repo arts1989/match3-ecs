@@ -7,16 +7,16 @@ using TMPro;
 public class ControllerButtonImprovements : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text _textElement;
+    private TMP_Text _textElement; // не нужен
     [SerializeField]
-    private Button[] _buttons;
+    private Button[] _buttons; // кнопки в окне 
 
     [SerializeField]
-    private Question[] _questions;
+    private Question[] _questions; // вопросы
 
-    private int _currentQuestionIndex = 0;
+    private int _currentQuestionIndex = 0; //текущий указатель вопросов
 
-    public Question GetCurrentQuestion()
+    public Question GetCurrentQuestion() //Получить текущий вопрос
     {
         var question = _questions[_currentQuestionIndex];
         return question;
@@ -24,13 +24,13 @@ public class ControllerButtonImprovements : MonoBehaviour
 
     public void Start()
     {
-        InitializeButtons();
-        PresentCurrentQuestion();
+        InitializeButtons(); // Инициализация кнопок
+        PresentCurrentQuestion(); // Представьте текущий вопрос
     }
 
-    private void PresentCurrentQuestion()
+    private void PresentCurrentQuestion() // Представьте текущий вопрос
     {
-        var question = GetCurrentQuestion();
+        var question = GetCurrentQuestion(); //Получить текущий вопрос
         _textElement.text = question.QuestionText;
 
         for (int i = 0; i < _buttons.Length; i++)
@@ -48,7 +48,7 @@ public class ControllerButtonImprovements : MonoBehaviour
         }
     }
 
-    private void InitializeButtons()
+    private void InitializeButtons() // Инициализация кнопок
     {
         for (int i = 0; i < _buttons.Length; i++)
         {
@@ -59,7 +59,7 @@ public class ControllerButtonImprovements : MonoBehaviour
         }
     }
 
-    private void ShowResponse(int buttonIndex)
+    private void ShowResponse(int buttonIndex) // Показать ответ
     {
         var question = GetCurrentQuestion();
         _textElement.text = question.Responses[buttonIndex];
@@ -67,19 +67,19 @@ public class ControllerButtonImprovements : MonoBehaviour
         StartCoroutine(MoveToNextQuestionAfterDelay());
     }
 
-    private IEnumerator MoveToNextQuestionAfterDelay()
+    private IEnumerator MoveToNextQuestionAfterDelay() // Перейти к следующему вопросу после задержки
     {
         yield return new WaitForSeconds(3f);
         _currentQuestionIndex++;
-        PresentCurrentQuestion();
+        PresentCurrentQuestion(); // Представьте текущий вопрос
     }
 }
 
 [Serializable]
 public class Question
 {
-    public string QuestionText;
-    public string[] Answers;
-    public string[] Responses;
+    public string QuestionText; // текст вопроса - 0000
+    public string[] Answers;  // ответы
+    public string[] Responses; // ответы222
 }
 

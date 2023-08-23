@@ -4,24 +4,43 @@ using UnityEngine.UI;
 
 public class ActivationObj : MonoBehaviour
 {
-    [SerializeField] private Button _button;
-    [SerializeField] private int _star = 3;  //заглушка дл€ проверки  
-    private SaveManager _saveManager;
+    [SerializeField] private Button[] _buttons;
+    [SerializeField] private int[] _starsConditional;  //условие - количество полученных звезд   
+    private int _stars;
+    private SaveManager _saveManager;  
+   
 
-    void Awake()
+    private void Awake()
     {
         _saveManager = new SaveManager();
     }
-    void Start()
+
+    private void Start()
     {
-        var Stars = _saveManager.GetData().Stars;
-        if (_star >= Stars)
+        _stars = _saveManager.GetData().Stars;
+        InitializeButtons();
+    }
+
+    private void InitializeButtons() // »нициализаци€ кнопок
+    {
+        for (int i = 0; i < _buttons.Length; i++)
         {
-            _button.interactable = true;                        
+            Button button = _buttons[i];
+
+            int buttonIndex = i;
+            ShowUpgradeWindow(buttonIndex);
+        }
+    }
+
+    private void ShowUpgradeWindow(int buttonIndex) // ѕоказать окно улучшени€
+    {
+        if (_stars >= _starsConditional[buttonIndex])
+        {
+            _buttons[buttonIndex].interactable = true;
         }
         else
         {
-            _button.interactable = false;           
-        }        
+            _buttons[buttonIndex].interactable = false;
+        }
     }    
 }
