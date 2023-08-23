@@ -11,8 +11,8 @@ TagManager:
   - Background
   - Water
   - UI
-  - 
-  - 
+  - Board
+  - UIBoosters
   - 
   - 
   - 
@@ -46,4 +46,10 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3710986603
+    locked: 0
+  - name: UIBoosters
+    uniqueID: 4172380923
     locked: 0

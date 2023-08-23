@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Match3
 {
@@ -10,6 +11,6 @@ namespace Match3
 
         // game widgets on scene
         public ScoreWidget scoreWidget;
-        public BoosterWidget boosterWidget; 
+        public BoosterWidget boosterWidget;
     }
 }

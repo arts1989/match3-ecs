@@ -32,6 +32,7 @@ namespace Match3
                 .Add (new BoardInitSystem()) // спавним ентити, спавним префабы (связанные с энтити)
                 .Add (new BoosterInitSystem())
                 .Add (new CameraInitSystem()) // устанавливаем камеру над полем
+                .Add(new BackgroundInitSystem())
                 .Add (new HandleBoosterSystem()) 
                 .Add (new DetectSwipeSystem())  //пользователь передвигает
                 .Add (new CheckMoveSystem ()) //проверка можно ли передвинуть
