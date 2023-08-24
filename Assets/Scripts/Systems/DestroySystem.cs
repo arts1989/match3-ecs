@@ -29,7 +29,7 @@ namespace Match3
                     {
                         if(_gameState.waterfallSpawnEnable) //waterfall
                         {
-                            _filter.GetEntity(index).Get<WaterfallEvent>();
+                            _filter.GetEntity(index).Get<Waterfall>();
                             _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
                         }
                         else 

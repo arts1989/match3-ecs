@@ -1,20 +1,23 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Leopotam.Ecs;
 using UnityEngine;
+using System.Collections.Generic;
 
 
 namespace Match3
 {
     internal class WaterfallSystem : IEcsRunSystem
     {
-        private EcsFilter<WaterfallEvent, Position> _filter;
+        private EcsFilter<Waterfall, Position> _filter;
         private GameState _gameState;
-        public void Run()
+        public  void Run()
         {
             if (!_filter.IsEmpty())
             {
                 var board = _gameState.Board;
-                var sequence = DOTween.Sequence();
+                //var sequence = DOTween.Sequence();
+                var entityChangedPos = new List<EcsEntity>();
 
                 foreach (int index in _filter)
                 {
@@ -25,7 +28,7 @@ namespace Match3
                     
                     while (board.TryGetValue(checkPos, out var entity))
                     {
-                        if(!entity.Has<WaterfallEvent>()) { 
+                        if(!entity.Has<Waterfall>()) { 
 
                             var checkPosition = entity.Get<Position>().value;
                             var currentPosition = currentEntity.Get<Position>().value;
@@ -33,10 +36,7 @@ namespace Match3
                             entity.Get<Position>().value = currentPosition;
                             currentEntity.Get<Position>().value = checkPosition;
 
-                            var obj = entity.Get<LinkToObject>().value;
-                            var objPos = new Vector3(currentPosition.x, currentPosition.y);
-
-                            sequence.Insert(0, obj.transform.DOMove(objPos, .5f));
+                            entityChangedPos.Add(entity);
 
                             board[checkPosition] = currentEntity; //позиция сверху меняем на текущую 
                             board[currentPosition] = entity;
@@ -45,12 +45,21 @@ namespace Match3
                         checkPos += Vector2Int.up;
                     }
 
-                    currentEntity.Del<WaterfallEvent>();
+                    currentEntity.Del<Waterfall>();
                     currentEntity.Get<Spawn>();
                 }
 
-                _gameState.enableSpawn = false;
-                sequence.Play().OnComplete(() => { _gameState.enableSpawn = true; });
+                foreach(var entity in entityChangedPos) 
+                { 
+                    ref var pos = ref entity.Get<Position>().value;
+                    ref var obj = ref entity.Get<LinkToObject>().value;
+                    obj.transform.position = new Vector3(pos.x, pos.y);
+                    //obj.transform.DOMove(new Vector3(pos.x, pos.y), .5f);
+                    //sequence.Insert(0, obj.transform.DOMove(new Vector3(pos.x, pos.y), .5f));
+                }
+
+                //_gameState.enableSpawn = false;
+                //sequence.Play().OnComplete(() => { _gameState.enableSpawn = true; });
             }
         }
     }
