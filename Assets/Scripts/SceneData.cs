@@ -10,6 +10,7 @@ namespace Match3
         public Transform CameraTransform;
         public Camera Camera;
         public UI UI;
+        public AudioView audioView;
         public Image background;
         public Tilemap tileMap;
         public List<Tile> tiles = new List<Tile>();
