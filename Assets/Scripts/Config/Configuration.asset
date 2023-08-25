@@ -35,5 +35,3 @@ MonoBehaviour:
   offset: {x: 0, y: 0}
   deathVFX: {fileID: 1368954464598970, guid: 334f3e6344827ea468077b5d60f1b84e, type: 3}
   durationOfExplosion: 1
-  backgroundSound: {fileID: 8300000, guid: 5f13b20e2c13267498c40d89e5d58749, type: 3}
-  deathSFX: {fileID: 8300000, guid: b3d4bbf294d7e14479f22606c6532a15, type: 3}

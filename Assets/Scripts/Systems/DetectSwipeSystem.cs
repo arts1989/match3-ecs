@@ -57,6 +57,7 @@ namespace Match3
 
                         if(_swipeVector != Vector2Int.zero)
                             _entityClicked.Get<CheckMoveEvent>().direction = _swipeVector;
+
                     }
                 }
             }

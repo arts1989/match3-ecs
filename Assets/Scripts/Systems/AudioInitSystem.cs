@@ -1,5 +1,4 @@
 ﻿using Leopotam.Ecs;
-using UnityEngine;
 
 namespace Match3
 {
@@ -7,12 +6,18 @@ namespace Match3
     {
         private SceneData _sceneData;
         private GameState _gameState;
+        private EcsEntity _entityClicked;
+
         public void Init()
         {
-            var obj = _gameState.backgroundAudioClip;
-           _sceneData.backgroundMusic.clip = obj;
+            var backgroundMusic = _gameState.backgroundAudioClip;
+            _sceneData.backgroundMusic.clip = backgroundMusic;
             _sceneData.backgroundMusic.Play();
             _sceneData.backgroundMusic.loop = true;
+
+            //var swipeSound = 
+            //_entityClicked.Get<CheckMoveEvent>()
+
         }
     }
 }

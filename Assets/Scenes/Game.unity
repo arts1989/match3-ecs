@@ -227,7 +227,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 880175333}
-  - component: {fileID: 880175334}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -253,21 +252,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &880175334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 880175332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf9390e314f38124dbceb21bfb956aea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backgroundAudio: {fileID: 1120832205}
-  swipeSound: {fileID: 1993766554}
-  destroySound: {fileID: 1699561445}
 --- !u!1 &1120832205
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +412,6 @@ MonoBehaviour:
   CameraTransform: {fileID: 519420032}
   Camera: {fileID: 519420031}
   UI: {fileID: 750212937}
-  audioView: {fileID: 880175334}
   background: {fileID: 1612667122}
   tileMap: {fileID: 6781940958105513177}
   tiles:
@@ -438,6 +421,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1af99cfb2b7dadf47834c835c43840bf, type: 2}
   - {fileID: 11400000, guid: 5c87c6fe061d4a243a50925120a81974, type: 2}
   - {fileID: 11400000, guid: 3093762848540df4fa8a7095656a40e5, type: 2}
+  backgroundMusic: {fileID: 1120832207}
+  swipeSound: {fileID: 1993766556}
 --- !u!4 &1222849954
 Transform:
   m_ObjectHideFlags: 0
@@ -492,7 +477,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b3d4bbf294d7e14479f22606c6532a15, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

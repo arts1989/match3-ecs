@@ -19,6 +19,7 @@ namespace Match3
         public bool waterfallSpawnEnable;
         public Sprite background;
         public AudioClip backgroundAudioClip;
+        public AudioClip swipeSound;
 
         public bool enableSpawn = true;
         /*

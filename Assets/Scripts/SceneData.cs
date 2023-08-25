@@ -14,5 +14,7 @@ namespace Match3
         public Tilemap tileMap;
         public List<Tile> tiles = new List<Tile>();
         public AudioSource backgroundMusic;
+        public AudioSource swipeSound;
+
     }
 }
