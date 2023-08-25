@@ -1,5 +1,4 @@
 ﻿using Leopotam.Ecs;
-using System.Collections;
 using UnityEngine;
 
 namespace Match3
@@ -10,9 +9,10 @@ namespace Match3
         private GameState _gameState;
         public void Init()
         {
-           
-            var backgroundAudioClip =  _gameState.backgroundAudio; 
-             backgroundAudioClip = _sceneData.audioView.backgroundAudio.GetComponent<AudioClip>();
+            var obj = _gameState.backgroundAudioClip;
+           _sceneData.backgroundMusic.clip = obj;
+            _sceneData.backgroundMusic.Play();
+            _sceneData.backgroundMusic.loop = true;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Match3
 
             _gameState.waterfallSpawnEnable = _configuration.levels[level].waterfallSpawnEnable; 
             _gameState.background = levelConfig.background;
-            _gameState.backgroundAudio = levelConfig.backgroundSound;
+            _gameState.backgroundAudioClip = levelConfig.backgroundSound;
 
         }
     }
