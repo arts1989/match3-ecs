@@ -40,8 +40,16 @@ namespace Match3
                     }
                     else
                     {
-                        _filter.GetEntity(index).Get<Spawn>();
-                        _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
+                        if (_gameState.waterfallSpawnEnable) //waterfall
+                        {
+                            _filter.GetEntity(index).Get<Waterfall>();
+                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
+                        }
+                        else
+                        {
+                            _filter.GetEntity(index).Get<Spawn>();
+                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
+                        }
                     }
                 }
             }
