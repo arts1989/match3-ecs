@@ -25,31 +25,15 @@ namespace Match3
                     var explosion = Object.Instantiate(_configuration.deathVFX, linkToObject.transform.position, linkToObject.transform.rotation);
                     Object.Destroy(explosion, _configuration.durationOfExplosion);
 
-                    if (spawnType == BlockTypes.Default)
+                    if (_gameState.waterfallSpawnEnable) //waterfall
                     {
-                        if(_gameState.waterfallSpawnEnable) //waterfall
-                        {
-                            _filter.GetEntity(index).Get<Waterfall>();
-                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
-                        }
-                        else 
-                        {
-                            _filter.GetEntity(index).Get<Spawn>();
-                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
-                        }
+                        _filter.GetEntity(index).Get<Waterfall>();
+                        _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
                     }
                     else
                     {
-                        if (_gameState.waterfallSpawnEnable) //waterfall
-                        {
-                            _filter.GetEntity(index).Get<Waterfall>();
-                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
-                        }
-                        else
-                        {
-                            _filter.GetEntity(index).Get<Spawn>();
-                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
-                        }
+                        _filter.GetEntity(index).Get<Spawn>();
+                        _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
                     }
                 }
             }

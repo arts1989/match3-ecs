@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52dafeef091367c4b94fbb1d5375af0f, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
-  PointsToWin: 1000
+  PointsToWin: 100
   Columns: 7
   Rows: 7
   waterfallSpawnEnable: 1
