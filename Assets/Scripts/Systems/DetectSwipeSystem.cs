@@ -7,6 +7,8 @@ namespace Match3
     internal partial class DetectSwipeSystem : IEcsRunSystem
     {
         private SceneData _sceneData;
+        private GameState _gameState;
+
 
         private Vector3 _swipeStartPos;
         private Vector3 _swipeEndPos;
@@ -36,6 +38,9 @@ namespace Match3
                         _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
                         _swipeStartTime = Time.time;
                     }
+                    var swipeSound = _gameState.swipeSound;
+                    _sceneData.swipeSound.Play();
+
                 }
             }
             else if(Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())

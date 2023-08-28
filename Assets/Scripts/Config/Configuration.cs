@@ -20,6 +20,7 @@ namespace Match3
         public List<Booster> UIBoosters = new List<Booster>();
 
         public List<Underlay> underlays = new List<Underlay>();
+        public AudioConfig audioConfig;
 
         public Vector2 offset;
 

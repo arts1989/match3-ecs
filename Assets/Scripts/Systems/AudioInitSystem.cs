@@ -1,4 +1,7 @@
 ﻿using Leopotam.Ecs;
+using UnityEditor.PackageManager;
+using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Match3
 {
@@ -14,9 +17,6 @@ namespace Match3
             _sceneData.backgroundMusic.clip = backgroundMusic;
             _sceneData.backgroundMusic.Play();
             _sceneData.backgroundMusic.loop = true;
-
-            //var swipeSound = 
-            //_entityClicked.Get<CheckMoveEvent>()
 
         }
     }

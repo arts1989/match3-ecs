@@ -20,6 +20,7 @@ namespace Match3
         public Sprite background;
         public AudioClip backgroundAudioClip;
         public AudioClip swipeSound;
+        public AudioClip destroyBlockSound;
 
         public bool enableSpawn = true;
         /*
