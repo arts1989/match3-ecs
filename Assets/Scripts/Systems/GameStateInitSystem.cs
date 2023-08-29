@@ -28,6 +28,7 @@ namespace Match3
             _gameState.background = levelConfig.background;
             _gameState.backgroundAudioClip = levelConfig.backgroundSound;
             _gameState.swipeSound = audioConfig.swipeSound;
+            _gameState.destroyBlockSound = audioConfig.destroyBlockSound;
 
         }
     }

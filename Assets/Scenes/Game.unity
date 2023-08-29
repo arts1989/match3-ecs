@@ -302,7 +302,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 200
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -423,6 +423,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3093762848540df4fa8a7095656a40e5, type: 2}
   backgroundMusic: {fileID: 1120832207}
   swipeSound: {fileID: 1993766556}
+  destroyBlockSound: {fileID: 1699561446}
 --- !u!4 &1222849954
 Transform:
   m_ObjectHideFlags: 0
@@ -484,7 +485,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 33
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -741,7 +742,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 200
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

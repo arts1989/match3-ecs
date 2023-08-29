@@ -16,6 +16,7 @@ namespace Match3
             var backgroundMusic = _gameState.backgroundAudioClip;
             _sceneData.backgroundMusic.clip = backgroundMusic;
             _sceneData.backgroundMusic.Play();
+            _sceneData.backgroundMusic.volume = 0.2f;
             _sceneData.backgroundMusic.loop = true;
 
         }
