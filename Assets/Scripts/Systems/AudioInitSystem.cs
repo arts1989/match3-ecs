@@ -9,6 +9,7 @@ namespace Match3
     {
         private SceneData _sceneData;
         private GameState _gameState;
+        private EcsEntity _entityClicked;
 
         public void Init()
         {
