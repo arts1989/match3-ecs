@@ -36,11 +36,13 @@ namespace Match3
                 .Add(new CameraInitSystem()) // устанавливаем камеру над полем
                 .Add(new BackgroundInitSystem())
                 .Add(new AudioInitSystem())
+                .Add(new AudioRunSystem())
                 .Add(new HandleBoosterSystem())
                 .Add(new DetectSwipeSystem())  //пользователь передвигает
                 .Add(new CheckMoveSystem()) //проверка можно ли передвинуть
                 .Add(new MoveSystem()) // меняет местами
                 .Add(new CheckMatchSystem())
+                
                 .Add(new ClearUnderlaySystem())
                 .Add(new CheckNearbyObstaclesSystem())
                 .Add(new UpdatePointsSystem())
