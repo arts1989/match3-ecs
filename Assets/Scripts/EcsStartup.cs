@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Match3
 {
-    sealed partial class EcsStartup : MonoBehaviour {
+    sealed partial class EcsStartup : MonoBehaviour
+    {
         EcsWorld _world;
         EcsSystems _systems;
 
@@ -11,41 +12,43 @@ namespace Match3
 
         public Configuration configuration;
         public SceneData sceneData;
-        
-        void Start () {
+
+        void Start()
+        {
             // void can be switched to IEnumerator for support coroutines.
 
             //load managers 
             var saveManager = new SaveManager();
             var gameState = new GameState();
 
-            _world = new EcsWorld ();
-            _systems = new EcsSystems (_world);
+            _world = new EcsWorld();
+            _systems = new EcsSystems(_world);
 #if UNITY_EDITOR
-            Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create (_world);
-            Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create (_systems);
+            Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
+            Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
 #endif
             _systems
                 // register your sys tems here, for example:
-                .Add (new GameStateInitSystem())
-                .Add (new TilemapInitSystem()) // подложка доски
-                .Add (new BoardInitSystem()) // спавним ентити, спавним префабы (связанные с энтити)
-                .Add (new BoosterInitSystem())
-                .Add (new CameraInitSystem()) // устанавливаем камеру над полем
-                .Add (new BackgroundInitSystem())
-                .Add (new HandleBoosterSystem()) 
-                .Add (new DetectSwipeSystem())  //пользователь передвигает
-                .Add (new CheckMoveSystem ()) //проверка можно ли передвинуть
-                .Add (new MoveSystem()) // меняет местами
-                .Add (new CheckMatchSystem())
-                .Add (new ClearUnderlaySystem())
-                .Add (new CheckNearbyObstaclesSystem())
-                .Add (new UpdatePointsSystem ())
-                .Add (new DestroySystem())
-                .Add (new WaterfallSystem ())
-                .Add (new SpawnSystem())
-                .Add (new CheckWinSystem ()) // проверка что есть ентити с WinEvent 
-                .Add (new CheckLoseSystem()) // проверка что есть ентити с LoseEvent 
+                .Add(new GameStateInitSystem())
+                .Add(new TilemapInitSystem()) // ГЇГ®Г¤Г«Г®Г¦ГЄГ  Г¤Г®Г±ГЄГЁ
+                .Add(new BoardInitSystem()) // Г±ГЇГ ГўГ­ГЁГ¬ ГҐГ­ГІГЁГІГЁ, Г±ГЇГ ГўГ­ГЁГ¬ ГЇГ°ГҐГґГ ГЎГ» (Г±ГўГїГ§Г Г­Г­Г»ГҐ Г± ГЅГ­ГІГЁГІГЁ)
+                .Add(new BoosterInitSystem())
+                .Add(new CameraInitSystem()) // ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ ГЄГ Г¬ГҐГ°Гі Г­Г Г¤ ГЇГ®Г«ГҐГ¬
+                .Add(new BackgroundInitSystem())
+                .Add(new AudioInitSystem())
+                .Add(new HandleBoosterSystem())
+                .Add(new DetectSwipeSystem())  //ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј ГЇГҐГ°ГҐГ¤ГўГЁГЈГ ГҐГІ
+                .Add(new CheckMoveSystem()) //ГЇГ°Г®ГўГҐГ°ГЄГ  Г¬Г®Г¦Г­Г® Г«ГЁ ГЇГҐГ°ГҐГ¤ГўГЁГ­ГіГІГј
+                .Add(new MoveSystem()) // Г¬ГҐГ­ГїГҐГІ Г¬ГҐГ±ГІГ Г¬ГЁ
+                .Add(new CheckMatchSystem())
+                .Add(new ClearUnderlaySystem())
+                .Add(new CheckNearbyObstaclesSystem())
+                .Add(new UpdatePointsSystem())
+                .Add(new DestroySystem())
+                .Add(new WaterfallSystem())
+                .Add(new SpawnSystem())
+                .Add(new CheckWinSystem()) // ГЇГ°Г®ГўГҐГ°ГЄГ  Г·ГІГ® ГҐГ±ГІГј ГҐГ­ГІГЁГІГЁ Г± WinEvent 
+                .Add(new CheckLoseSystem()) // ГЇГ°Г®ГўГҐГ°ГЄГ  Г·ГІГ® ГҐГ±ГІГј ГҐГ­ГІГЁГІГЁ Г± LoseEvent 
 
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
@@ -55,25 +58,28 @@ namespace Match3
                 .OneFrame<DestroyEvent>()
                 .OneFrame<LoseEvent>()
                 .OneFrame<WinEvent>()
-                             
+
                 // inject service instances here (order doesn't important), for example:
-                .Inject (configuration)
-                .Inject (saveManager)
-                .Inject (gameState)
-                .Inject (sceneData)
+                .Inject(configuration)
+                .Inject(saveManager)
+                .Inject(gameState)
+                .Inject(sceneData)
                 //.InjectUi(_uiEmitter)
-                .Init ();
+                .Init();
         }
 
-        void Update () { 
-            _systems?.Run ();
+        void Update()
+        {
+            _systems?.Run();
         }
 
-        void OnDestroy () {
-            if (_systems != null) {
-                _systems.Destroy ();
+        void OnDestroy()
+        {
+            if (_systems != null)
+            {
+                _systems.Destroy();
                 _systems = null;
-                _world.Destroy ();
+                _world.Destroy();
                 _world = null;
             }
         }
