@@ -13,6 +13,7 @@ namespace Match3
         public void Init() 
         {
             var board = _gameState.Board;
+            _world.spawnBlocksParent();
 
             for (int x = 0; x < _gameState.Columns; x++)
             {
@@ -33,7 +34,6 @@ namespace Match3
                     var obj = _world.spawnGameObject( 
                         position,
                         entity,
-                        _configuration.blocks[randomNum].prefab,
                         _configuration.blocks[randomNum].sprites[0]
                     );
 
@@ -63,7 +63,6 @@ namespace Match3
                 var obj = _world.spawnGameObject(
                     position,
                     entity,
-                    _configuration.obstacles[0].prefab,
                     _configuration.obstacles[0].sprites[0]
                 );
 

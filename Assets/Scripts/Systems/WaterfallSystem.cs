@@ -1,52 +1,94 @@
 using DG.Tweening;
 using Leopotam.Ecs;
 using UnityEngine;
-
+using System.Collections.Generic;
 
 namespace Match3
 {
     internal class WaterfallSystem : IEcsRunSystem
     {
-        private EcsFilter<WaterfallEvent, Position> _filter;
+        private EcsFilter<Waterfall, Position> _filter;
         private GameState _gameState;
-        public void Run()
+        public  void Run()
         {
             if (!_filter.IsEmpty())
             {
                 var board = _gameState.Board;
                 var sequence = DOTween.Sequence();
+                var waterfallLines = new List<int>();      
 
                 foreach (int index in _filter)
                 {
                     ref var position = ref _filter.Get2(index).value;
 
-                    var checkPos = position + Vector2Int.up;
-                    var currentEntity = _filter.GetEntity(index); 
-                    
-                    while (board.TryGetValue(checkPos, out var entity))
+                    if(!waterfallLines.Contains(position.x))
                     {
-                        if(!entity.Has<WaterfallEvent>()) { 
+                        waterfallLines.Add(position.x);
+                    }
+                }
 
-                            var checkPosition = entity.Get<Position>().value;
-                            var currentPosition = currentEntity.Get<Position>().value;
+                var entityInColum = new Dictionary<int, List<EcsEntity>>(); 
+                
+                foreach(int x in waterfallLines) 
+                {
+                    var startPos = new Vector2Int(x, 0);
+                    var entities = new List<EcsEntity>();
 
-                            entity.Get<Position>().value = currentPosition;
-                            currentEntity.Get<Position>().value = checkPosition;
-
-                            var obj = entity.Get<LinkToObject>().value;
-                            var objPos = new Vector3(currentPosition.x, currentPosition.y);
-
-                            sequence.Insert(0, obj.transform.DOMove(objPos, .5f));
-
-                            board[checkPosition] = currentEntity; //позиция сверху меняем на текущую 
-                            board[currentPosition] = entity;
-                        }
-
-                        checkPos += Vector2Int.up;
+                    while (board.TryGetValue(startPos, out var entity))
+                    {
+                        entities.Add(entity);
+                        startPos += Vector2Int.up;
                     }
 
-                    currentEntity.Del<WaterfallEvent>();
-                    currentEntity.Get<Spawn>();
+                    entityInColum.Add(x, entities);
+                }
+
+                foreach (var item in entityInColum)
+                {
+                    var colums = 0;
+
+                    foreach (var entity in item.Value)
+                    {
+                        if (!entity.Has<Waterfall>())
+                        {
+                            var row = item.Value;
+                            var coord = new Vector2Int(item.Key, colums);
+
+                            ref var position = ref entity.Get<Position>().value;
+                            position = coord;
+
+                            ref var obj = ref entity.Get<LinkToObject>().value;
+                            //obj.transform.position = new Vector3(coord.x, coord.y);
+
+                            sequence.Insert(0, obj.transform.DOMove(new Vector3(coord.x, coord.y), .5f));
+
+                            board[coord] = entity;
+                            colums++;
+                        }
+                    }
+                }
+
+                foreach (var item in entityInColum)
+                {
+                    var colums = _gameState.Columns - 1;
+
+                    foreach (var entity in item.Value) 
+                    {
+                        if (entity.Has<Waterfall>())
+                        {
+                            var row = item.Value;
+                            var coord = new Vector2Int(item.Key, colums);
+
+                            ref var position = ref entity.Get<Position>().value;
+                            position = coord;
+
+                            board[coord] = entity;
+                            colums--;
+
+                            entity.Del<Waterfall>();
+                            entity.Get<Spawn>();
+                        }
+                    }
                 }
 
                 _gameState.enableSpawn = false;

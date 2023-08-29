@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   PointsToWin: 1000
-  Columns: 8
-  Rows: 8
+  Columns: 7
+  Rows: 7
   waterfallSpawnEnable: 1
   MovesAvailable: 500
   ObstacleCount: 5

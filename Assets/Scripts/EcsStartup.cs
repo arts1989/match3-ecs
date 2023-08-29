@@ -30,16 +30,16 @@ namespace Match3
             _systems
                 // register your sys tems here, for example:
                 .Add(new GameStateInitSystem())
-                .Add(new TilemapInitSystem()) // подложка доски
-                .Add(new BoardInitSystem()) // спавним ентити, спавним префабы (связанные с энтити)
+                .Add(new TilemapInitSystem()) // ГЇГ®Г¤Г«Г®Г¦ГЄГ  Г¤Г®Г±ГЄГЁ
+                .Add(new BoardInitSystem()) // Г±ГЇГ ГўГ­ГЁГ¬ ГҐГ­ГІГЁГІГЁ, Г±ГЇГ ГўГ­ГЁГ¬ ГЇГ°ГҐГґГ ГЎГ» (Г±ГўГїГ§Г Г­Г­Г»ГҐ Г± ГЅГ­ГІГЁГІГЁ)
                 .Add(new BoosterInitSystem())
-                .Add(new CameraInitSystem()) // устанавливаем камеру над полем
+                .Add(new CameraInitSystem()) // ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ ГЄГ Г¬ГҐГ°Гі Г­Г Г¤ ГЇГ®Г«ГҐГ¬
                 .Add(new BackgroundInitSystem())
                 .Add(new AudioInitSystem())
                 .Add(new HandleBoosterSystem())
-                .Add(new DetectSwipeSystem())  //пользователь передвигает
-                .Add(new CheckMoveSystem()) //проверка можно ли передвинуть
-                .Add(new MoveSystem()) // меняет местами
+                .Add(new DetectSwipeSystem())  //ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј ГЇГҐГ°ГҐГ¤ГўГЁГЈГ ГҐГІ
+                .Add(new CheckMoveSystem()) //ГЇГ°Г®ГўГҐГ°ГЄГ  Г¬Г®Г¦Г­Г® Г«ГЁ ГЇГҐГ°ГҐГ¤ГўГЁГ­ГіГІГј
+                .Add(new MoveSystem()) // Г¬ГҐГ­ГїГҐГІ Г¬ГҐГ±ГІГ Г¬ГЁ
                 .Add(new CheckMatchSystem())
                 .Add(new ClearUnderlaySystem())
                 .Add(new CheckNearbyObstaclesSystem())
@@ -47,8 +47,8 @@ namespace Match3
                 .Add(new DestroySystem())
                 .Add(new WaterfallSystem())
                 .Add(new SpawnSystem())
-                .Add(new CheckWinSystem()) // проверка что есть ентити с WinEvent 
-                .Add(new CheckLoseSystem()) // проверка что есть ентити с LoseEvent 
+                .Add(new CheckWinSystem()) // ГЇГ°Г®ГўГҐГ°ГЄГ  Г·ГІГ® ГҐГ±ГІГј ГҐГ­ГІГЁГІГЁ Г± WinEvent 
+                .Add(new CheckLoseSystem()) // ГЇГ°Г®ГўГҐГ°ГЄГ  Г·ГІГ® ГҐГ±ГІГј ГҐГ­ГІГЁГІГЁ Г± LoseEvent 
 
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
