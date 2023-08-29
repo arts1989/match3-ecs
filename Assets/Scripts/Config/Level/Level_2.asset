@@ -42,3 +42,4 @@ MonoBehaviour:
   - _key: {x: 0, y: 0}
     _value: 0
   underlaysProperties: []
+  backgroundSound: {fileID: 8300000, guid: ea079a66462064e48bbeca7aa91a078d, type: 3}
