@@ -13,23 +13,23 @@ namespace Match3
             var level = _saveManager.GetData().Level;
             var levelConfig = _configuration.levels[level];
             var audioConfig = _configuration.audioConfig;
+            var gameState = _gameState;
 
-            _gameState.currentLevel = level;
-            _gameState.MovesAvaliable = _configuration.levels[level].MovesAvailable;
-            _gameState.Rows = levelConfig.Rows;
-            _gameState.Columns = levelConfig.Columns;
-            _gameState.ObstacleCount = levelConfig.ObstacleCount;
-            _gameState.UnderlayCount = levelConfig.UnderlayCount;
+            gameState.currentLevel = level;
+            gameState.MovesAvaliable = _configuration.levels[level].MovesAvailable;
+            gameState.Rows = levelConfig.Rows;
+            gameState.Columns = levelConfig.Columns;
+            gameState.ObstacleCount = levelConfig.ObstacleCount;
+            gameState.UnderlayCount = levelConfig.UnderlayCount;
 
-            _gameState.PointsToWin = _configuration.levels[level].PointsToWin;
-            _gameState.PointsScored = 0;
+            gameState.PointsToWin = _configuration.levels[level].PointsToWin;
+            gameState.PointsScored = 0;
 
-            _gameState.waterfallSpawnEnable = _configuration.levels[level].waterfallSpawnEnable; 
-            _gameState.background = levelConfig.background;
-            _gameState.backgroundAudioClip = levelConfig.backgroundSound;
-            _gameState.swipeSound = audioConfig.swipeSound;
-            _gameState.destroyBlockSound = audioConfig.destroyBlockSound;
-
+            gameState.waterfallSpawnEnable = _configuration.levels[level].waterfallSpawnEnable;
+            gameState.background = levelConfig.background;
+            gameState.backgroundAudioClip = levelConfig.backgroundSound;
+            gameState.swipeSound = audioConfig.swipeSound;
+            gameState.destroyBlockSound = audioConfig.destroyBlockSound;
         }
     }
 } 

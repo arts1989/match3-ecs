@@ -7,8 +7,6 @@ namespace Match3
     internal partial class DetectSwipeSystem : IEcsRunSystem
     {
         private SceneData _sceneData;
-        private GameState _gameState;
-
 
         private Vector3 _swipeStartPos;
         private Vector3 _swipeEndPos;
@@ -38,8 +36,6 @@ namespace Match3
                         _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
                         _swipeStartTime = Time.time;
                     }
-
-
                 }
             }
             else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -65,8 +61,6 @@ namespace Match3
                             _entityClicked.Get<CheckMoveEvent>().direction = _swipeVector;
                             
                         }
-
-
                     }
                 }
             }

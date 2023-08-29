@@ -30,16 +30,16 @@ namespace Match3
             _systems
                 // register your sys tems here, for example:
                 .Add(new GameStateInitSystem())
-                .Add(new TilemapInitSystem()) // ïîäëîæêà äîñêè
-                .Add(new BoardInitSystem()) // ñïàâíèì åíòèòè, ñïàâíèì ïðåôàáû (ñâÿçàííûå ñ ýíòèòè)
+                .Add(new TilemapInitSystem())
+                .Add(new BoardInitSystem())
                 .Add(new BoosterInitSystem())
-                .Add(new CameraInitSystem()) // óñòàíàâëèâàåì êàìåðó íàä ïîëåì
+                .Add(new CameraInitSystem())
                 .Add(new BackgroundInitSystem())
                 .Add(new AudioInitSystem())
                 .Add(new HandleBoosterSystem())
-                .Add(new DetectSwipeSystem())  //ïîëüçîâàòåëü ïåðåäâèãàåò
-                .Add(new CheckMoveSystem()) //ïðîâåðêà ìîæíî ëè ïåðåäâèíóòü
-                .Add(new MoveSystem()) // ìåíÿåò ìåñòàìè
+                .Add(new DetectSwipeSystem())
+                .Add(new CheckMoveSystem())
+                .Add(new MoveSystem())
                 .Add(new CheckMatchSystem())
                 .Add(new ClearUnderlaySystem())
                 .Add(new CheckNearbyObstaclesSystem())
@@ -47,8 +47,9 @@ namespace Match3
                 .Add(new DestroySystem())
                 .Add(new WaterfallSystem())
                 .Add(new SpawnSystem())
-                .Add(new CheckWinSystem()) // ïðîâåðêà ÷òî åñòü åíòèòè ñ WinEvent 
-                .Add(new CheckLoseSystem()) // ïðîâåðêà ÷òî åñòü åíòèòè ñ LoseEvent 
+                .Add(new AudioPlaySystem())
+                .Add(new CheckWinSystem())
+                .Add(new CheckLoseSystem()) 
 
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
@@ -58,6 +59,7 @@ namespace Match3
                 .OneFrame<DestroyEvent>()
                 .OneFrame<LoseEvent>()
                 .OneFrame<WinEvent>()
+                .OneFrame<SpawnEvent>()
 
                 // inject service instances here (order doesn't important), for example:
                 .Inject(configuration)

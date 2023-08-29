@@ -14,8 +14,6 @@ namespace Match3
         {
             if (!_filter.IsEmpty())
             {
-                var board = _gameState.Board;
-
                 foreach (int index in _filter)
                 {
                     ref var spawnType    = ref _filter.Get2(index).value;
@@ -25,10 +23,7 @@ namespace Match3
 
                     var explosion = Object.Instantiate(_configuration.deathVFX, linkToObject.transform.position, linkToObject.transform.rotation);
                     Object.Destroy(explosion, _configuration.durationOfExplosion);
-                    var destroySound = _gameState.destroyBlockSound;
-                    _sceneData.destroyBlockSound.Play();
-                    _sceneData.destroyBlockSound.volume = 1f;
-
+                    
                     if (_gameState.waterfallSpawnEnable) //waterfall
                     {
                         _filter.GetEntity(index).Get<Waterfall>();

@@ -47,6 +47,9 @@ namespace Match3
 
                         _filter.GetEntity(index).Del<SpawnType>();
                         _filter.GetEntity(index).Del<Spawn>();
+
+                        if(_gameState.waterfallSpawnEnable)  
+                            _filter.GetEntity(index).Get<SpawnEvent>();
                     }
                     else if(_gameState.enableSpawn)
                     {
@@ -69,6 +72,9 @@ namespace Match3
 
                                 _filter.GetEntity(index).Del<SpawnType>();
                                 _filter.GetEntity(index).Del<Spawn>();
+
+                                if (_gameState.waterfallSpawnEnable)
+                                    _filter.GetEntity(index).Get<SpawnEvent>();
                             }
                         }
                     }

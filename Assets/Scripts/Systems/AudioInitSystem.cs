@@ -1,7 +1,4 @@
 ﻿using Leopotam.Ecs;
-using UnityEditor.PackageManager;
-using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Match3
 {
@@ -9,7 +6,6 @@ namespace Match3
     {
         private SceneData _sceneData;
         private GameState _gameState;
-        private EcsEntity _entityClicked;
 
         public void Init()
         {
@@ -18,7 +14,6 @@ namespace Match3
             _sceneData.backgroundMusic.Play();
             _sceneData.backgroundMusic.volume = 0.2f;
             _sceneData.backgroundMusic.loop = true;
-
         }
     }
 }
