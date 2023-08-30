@@ -41,6 +41,9 @@ TagManager:
   - name: Background
     uniqueID: 2784731949
     locked: 0
+  - name: Board
+    uniqueID: 2083374537
+    locked: 0
   - name: Blocks
     uniqueID: 2740783337
     locked: 0

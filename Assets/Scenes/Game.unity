@@ -1274,7 +1274,7 @@ GameObject:
   - component: {fileID: 730912117928786359}
   - component: {fileID: 6711477799372235315}
   - component: {fileID: 1387237666041844035}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BoosterWidget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2168,8 +2168,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1169629395
-  m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
