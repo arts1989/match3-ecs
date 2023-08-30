@@ -305,7 +305,6 @@ namespace Match3
             return (matchCoords, boosterTypeToSpawnOnCurrentPosition);
         }
 
-
         public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int swipeDirection) 
         {
             if(!board.ContainsKey(position + swipeDirection)) // свайп за пределы доски
