@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Board
-  - UIBoosters
+  - 
   - 
   - 
   - 
@@ -41,7 +41,7 @@ TagManager:
   - name: Background
     uniqueID: 2784731949
     locked: 0
-  - name: Blocks
+  - name: Board
     uniqueID: 2740783337
     locked: 0
   - name: Default
@@ -50,6 +50,6 @@ TagManager:
   - name: UI
     uniqueID: 3710986603
     locked: 0
-  - name: UIBoosters
+  - name: 
     uniqueID: 4172380923
     locked: 0
