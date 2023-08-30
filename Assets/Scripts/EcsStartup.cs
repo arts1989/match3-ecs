@@ -35,7 +35,6 @@ namespace Match3
                 .Add(new BoosterInitSystem())
                 .Add(new CameraInitSystem())
                 .Add(new BackgroundInitSystem())
-                .Add(new AudioInitSystem())
                 .Add(new HandleBoosterSystem())
                 .Add(new DetectSwipeSystem())
                 .Add(new CheckMoveSystem())
