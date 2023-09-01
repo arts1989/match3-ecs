@@ -27,6 +27,7 @@ namespace Match3
                 } 
                 else
                 {
+                    board[position].Get<MoveBlockedEvent>();
                     Debug.Log("Движение запрещено");
                 }
             }

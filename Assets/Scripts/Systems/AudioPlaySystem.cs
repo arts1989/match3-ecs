@@ -1,5 +1,4 @@
 ﻿using Leopotam.Ecs;
-using UnityEngine;
 
 namespace Match3
 {
@@ -8,6 +7,7 @@ namespace Match3
         private EcsFilter<MoveEvent> _moveEvent;
         private EcsFilter<DestroyEvent> _destroyEvent;
         private EcsFilter<SpawnEvent> _spawnEvent;
+        private EcsFilter<MoveBlockedEvent> _moveBlockedEvent;
 
         private SceneData _sceneData;
         private GameState _gameState;
@@ -25,29 +25,25 @@ namespace Match3
         {
             if (!_moveEvent.IsEmpty())
             {
-                var blocksAudio = _sceneData.blocksAudio.GetComponent<AudioSource>();
-                blocksAudio.clip = _gameState.swipeSound;
-
-                blocksAudio.volume = 0.5f;
-                blocksAudio.Play();
+                _sceneData.swipeSound.Play();
+                _sceneData.swipeSound.volume = 0.5f;
             }
 
             if (!_destroyEvent.IsEmpty())
             {
-                var blocksAudio = _sceneData.blocksAudio.GetComponent<AudioSource>();
-                blocksAudio.clip = _gameState.destroySound;
-
-                blocksAudio.volume = 0.5f;
-                blocksAudio.Play();
+                _sceneData.destroyBlockSound.Play();
+                _sceneData.destroyBlockSound.volume = 1f;
             }
 
             if (!_spawnEvent.IsEmpty())
             {
-                var blocksAudio = _sceneData.blocksAudio.GetComponent<AudioSource>();
-                blocksAudio.clip = _gameState.spawnSound;
-
-                blocksAudio.volume = 0.5f;
-                blocksAudio.Play();
+                _sceneData.spawnEventSound.Play();
+                _sceneData.spawnEventSound.volume = 1f;
+            }
+            if(!_moveBlockedEvent.IsEmpty())
+            {
+                _sceneData.denyMoveSound.Play();
+                _sceneData.denyMoveSound.volume = 1f;
             }
         }
     }
