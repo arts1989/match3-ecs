@@ -13,9 +13,14 @@ namespace Match3
         public Image background;
         public Tilemap tileMap;
         public List<Tile> tiles = new List<Tile>();
+        [Header("AudioSources")]
         public AudioSource backgroundMusic;
         public AudioSource swipeSound;
         public AudioSource destroyBlockSound;
+        public AudioSource spawnEventSound;
+        public AudioSource denyMoveSound;
+
+       // public AnimationClip animationClip;
 
     }
 }

@@ -8,6 +8,7 @@ namespace Match3
     {
         public AudioClip swipeSound;
         public AudioClip destroyBlockSound;
+        public AudioClip spawnEventSound;
         
     }
 }
