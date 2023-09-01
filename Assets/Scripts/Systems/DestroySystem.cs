@@ -7,14 +7,13 @@ namespace Match3
     {
         private EcsFilter<DestroyEvent, SpawnType, LinkToObject> _filter;
         private GameState _gameState;
+        private SceneData _sceneData;
         private Configuration _configuration;
 
         public void Run()
         {
             if (!_filter.IsEmpty())
             {
-                var board = _gameState.Board;
-
                 foreach (int index in _filter)
                 {
                     ref var spawnType    = ref _filter.Get2(index).value;
@@ -24,19 +23,11 @@ namespace Match3
 
                     var explosion = Object.Instantiate(_configuration.deathVFX, linkToObject.transform.position, linkToObject.transform.rotation);
                     Object.Destroy(explosion, _configuration.durationOfExplosion);
-
-                    if (spawnType == BlockTypes.Default)
+                    
+                    if (_gameState.waterfallSpawnEnable) //waterfall
                     {
-                        if(_gameState.waterfallSpawnEnable) //waterfall
-                        {
-                            _filter.GetEntity(index).Get<WaterfallEvent>();
-                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
-                        }
-                        else 
-                        {
-                            _filter.GetEntity(index).Get<Spawn>();
-                            _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
-                        }
+                        _filter.GetEntity(index).Get<Waterfall>();
+                        _filter.GetEntity(index).Get<SpawnType>().value = spawnType;
                     }
                     else
                     {

@@ -66,7 +66,6 @@ namespace Match3
                             obj = _world.spawnGameObject(
                                 obstacleCoord,
                                 entity,
-                                _configuration.blocks[randomNum].prefab,
                                 _configuration.blocks[randomNum].sprites[0]
                             );
 

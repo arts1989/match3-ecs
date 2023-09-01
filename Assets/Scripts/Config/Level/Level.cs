@@ -17,9 +17,14 @@ namespace Match3
 
 		public int ObstacleCount = 0;
 		public int UnderlayCount = 0;
+		public Sprite background;
 
 		[Header("Board properties")]
 		public List<SerializeItem<Vector2Int,BlockTypes>> blocksProperties;
 		public List<SerializeItem<Vector3Int,UnderlayTypes>> underlaysProperties;
-	}	
+
+		[Header("BackgroundSound")]
+		public AudioClip backgroundSound;
+
+	}
 }

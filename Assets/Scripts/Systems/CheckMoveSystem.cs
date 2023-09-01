@@ -7,6 +7,7 @@ namespace Match3
     {
         private EcsFilter<CheckMoveEvent, Position> _filter;
         private GameState _gameState;
+        private SceneData _sceneData;
 
         public void Run()
         {
@@ -23,7 +24,8 @@ namespace Match3
                 {
                     board[position].Get<MoveEvent>();
                     board[position + direction].Get<MoveEvent>();
-                } else
+                } 
+                else
                 {
                     Debug.Log("Движение запрещено");
                 }

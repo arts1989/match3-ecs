@@ -35,7 +35,6 @@ namespace Match3
                         var obj = _world.spawnGameObject(
                             position,
                             _filter.GetEntity(index),
-                            _configuration.blocks[randomNum].prefab,
                             _configuration.blocks[randomNum].sprites[0]
                         );
 
@@ -48,8 +47,11 @@ namespace Match3
 
                         _filter.GetEntity(index).Del<SpawnType>();
                         _filter.GetEntity(index).Del<Spawn>();
+
+                        if(_gameState.waterfallSpawnEnable)  
+                            _filter.GetEntity(index).Get<SpawnEvent>();
                     }
-                    else
+                    else if(_gameState.enableSpawn)
                     {
                         foreach(var booster in _configuration.boosters) 
                         {
@@ -58,7 +60,6 @@ namespace Match3
                                 var obj = _world.spawnGameObject(
                                     position,
                                     _filter.GetEntity(index),
-                                    booster.prefab,
                                     booster.sprites[0]
                                 );
 
@@ -71,11 +72,14 @@ namespace Match3
 
                                 _filter.GetEntity(index).Del<SpawnType>();
                                 _filter.GetEntity(index).Del<Spawn>();
+
+                                if (_gameState.waterfallSpawnEnable)
+                                    _filter.GetEntity(index).Get<SpawnEvent>();
                             }
                         }
                     }
                 }
-            }
+            } 
         }
     }
 }

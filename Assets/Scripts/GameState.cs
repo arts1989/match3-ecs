@@ -17,7 +17,10 @@ namespace Match3
         public int ObstacleCount;
         public int UnderlayCount;
         public bool waterfallSpawnEnable;
-
+        public Sprite background;
+        public AudioClip backgroundAudioClip;
+        public AudioClip swipeSound;
+        public AudioClip destroyBlockSound;
 
         public bool enableSpawn = true;
         /*

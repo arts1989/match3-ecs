@@ -21,7 +21,7 @@ namespace Match3
                 obj.AddComponent<UIBooster>();
 
                 var rectTransform = obj.GetComponent<RectTransform>();
-                rectTransform.sizeDelta = new Vector2(40f, 40f);
+                rectTransform.sizeDelta = new Vector2(1f, 1f);
                 rectTransform.localPosition = new Vector2(offsetX, 0);
 
                 entity.Get<LinkToObject>().value = obj;

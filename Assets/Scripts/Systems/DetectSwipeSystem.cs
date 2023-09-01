@@ -10,7 +10,7 @@ namespace Match3
 
         private Vector3 _swipeStartPos;
         private Vector3 _swipeEndPos;
-        
+
         private float _swipeStartTime;
         private float _swipeEndTime;
 
@@ -27,10 +27,10 @@ namespace Match3
             {
                 var camera = _sceneData.Camera;
                 var ray = camera.ScreenPointToRay(Input.mousePosition);
-                if(Physics.Raycast(ray, out var hitInfo))
+                if (Physics.Raycast(ray, out var hitInfo))
                 {
                     var entity = hitInfo.collider.GetComponent<LinkToEntity>();
-                    if(entity)
+                    if (entity)
                     {
                         _entityClicked = entity.entity;
                         _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
@@ -38,9 +38,10 @@ namespace Match3
                     }
                 }
             }
-            else if(Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+            else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                if(!_entityClicked.IsNull()) {
+                if (!_entityClicked.IsNull())
+                {
                     _swipeEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     _swipeEndTime = Time.time * Time.deltaTime;
 
@@ -52,11 +53,14 @@ namespace Match3
                         _swipeVector = (Vector2.Dot(Vector2.up, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.up
                             : (Vector2.Dot(Vector2.down, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.down
                             : (Vector2.Dot(Vector2.left, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.left
-                            : (Vector2.Dot(Vector2.right, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.right 
+                            : (Vector2.Dot(Vector2.right, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.right
                             : Vector2Int.zero;
 
-                        if(_swipeVector != Vector2Int.zero)
+                        if (_swipeVector != Vector2Int.zero)
+                        {
                             _entityClicked.Get<CheckMoveEvent>().direction = _swipeVector;
+                            
+                        }
                     }
                 }
             }
