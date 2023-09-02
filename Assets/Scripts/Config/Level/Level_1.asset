@@ -13,45 +13,31 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   PointsToWin: 1000
-  Columns: 4
-  Rows: 4
+  Columns: 7
+  Rows: 7
   waterfallSpawnEnable: 1
   MovesAvailable: 500
-  ObstacleCount: 0
+  ObstacleCount: 5
   UnderlayCount: 3
   background: {fileID: 21300000, guid: 453058dff4ab28c41b5f44b0cc636ef1, type: 3}
   blocksProperties:
   - _key: {x: 0, y: 0}
-    _value: 2
-  - _key: {x: 0, y: 1}
     _value: 1
+  - _key: {x: 0, y: 1}
+    _value: 2
   - _key: {x: 0, y: 2}
-    _value: 4
-  - _key: {x: 0, y: 3}
-    _value: 5
+    _value: 3
   - _key: {x: 1, y: 0}
     _value: 1
   - _key: {x: 1, y: 1}
     _value: 2
   - _key: {x: 1, y: 2}
-    _value: 1
-  - _key: {x: 1, y: 3}
-    _value: 1
-  - _key: {x: 2, y: 0}
     _value: 3
-  - _key: {x: 2, y: 1}
-    _value: 1
-  - _key: {x: 2, y: 2}
-    _value: 4
-  - _key: {x: 2, y: 3}
+  - _key: {x: 2, y: 0}
     _value: 2
-  - _key: {x: 3, y: 0}
-    _value: 5
-  - _key: {x: 3, y: 1}
-    _value: 4
-  - _key: {x: 3, y: 2}
-    _value: 5
-  - _key: {x: 3, y: 3}
+  - _key: {x: 2, y: 1}
+    _value: 3
+  - _key: {x: 2, y: 2}
     _value: 1
   underlaysProperties:
   - _key: {x: 0, y: 0, z: 0}

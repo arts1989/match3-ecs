@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Components/OneFrame/MoveBlockedEvent.cs.meta
 guid: 0aac313cc2cd2c7409a29710dae6b386
+========
+guid: dff910cd25e03c84fa1defaa6cef0f2b
+>>>>>>>> b368cba (добавил обработку UI бустеров через leoecs-ui эмиттер):Assets/Scripts/Systems/HandleUIBoosterSystem.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
