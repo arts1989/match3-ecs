@@ -1,4 +1,5 @@
 using Leopotam.Ecs;
+using Leopotam.Ecs.Ui.Systems;
 using UnityEngine;
 
 namespace Match3
@@ -8,7 +9,7 @@ namespace Match3
         EcsWorld _world;
         EcsSystems _systems;
 
-        //[SerializeField] EcsUiEmitter _uiEmitter;
+        [SerializeField] EcsUiEmitter _uiEmitter;
 
         public Configuration configuration;
         public SceneData sceneData;
@@ -35,7 +36,7 @@ namespace Match3
                 .Add(new BoosterInitSystem())
                 .Add(new CameraInitSystem())
                 .Add(new BackgroundInitSystem())
-                .Add(new HandleBoosterSystem())
+                .Add(new HandleUIBoosterSystem())
                 .Add(new DetectSwipeSystem())
                 .Add(new CheckMoveSystem())
                 .Add(new MoveSystem())
@@ -49,12 +50,11 @@ namespace Match3
                 .Add(new AudioPlaySystem())
                 .Add(new CheckWinSystem())
                 .Add(new CheckLoseSystem()) 
-
+                
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
                 .OneFrame<MoveEvent>()
                 .OneFrame<CheckMatchEvent>()
-                .OneFrame<HandleBoosterEvent>()
                 .OneFrame<DestroyEvent>()
                 .OneFrame<LoseEvent>()
                 .OneFrame<WinEvent>()
@@ -65,7 +65,7 @@ namespace Match3
                 .Inject(saveManager)
                 .Inject(gameState)
                 .Inject(sceneData)
-                //.InjectUi(_uiEmitter)
+                .InjectUi(_uiEmitter)
                 .Init();
         }
 
