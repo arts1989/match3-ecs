@@ -359,5 +359,11 @@ namespace Match3
 
             return false;
         }
+        
+        public static bool isObstacle(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
+        {
+            return board.ContainsKey(position) && board[position].Get<BlockType>().value == BlockTypes.Obstacle;
+        }
+    
     }
 }

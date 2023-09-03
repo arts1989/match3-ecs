@@ -1,5 +1,4 @@
 ﻿using Leopotam.Ecs;
-using System.Linq;
 using UnityEngine;
 
 namespace Match3
@@ -81,40 +80,45 @@ namespace Match3
                         board[position] = entity;
                     }
                 }
-            }
 
+                var obstacleCount = _gameState.ObstacleCount;
 
+                while (obstacleCount > 0)
+                {
+                    var x = Random.Range(0, _gameState.Columns);
+                    var y = Random.Range(0, _gameState.Rows);
+                    var position = new Vector2Int(x, y);
 
+                    while (board.isObstacle(ref position))
+                    {
+                        x = Random.Range(0, _gameState.Columns);
+                        y = Random.Range(0, _gameState.Rows);
+                        position = new Vector2Int(x, y);
+                    }
 
-            var obstacleCount = _gameState.ObstacleCount;
+                    var entity = board[position];
 
-            while(obstacleCount > 0)
-            {
-                var index = Random.Range(0, _gameState.Board.Count);
+                    Object.Destroy(entity.Get<LinkToObject>().value);
+                    entity.Destroy();
 
-                var position = _gameState.Board.Keys.ElementAt(index);
-                var entity = _gameState.Board.Values.ElementAt(index);
+                    entity = _world.NewEntity();
 
-                Object.Destroy(entity.Get<LinkToObject>().value); 
-                entity.Destroy();
+                    var obj = _world.spawnGameObject(
+                        position,
+                        entity,
+                        _configuration.obstacles[0].sprites[0]
+                    );
 
-                entity = _world.NewEntity();
+                    entity.Get<Position>().value = position;
+                    entity.Get<BlockType>().value = _configuration.obstacles[0].type;
+                    entity.Get<Points>().value = _configuration.obstacles[0].points;
+                    entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
+                    entity.Get<Health>().value = _configuration.obstacles[0].health;
 
-                var obj = _world.spawnGameObject(
-                    position,
-                    entity,
-                    _configuration.obstacles[0].sprites[0]
-                );
+                    board[position] = entity;
 
-                entity.Get<Position>().value = position;
-                entity.Get<BlockType>().value = _configuration.obstacles[0].type;
-                entity.Get<Points>().value = _configuration.obstacles[0].points;
-                entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
-                entity.Get<Health>().value = _configuration.obstacles[0].health;
-
-                _gameState.Board[position] = entity;
-
-                obstacleCount--;
+                    obstacleCount--;
+                }
             }
         } 
     }
