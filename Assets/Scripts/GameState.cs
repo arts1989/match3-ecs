@@ -23,6 +23,8 @@ namespace Match3
         public AudioClip destroySound;
         public AudioClip spawnSound;
 
+        public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
+
         public bool enableSpawn = true;
         /*
         private int[] _cells;

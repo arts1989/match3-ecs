@@ -79,7 +79,6 @@ namespace Match3
                                 }
 
                                 hasTeewee = true;
-                                break;
                             }
 
                             coordToCheckNearby = coords[1] + Vector2Int.up;
@@ -98,7 +97,6 @@ namespace Match3
                                 }
 
                                 hasTeewee = true;
-                                break;
                             }
                         }
                         else if (direction == Vector2Int.down || direction == Vector2Int.up)
@@ -119,7 +117,6 @@ namespace Match3
                                 }
 
                                 hasTeewee = true;
-                                break;
                             }
 
                             coordToCheckNearby = coords[1] + Vector2Int.right;
@@ -138,7 +135,6 @@ namespace Match3
                                 }
 
                                 hasTeewee = true;
-                                break;
                             }
                         }
                     }

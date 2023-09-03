@@ -31,6 +31,8 @@ namespace Match3
             gameState.swipeSound = _configuration.swipeSound;
             gameState.destroySound = _configuration.destroySound;
             gameState.spawnSound = _configuration.spawnSound;
+
+            gameState.blocksProperties = levelConfig.blocksProperties;
         }
     }
 } 

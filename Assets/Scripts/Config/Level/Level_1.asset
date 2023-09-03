@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   PointsToWin: 1000
-  Columns: 7
-  Rows: 7
+  Columns: 3
+  Rows: 3
   waterfallSpawnEnable: 1
   MovesAvailable: 500
   ObstacleCount: 5
@@ -24,19 +24,19 @@ MonoBehaviour:
   - _key: {x: 0, y: 0}
     _value: 1
   - _key: {x: 0, y: 1}
-    _value: 2
+    _value: 1
   - _key: {x: 0, y: 2}
-    _value: 3
+    _value: 1
   - _key: {x: 1, y: 0}
     _value: 1
   - _key: {x: 1, y: 1}
-    _value: 2
+    _value: 1
   - _key: {x: 1, y: 2}
-    _value: 3
+    _value: 1
   - _key: {x: 2, y: 0}
-    _value: 2
+    _value: 1
   - _key: {x: 2, y: 1}
-    _value: 3
+    _value: 1
   - _key: {x: 2, y: 2}
     _value: 1
   underlaysProperties:
