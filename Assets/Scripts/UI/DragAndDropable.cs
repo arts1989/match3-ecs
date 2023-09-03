@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Leopotam.Ecs;
 
 namespace Match3
 {
