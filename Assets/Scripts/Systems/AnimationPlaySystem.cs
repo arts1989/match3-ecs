@@ -1,22 +1,28 @@
+using DG.Tweening;
 using Leopotam.Ecs;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Match3
 {
     internal class AnimationPlaySystem : IEcsRunSystem
     {
-        private EcsFilter<MoveBlockedEvent> _moveBlockedEvent;
-
-        private SceneData _sceneData;
+        private EcsFilter<MoveBlockedEvent, Position> _filter;
         private GameState _gameState;
 
         public void Run()
         {
-            if(!_moveBlockedEvent.IsEmpty())
+            var board = _gameState.Board;
+            ref var position = ref _filter.Get2(0).value;
+
+            if (!_filter.IsEmpty())
             {
-                Debug.Log("fff");
+                if (board[position].Get<BlockType>().value != BlockTypes.Obstacle)
+                {
+                    var entity = board[position].Get<LinkToObject>().value;
+                    entity.transform.DOShakePosition(1f);
+                    
+                }
+
             }
         }
     }
