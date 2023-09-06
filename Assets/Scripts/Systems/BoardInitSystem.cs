@@ -34,11 +34,7 @@ namespace Match3
                         }
                     }
 
-                    var obj = _world.spawnGameObject(
-                        position,
-                        entity,
-                        blockSprite
-                    );
+                    var obj = _world.spawnGameObject(position, entity, blockSprite);
 
                     entity.Get<Position>().value = position;
                     entity.Get<BlockType>().value = blockType;
@@ -66,11 +62,7 @@ namespace Match3
                             blockType = _configuration.blocks[randomNum].type;
                         }
 
-                        var obj = _world.spawnGameObject(
-                            position,
-                            entity,
-                            _configuration.blocks[randomNum].sprites[0]
-                        );
+                        var obj = _world.spawnGameObject(position, entity, _configuration.blocks[randomNum].sprites[0]);
 
                         entity.Get<Position>().value = position;
                         entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
@@ -103,11 +95,7 @@ namespace Match3
 
                     entity = _world.NewEntity();
 
-                    var obj = _world.spawnGameObject(
-                        position,
-                        entity,
-                        _configuration.obstacles[0].sprites[0]
-                    );
+                    var obj = _world.spawnGameObject(position, entity, _configuration.obstacles[0].sprites[0]);
 
                     entity.Get<Position>().value = position;
                     entity.Get<BlockType>().value = _configuration.obstacles[0].type;
@@ -122,4 +110,4 @@ namespace Match3
             }
         } 
     }
-}
+}   
