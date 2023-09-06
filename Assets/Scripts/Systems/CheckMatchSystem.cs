@@ -17,7 +17,7 @@ namespace Match3
                 ref var position    = ref _filter.Get2(index).value;
 
                 var board = _gameState.Board;
-                var matchCoords = board.getMatchCoordsV2(ref position, ref oldPosition);
+                var matchCoords = board.getMatchCoords(ref position, ref oldPosition);
 
                 Debug.Log(matchCoords.blockType + " ========== " + matchCoords.coords.Count);
 

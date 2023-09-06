@@ -20,15 +20,16 @@ namespace Match3
         public List<Booster> UIBoosters = new List<Booster>();
 
         public List<Underlay> underlays = new List<Underlay>();
-        public AudioConfig audioConfig;
 
         public Vector2 offset;
 
         [Header("Effects")]
         public GameObject deathVFX;
         public float durationOfExplosion = 1f;
-        
 
-
+        [Header("Audio")]
+        public AudioClip swipeSound;
+        public AudioClip destroySound;
+        public AudioClip spawnSound;
     }
 }

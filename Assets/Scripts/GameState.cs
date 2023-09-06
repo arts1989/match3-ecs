@@ -20,7 +20,10 @@ namespace Match3
         public Sprite background;
         public AudioClip backgroundAudioClip;
         public AudioClip swipeSound;
-        public AudioClip destroyBlockSound;
+        public AudioClip destroySound;
+        public AudioClip spawnSound;
+
+        public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
 
         public bool enableSpawn = true;
         /*
