@@ -12,6 +12,7 @@ namespace Match3
         {
             var level = _saveManager.GetData().Level;
             var levelConfig = _configuration.levels[level];
+            var audioConfig = _configuration.audioConfig;
             var gameState = _gameState;
 
             gameState.currentLevel = level;
@@ -27,12 +28,8 @@ namespace Match3
             gameState.waterfallSpawnEnable = _configuration.levels[level].waterfallSpawnEnable;
             gameState.background = levelConfig.background;
             gameState.backgroundAudioClip = levelConfig.backgroundSound;
-
-            gameState.swipeSound = _configuration.swipeSound;
-            gameState.destroySound = _configuration.destroySound;
-            gameState.spawnSound = _configuration.spawnSound;
-
-            gameState.blocksProperties = levelConfig.blocksProperties;
+            gameState.swipeSound = audioConfig.swipeSound;
+            gameState.destroyBlockSound = audioConfig.destroyBlockSound;
         }
     }
 } 

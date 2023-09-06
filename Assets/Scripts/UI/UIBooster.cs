@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Leopotam.Ecs;
 
 namespace Match3
 {
-    public class DragAndDropable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+    public class UIBooster : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         private CanvasGroup _CanvasGroup;
         private Canvas _mainCanvas;
@@ -33,6 +34,16 @@ namespace Match3
         {
             transform.position = _startPosition; // Vector3.zero;
             _CanvasGroup.blocksRaycasts = true;
+
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out var hitInfo))
+            {
+                var entity = hitInfo.collider.GetComponent<LinkToEntity>();
+                if (entity) // попали в ентити
+                {
+                    entity.entity.Get<HandleBoosterEvent>().boosterType = GetComponent<LinkToEntity>().entity.Get<BoosterType>().value;
+                }
+            }
         }
     }
 }
