@@ -383,6 +383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 750212938}
+  - component: {fileID: 750212939}
   - component: {fileID: 750212937}
   m_Layer: 0
   m_Name: UI
@@ -424,6 +425,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &750212939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750212936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f047d8d25dd43e294617e2ea2e862e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &880175332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,6 +1083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90b87bb359d8d14fb3de135c5199079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uiEmitter: {fileID: 750212939}
   configuration: {fileID: 11400000, guid: f2ab57932e8bd8f42bcbc44f4fdd037e, type: 2}
   sceneData: {fileID: 1222849953}
 --- !u!1 &1899322949
