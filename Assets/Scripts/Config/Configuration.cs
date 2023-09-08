@@ -31,5 +31,6 @@ namespace Match3
         public AudioClip swipeSound;
         public AudioClip destroySound;
         public AudioClip spawnSound;
+        public AudioClip denyMoveBlocksAudio;
     }
 }

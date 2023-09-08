@@ -15,12 +15,9 @@ namespace Match3
         public List<Tile> tiles = new List<Tile>();
         [Header("AudioSources")]
         public AudioSource backgroundMusic;
-        public AudioSource swipeSound;
-        public AudioSource destroyBlockSound;
-        public AudioSource spawnEventSound;
-        public AudioSource denyMoveSound;
+        public AudioSource blocksAudio;
+       
 
-       // public AnimationClip animationClip;
 
     }
 }

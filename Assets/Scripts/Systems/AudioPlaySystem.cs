@@ -1,4 +1,5 @@
 ﻿using Leopotam.Ecs;
+using UnityEngine;
 
 namespace Match3
 {
@@ -25,25 +26,37 @@ namespace Match3
         {
             if (!_moveEvent.IsEmpty())
             {
-                _sceneData.swipeSound.Play();
-                _sceneData.swipeSound.volume = 0.5f;
+                var blocksAudio = _sceneData.blocksAudio.GetComponent<AudioSource>();
+                blocksAudio.clip = _gameState.swipeSound;
+
+                blocksAudio.volume = 0.5f;
+                blocksAudio.Play();
             }
 
             if (!_destroyEvent.IsEmpty())
             {
-                _sceneData.destroyBlockSound.Play();
-                _sceneData.destroyBlockSound.volume = 1f;
+                var blocksAudio = _sceneData.blocksAudio.GetComponent<AudioSource>();
+                blocksAudio.clip = _gameState.destroySound;
+
+                blocksAudio.volume = 0.5f;
+                blocksAudio.Play();
             }
 
             if (!_spawnEvent.IsEmpty())
             {
-                _sceneData.spawnEventSound.Play();
-                _sceneData.spawnEventSound.volume = 1f;
+                var blocksAudio = _sceneData.blocksAudio.GetComponent<AudioSource>();
+                blocksAudio.clip = _gameState.spawnSound;
+
+                blocksAudio.volume = 0.5f;
+                blocksAudio.Play();
             }
             if(!_moveBlockedEvent.IsEmpty())
             {
-                _sceneData.denyMoveSound.Play();
-                _sceneData.denyMoveSound.volume = 1f;
+                var blocksAudio = _sceneData.blocksAudio.GetComponent<AudioSource>();
+                blocksAudio.clip = _gameState.denyMoveSound;
+
+                blocksAudio.volume = 0.5f;
+                blocksAudio.Play();
             }
         }
     }

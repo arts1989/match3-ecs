@@ -22,6 +22,7 @@ namespace Match3
         public AudioClip swipeSound;
         public AudioClip destroySound;
         public AudioClip spawnSound;
+        public AudioClip denyMoveSound;
 
         public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
 
