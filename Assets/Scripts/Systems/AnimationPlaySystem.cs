@@ -19,7 +19,7 @@ namespace Match3
                 if (board[position].Get<BlockType>().value != BlockTypes.Obstacle)
                 {
                     var entity = board[position].Get<LinkToObject>().value;
-                    entity.transform.DOShakePosition(1f);
+                    entity.transform.DOShakePosition(0.5f);
                     
                 }
 
