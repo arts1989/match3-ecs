@@ -11,70 +11,106 @@ public class StarsActivator : MonoBehaviour
     [SerializeField] private int _upGradeLimitStar;
 
     private SaveManager _saveManager;
-    private int _stars;
+    private List<LevelData> _levels;
     [SerializeField] private int[] _starsConditional;  //условие - количество полученных звезд
 
     [SerializeField] private Button[] _buttons;
 
     [SerializeField] private Image[] _emptyIconButton;
-    [SerializeField] private Sprite _fillIconButton;    
+    [SerializeField] private Sprite _fillIconButton;
 
     private void Awake()
     {
         _saveManager = new SaveManager();
     }
 
-    private void Start()
-    {
-        _stars = _saveManager.GetData().Stars;
-        StarIconColoring();
-        InitializeButtons();
-        ButtonsIconColoring();
-    }
+    //private void Start()
+    //{
+    //    _levels = _saveManager.GetData().levels;
+    //    //UpgradeIcon();
+    //    //StarIconColoring();
+    //    InitializeButtons();
+    //    //ButtonsIconColoring();
+    //}
 
-    public void UpgradeIcon()  //метод улучшени€
-    {
-        if (_stars < _upGradeLimitStar)
-        {
-            _emptyIconStar[_stars - 1].overrideSprite = _fillIconStar;
-        }
-    }
+    //private void Update()
+    //{
+    //    UpgradeIcon();
+    //    // StarIconColoring();
+    //}
 
-    private void StarIconColoring()  // закрашивание €чеек звезд
-    {
-        for (int i = 0; i < _stars; i++)
-        {
-            _emptyIconStar[i].overrideSprite = _fillIconStar;
-        }
-    }
+    //public void UpgradeIcon()  //метод улучшени€ 
+    //{
+    //    if (_levels < _upGradeLimitStar)
+    //    {
+    //        _emptyIconStar[_levels].overrideSprite = _fillIconStar;
+    //        StarIconColoring();
+    //    }
+    //}
 
-    private void InitializeButtons() // »нициализаци€ кнопок
-    {
-        for (int i = 0; i < _buttons.Length; i++)
-        {
-            Button button = _buttons[i];
-            int buttonIndex = i;
-            ButtonActivationLevel(buttonIndex);
-        }
-    }
+    //private void StarIconColoring()  // закрашивание €чеек звезд, доработать - по 3 звезды -крастность?!!!!
+    //{
+    //    for (int i = 0; i < _levels; i++)
+    //    {
+    //        if (_levels % 3 == 0)
+    //        {
+    //            _emptyIconStar[i].overrideSprite = _fillIconStar;
+    //        }
+    //    }
+    //}
 
-    private void ButtonActivationLevel(int buttonIndex) // активаци€ кнопки уровн€
-    {
-        if (_stars >= _starsConditional[buttonIndex])
-        {
-            _buttons[buttonIndex].interactable = true;
-        }
-        else
-        {
-            _buttons[buttonIndex].interactable = false;
-        }
-    }
+    //private void InitializeButtons() // »нициализаци€ кнопок
+    //{
+    //    for (int i = 0; i < _buttons.Length; i++)
+    //    {
+    //        int buttonIndex = i;
+    //        ButtonActivationLevel(buttonIndex);
+    //    }
+    //}
 
-    private void ButtonsIconColoring()  // смена цвета кнопок
-    {
-        for (int i = 0; i < _buttons.Length; i++)
-        {
-            _emptyIconButton[i].overrideSprite = _fillIconButton;
-        }
-    }
+    //private void ButtonActivationLevel(int buttonIndex) // активаци€ кнопки уровн€
+    //{
+    //    if (_levels >= _starsConditional[buttonIndex])
+    //    {
+    //        _buttons[buttonIndex].enabled = true;
+    //        ButtonsIconColoring();
+    //    }
+    //    else
+    //    {
+    //        _buttons[buttonIndex].enabled = false; //interactable            
+    //    }
+    //}
+
+    ////private void ButtonsIconColoring(int buttonIndex)  // смена цвета кнопок доработать !!!!!!!
+    ////{
+    ////    for (int i = 0; i < _buttons.Length; i++)
+    ////    {
+    ////        if (_stars >= _starsConditional[buttonIndex])
+    ////        {
+    ////            _emptyIconButton[i].overrideSprite = _fillIconButton;
+    ////        }            
+    ////    }
+    ////}
+
+    ////private void ButtonsIconColoring()  // смена цвета кнопок доработать !!!!!!!
+    ////{
+    ////    for (int i = 0; i < _buttons.Length; i++)
+    ////    {
+    ////        _emptyIconButton[i].overrideSprite = _fillIconButton;            
+    ////    }
+    ////}
+
+    //private void ButtonsIconColoring()  // смена цвета кнопок доработать !!!!!!!
+    //{
+    //    for (int i = 0; i < _buttons.Length; i++)
+    //    {
+    //        _emptyIconButton[i].overrideSprite = _fillIconButton;
+
+    //        if (_levels! % 3 == 0)
+    //        {
+    //            return;
+    //        }
+    //    }
+    //}
 }
+

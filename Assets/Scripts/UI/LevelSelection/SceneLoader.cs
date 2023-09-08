@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance;
-    public Configuration _configuration;
+    public Configuration Configuration;
     private SaveManager _saveManager;
-    
+
     void Awake()
     {
         Instance = this;
@@ -18,7 +18,17 @@ public class SceneLoader : MonoBehaviour
 
     public void StartLevel(int numberLevel)
     {
-        _saveManager.SaveData(new SaveData() {Level = numberLevel});
+        var saveData = _saveManager.GetData();
+        if(saveData.levels == null)
+        {
+            saveData.levels = new System.Collections.Generic.List<LevelData>();
+        }
+        if (saveData.levels.Count > numberLevel)
+        {
+            saveData.levels.RemoveAt(numberLevel);
+        }
+        saveData.levels.Insert(numberLevel, new LevelData() { Stars = 2 });
+        _saveManager.SaveData(saveData);
         SceneManager.LoadScene("Game");
     }
 }
