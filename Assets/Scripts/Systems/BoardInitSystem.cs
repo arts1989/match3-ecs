@@ -23,19 +23,19 @@ namespace Match3
                 {
                     var entity = _world.NewEntity();
                     var position = block.Key;
-                    var blockType = block.Value;
+                    var blockType = block.Value; 
                     
                     foreach(var configBlock in _configuration.blocks)
                     {
                         if(blockType == configBlock.type)
                         {
-                            blockSprite = configBlock.sprites[0];
+                            blockSprite = configBlock.sprites[0]; 
                             blockPoints = configBlock.points;
                         }
                     }
 
                     var obj = _world.spawnGameObject(position, entity, blockSprite);
-
+                     
                     entity.Get<Position>().value = position;
                     entity.Get<BlockType>().value = blockType;
                     entity.Get<Points>().value = blockPoints;
@@ -73,7 +73,7 @@ namespace Match3
                     }
                 }
 
-                var obstacleCount = _gameState.ObstacleCount;
+                var obstacleCount = _gameState.ObstacleCount;   
 
                 while (obstacleCount > 0)
                 {

@@ -38,3 +38,4 @@ MonoBehaviour:
   swipeSound: {fileID: 8300000, guid: aeed83815e9da0a4587e35b5b205af35, type: 3}
   destroySound: {fileID: 8300000, guid: b3d4bbf294d7e14479f22606c6532a15, type: 3}
   spawnSound: {fileID: 8300000, guid: b3d4bbf294d7e14479f22606c6532a15, type: 3}
+  denySound: {fileID: 8300000, guid: 652d6f1b416152e4cb597bd0b78ffaaa, type: 3}

@@ -59,6 +59,7 @@ namespace Match3
                 .OneFrame<LoseEvent>()
                 .OneFrame<WinEvent>()
                 .OneFrame<SpawnEvent>()
+                .OneFrame<DenyEvent>()
 
                 // inject service instances here (order doesn't important), for example:
                 .Inject(configuration)
