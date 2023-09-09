@@ -1,14 +1,15 @@
 using Match3;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UILevelsController : MonoBehaviour
 {
     [SerializeField] private List<UIStars> _listUIStars;
+  //  [SerializeField] private List<UIButton> _listUIButton;
+
     private SaveManager _saveManager;
     private List<LevelData> _levels;
+
 
     private void Start()
     {
@@ -26,6 +27,16 @@ public class UILevelsController : MonoBehaviour
                     _listUIStars[i].Init(_levels[i].Stars);
                 }
             }
+
+            //for (int i = 0; i < _listUIButton.Count; i++)
+            //{
+            //    if (_levels.Count - 1 < i)
+            //        return;
+            //    if (_levels[i] != null)
+            //    {
+            //        _listUIButton[i].Init(_levels[i].Stars);
+            //    }
+            //}
         }
     }
 }

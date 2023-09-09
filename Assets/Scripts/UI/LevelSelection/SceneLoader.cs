@@ -27,7 +27,7 @@ public class SceneLoader : MonoBehaviour
         {
             saveData.levels.RemoveAt(numberLevel);
         }
-        saveData.levels.Insert(numberLevel, new LevelData() { Stars = 2 });
+        saveData.levels.Insert(numberLevel, new LevelData() { Stars = 0 });
         _saveManager.SaveData(saveData);
         SceneManager.LoadScene("Game");
     }
