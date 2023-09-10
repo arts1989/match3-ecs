@@ -32,7 +32,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4815a8f1d8735ea44a213a407f6f56e3, type: 2}
   underlays:
   - {fileID: 11400000, guid: 69d3f27a086e8c9408c0d7601470a1ce, type: 2}
-  audioConfig: {fileID: 11400000, guid: e2934e82eab65ce42b396520825e8181, type: 2}
   offset: {x: 0, y: 0}
   deathVFX: {fileID: 1368954464598970, guid: 334f3e6344827ea468077b5d60f1b84e, type: 3}
   durationOfExplosion: 1
+  swipeSound: {fileID: 8300000, guid: aeed83815e9da0a4587e35b5b205af35, type: 3}
+  destroySound: {fileID: 8300000, guid: b3d4bbf294d7e14479f22606c6532a15, type: 3}
+  spawnSound: {fileID: 8300000, guid: b3d4bbf294d7e14479f22606c6532a15, type: 3}
+  denySound: {fileID: 8300000, guid: 652d6f1b416152e4cb597bd0b78ffaaa, type: 3}

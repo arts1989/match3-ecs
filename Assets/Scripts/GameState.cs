@@ -20,9 +20,13 @@ namespace Match3
         public Sprite background;
         public AudioClip backgroundAudioClip;
         public AudioClip swipeSound;
-        public AudioClip destroyBlockSound;
+        public AudioClip destroySound;
+        public AudioClip spawnSound;
+        public AudioClip denySound;
 
-        public bool enableSpawn = true;
+        public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
+
+        public bool freezeBoard = false;
         /*
         private int[] _cells;
         private int _columns;
@@ -44,6 +48,6 @@ namespace Match3
             _cellsAmount = _rows * _columns;
             _cells = new int[_cellsAmount];
         }
-        */ 
+        */
     }
 }

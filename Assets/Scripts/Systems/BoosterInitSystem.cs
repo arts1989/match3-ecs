@@ -1,4 +1,6 @@
 using Leopotam.Ecs;
+using Leopotam.Ecs.Ui.Actions;
+using Leopotam.Ecs.Ui.Components;
 using UnityEngine;
 
 namespace Match3
@@ -18,8 +20,9 @@ namespace Match3
                 var obj = Object.Instantiate(booster.prefab);
                 obj.transform.SetParent(GameObject.Find("BoosterWidget").transform);
                 obj.AddComponent<LinkToEntity>().entity = entity; //link from gameobject to entity
-                obj.AddComponent<UIBooster>();
-
+                obj.AddComponent<DragAndDropable>();
+                obj.AddComponent<EcsUiDragAction>();
+               
                 var rectTransform = obj.GetComponent<RectTransform>();
                 rectTransform.sizeDelta = new Vector2(1f, 1f);
                 rectTransform.localPosition = new Vector2(offsetX, 0);

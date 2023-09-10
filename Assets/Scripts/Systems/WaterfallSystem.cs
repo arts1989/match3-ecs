@@ -91,8 +91,8 @@ namespace Match3
                     }
                 }
 
-                _gameState.enableSpawn = false;
-                sequence.Play().OnComplete(() => { _gameState.enableSpawn = true; });
+                _gameState.freezeBoard = true;
+                sequence.Play().OnComplete(() => { _gameState.freezeBoard = false; });
             }
         }
     }

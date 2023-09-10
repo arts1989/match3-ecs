@@ -7,6 +7,7 @@ namespace Match3
     internal partial class DetectSwipeSystem : IEcsRunSystem
     {
         private SceneData _sceneData;
+        private GameState _gameState;
 
         private Vector3 _swipeStartPos;
         private Vector3 _swipeEndPos;
@@ -23,43 +24,45 @@ namespace Match3
 
         public void Run()
         {
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) // 
-            {
-                var camera = _sceneData.Camera;
-                var ray = camera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out var hitInfo))
+            if(!_gameState.freezeBoard) { 
+                if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) // 
                 {
-                    var entity = hitInfo.collider.GetComponent<LinkToEntity>();
-                    if (entity)
+                    var camera = _sceneData.Camera;
+                    var ray = camera.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out var hitInfo))
                     {
-                        _entityClicked = entity.entity;
-                        _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
-                        _swipeStartTime = Time.time;
+                        var entity = hitInfo.collider.GetComponent<LinkToEntity>();
+                        if (entity)
+                        {
+                            _entityClicked = entity.entity;
+                            _swipeStartPos = camera.ScreenToWorldPoint(Input.mousePosition);
+                            _swipeStartTime = Time.time;
+                        }
                     }
                 }
-            }
-            else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                if (!_entityClicked.IsNull())
+                else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
                 {
-                    _swipeEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    _swipeEndTime = Time.time * Time.deltaTime;
-
-                    if (Vector2.Distance(_swipeStartPos, _swipeEndPos) >= swipeMinimumDistance && (_swipeEndTime - _swipeStartTime) <= swipeMaximumTime)
+                    if (!_entityClicked.IsNull())
                     {
-                        Vector3 swipeDirection = _swipeEndPos - _swipeStartPos;
-                        Vector2 swipeDirection2D = new Vector2(swipeDirection.x, swipeDirection.y).normalized;
+                        _swipeEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        _swipeEndTime = Time.time * Time.deltaTime;
 
-                        _swipeVector = (Vector2.Dot(Vector2.up, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.up
-                            : (Vector2.Dot(Vector2.down, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.down
-                            : (Vector2.Dot(Vector2.left, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.left
-                            : (Vector2.Dot(Vector2.right, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.right
-                            : Vector2Int.zero;
-
-                        if (_swipeVector != Vector2Int.zero)
+                        if (Vector2.Distance(_swipeStartPos, _swipeEndPos) >= swipeMinimumDistance && (_swipeEndTime - _swipeStartTime) <= swipeMaximumTime)
                         {
-                            _entityClicked.Get<CheckMoveEvent>().direction = _swipeVector;
+                            Vector3 swipeDirection = _swipeEndPos - _swipeStartPos;
+                            Vector2 swipeDirection2D = new Vector2(swipeDirection.x, swipeDirection.y).normalized;
+
+                            _swipeVector = (Vector2.Dot(Vector2.up, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.up
+                                : (Vector2.Dot(Vector2.down, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.down
+                                : (Vector2.Dot(Vector2.left, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.left
+                                : (Vector2.Dot(Vector2.right, swipeDirection2D) > swipeDirectionThreshold) ? Vector2Int.right
+                                : Vector2Int.zero;
+
+                            if (_swipeVector != Vector2Int.zero)
+                            {
+                                _entityClicked.Get<CheckMoveEvent>().direction = _swipeVector;
                             
+                            }
                         }
                     }
                 }
