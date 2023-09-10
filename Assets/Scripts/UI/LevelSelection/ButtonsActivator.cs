@@ -29,7 +29,9 @@ public class ButtonsActivator : MonoBehaviour
 
     private void InitializeButtons() // Инициализация кнопок
     {
-        for (int i = 0; i < _buttons.Length; i++)
+        _emptyIconButton[0].overrideSprite = _fillIconButton;
+        _buttons[0].enabled = true;
+        for (int i = 1; i < _buttons.Length; i++)
         {
             int buttonIndex = i;
             ButtonActivationLevel(buttonIndex);
