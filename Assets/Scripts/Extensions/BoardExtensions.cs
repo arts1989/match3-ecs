@@ -14,21 +14,23 @@ namespace Match3
             var matchCoords = new List<Vector2Int>();
             var coords = new List<Vector2Int>();
 
-            bool hasTeewee = false;
-            bool hasLine = false;
-            bool hasSquare = false;
+            bool hasDestroyLineVertical = false;
+            bool hasDestroyLineHorizontal = false;
+            bool hasDestroyCross = false;
+            bool hasHoming = false;
+            bool hasBombSmall = false;
 
-            // провеяем матч 3 в ряд
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 3 пїЅ пїЅпїЅпїЅ
             foreach (var direction in _directions)
             {
                 if (direction + position == oldPosition)
-                    continue; // пришли отсюда, не проверям, там гем другого типа
+                    continue; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
                 var chainLenght = 1;
                 var startPos = position;
                 coords.Clear();
 
-                if (direction != (oldPosition - position) && board.ContainsKey(position - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
+                if (direction != (oldPosition - position) && board.ContainsKey(position - direction)) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ -1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ"
                 {
                     startPos -= direction;
                 }
@@ -54,7 +56,7 @@ namespace Match3
                     var lastBlockInChainPos = coords[coords.Count - 1] + direction;
                     coords.Add(lastBlockInChainPos);
 
-                    // тетрис _|_ - зацепим отросток если он есть и обрежем линию больше трех если он (отросток) есть
+                    // пїЅпїЅпїЅпїЅпїЅпїЅ _|_ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅпїЅ
                     if (coords.Count >= 3)
                     {
                         var coordToCheckNearby = Vector2Int.zero;
@@ -78,7 +80,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasTeewee = true;
+                                hasBombSmall = true;
                             }
 
                             coordToCheckNearby = coords[1] + Vector2Int.up;
@@ -96,7 +98,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasTeewee = true;
+                                hasBombSmall = true;
                             }
                         }
                         else if (direction == Vector2Int.down || direction == Vector2Int.up)
@@ -116,7 +118,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasTeewee = true;
+                                hasBombSmall = true;
                             }
 
                             coordToCheckNearby = coords[1] + Vector2Int.right;
@@ -134,7 +136,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasTeewee = true;
+                                hasBombSmall = true;
                             }
                         }
                     }
@@ -149,17 +151,24 @@ namespace Match3
                 }
             }
 
-            if (matchCoords.Count >= 5 && hasTeewee == false) // боллее 5 в ряд или 2 матч3 уголком
+            if (matchCoords.Count == 4 && hasBombSmall == false) // пїЅпїЅпїЅпїЅпїЅпїЅ 4 пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ 2 пїЅпїЅпїЅпїЅ3 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             {
-                hasLine = true;
+                hasDestroyLineVertical = true;
             }
 
-            // провеяем кобминацию квадрат из 4
+            if (matchCoords.Count >= 5 && hasBombSmall == false)// пїЅпїЅпїЅпїЅпїЅпїЅ 5 пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ 2 пїЅпїЅпїЅпїЅ3 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            {
+                hasDestroyCross = true;
+            }
+
+            
+
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 4
             var swipeDirection = position - oldPosition;
             foreach (var direction in _directions)
             {
                 if (direction + position == oldPosition || position - direction == oldPosition)
-                    continue; // убираем направления свайпа и обратку
+                    continue; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
                 var pos1 = position;
                 var pos2 = position + direction;
@@ -188,16 +197,18 @@ namespace Match3
                         matchCoords.Add(pos4);
                     }
 
-                    hasSquare = true;
+                    hasHoming = true;
                 }
             }
 
             if (matchCoords.Count < _chainLenght)
                 matchCoords.Clear();
 
-            var boosterTypeToSpawnOnCurrentPosition = hasTeewee ? BlockTypes.Teewee
-                : hasLine ? BlockTypes.Line
-                : hasSquare ? BlockTypes.Square
+            var boosterTypeToSpawnOnCurrentPosition = hasBombSmall ? BlockTypes.BombSmall 
+                : hasDestroyLineVertical ? BlockTypes.DestroyLineVertical
+                : hasDestroyLineHorizontal ? BlockTypes.DestroyLineHorizontal
+                : hasHoming ? BlockTypes.Homing
+                : hasDestroyCross ? BlockTypes.DestroyCross
                 : BlockTypes.Default;
 
             return (matchCoords, boosterTypeToSpawnOnCurrentPosition);
@@ -205,26 +216,26 @@ namespace Match3
 
         public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int swipeDirection) 
         {
-            if(!board.ContainsKey(position + swipeDirection)) // свайп за пределы доски
+            if(!board.ContainsKey(position + swipeDirection)) // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
                 return false;
 
             if (board[position].Get<BlockType>().value == BlockTypes.Obstacle ||
                 board[position + swipeDirection].Get<BlockType>().value == BlockTypes.Obstacle) {
-                //Debug.Log("ящики не двигаем, с ящиками не свапаемся");
+                //Debug.Log("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
                 return false;
             }
 
-            // провеяем матч 3 в ряд
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 3 пїЅ пїЅпїЅпїЅ
             foreach (var direction in _directions)
             {
                 if (direction + swipeDirection == Vector2.zero)
-                    continue; // убираем обратное направление свайпа, там не может быть комбинации
+                    continue; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
                 var chainLenght = 1;
                 var startPos = position + swipeDirection;
                 var coordToCheck = 2;
 
-                if (direction != swipeDirection && board.ContainsKey(startPos - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
+                if (direction != swipeDirection && board.ContainsKey(startPos - direction)) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ -1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ"
                 {
                     startPos -= direction;
                     coordToCheck++;
@@ -251,11 +262,11 @@ namespace Match3
                 }
             }
 
-            // провеяем кобминацию квадрат из 4
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 4
             foreach (var direction in _directions)
             {
                 if (direction + swipeDirection == Vector2.zero || direction == swipeDirection)
-                    continue; // убираем направления свайпа и обратку
+                    continue; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
                 var startPos = position + swipeDirection;
 
@@ -320,7 +331,7 @@ namespace Match3
         {
             foreach (var direction in _directions)
             {
-                // три в ряд
+                // пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ
                 var firstNearbyInLine = position + direction;
                 var firstNearbyInLineType = board.ContainsKey(firstNearbyInLine) ? board[firstNearbyInLine].Get<BlockType>().value : BlockTypes.Default;
 
@@ -330,7 +341,7 @@ namespace Match3
                 if (firstNearbyInLineType == blockType && secondNearbyInLineType == blockType)
                     return true;
 
-                // квадрат
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 var rightDirection = direction == Vector2Int.up ? Vector2Int.right 
                     : direction == Vector2Int.right ? Vector2Int.down
                     : direction == Vector2Int.down ? Vector2Int.left
@@ -346,7 +357,7 @@ namespace Match3
                 if (firstNearbyInLineType == blockType && nearbyRightType == blockType && diagonallyType == blockType)
                     return true;
 
-                //добавить проверку спавн между 2мя одного типа только для спавн системы
+                //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 2пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 if (checkBetween)
                 {
                     var prevNearbyInLine = position - direction;
