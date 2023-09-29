@@ -50,7 +50,8 @@ namespace Match3
                 .Add(new AudioPlaySystem())
                 .Add(new CheckWinSystem())
                 .Add(new CheckLoseSystem()) 
-                
+                .Add(new CheckWinColorSystem())                
+
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
                 .OneFrame<MoveEvent>()
@@ -59,7 +60,7 @@ namespace Match3
                 .OneFrame<LoseEvent>()
                 .OneFrame<WinEvent>()
                 .OneFrame<SpawnEvent>()
-                .OneFrame<DenyEvent>()
+                .OneFrame<DenyEvent>()                
 
                 // inject service instances here (order doesn't important), for example:
                 .Inject(configuration)

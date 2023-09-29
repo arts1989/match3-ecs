@@ -7,6 +7,8 @@ namespace Match3
 	public class Level : ScriptableObject
 	{
 		public int PointsToWin = 100;
+		public int LevelType; //уровень
+		public int TargetLevel; //число
 
 		public int Columns = 5;
 		public int Rows = 5;
@@ -24,7 +26,6 @@ namespace Match3
 		public List<SerializeItem<Vector3Int,UnderlayTypes>> underlaysProperties;
 
 		[Header("BackgroundSound")]
-		public AudioClip backgroundSound;
-
+		public AudioClip backgroundSound;		
 	}
 }

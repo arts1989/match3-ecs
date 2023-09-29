@@ -19,6 +19,8 @@ namespace Match3
                     ref var spawnType    = ref _filter.Get2(index).value;
                     ref var linkToObject = ref _filter.Get3(index).value;
 
+                    // WinManager.SetElement(spawnType, Level level); // как из Configuration вытащить level???
+
                     Object.Destroy(linkToObject); //удаляем обжект на сцене
 
                     var explosion = Object.Instantiate(_configuration.deathVFX, linkToObject.transform.position, linkToObject.transform.rotation);

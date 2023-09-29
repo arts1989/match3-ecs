@@ -14,8 +14,8 @@ namespace Match3
         {
             if (!_filter.IsEmpty())
             {
-                if(!_gameState.freezeBoard) {
-                    
+                if(!_gameState.freezeBoard) 
+                {                    
                     var board = _gameState.Board;
 
                     foreach (int index in _filter)
