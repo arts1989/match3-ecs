@@ -6,7 +6,7 @@ namespace Match3
 {
     internal class BoosterEffectSystem : IEcsRunSystem
     {
-        private EcsFilter<BoosterActivationEvent, Position, CheckMoveEvent> _filter;
+        private EcsFilter<BoosterActivationEvent, Position> _filter;
 
         private GameState _gameState;
         public void Run()
@@ -18,7 +18,6 @@ namespace Match3
                 foreach (var index in _filter)
                 {
                     ref var position = ref _filter.Get2(index).value;
-                    ref var direction = ref _filter.Get3(index).direction;
 
                     switch (board.checkBoosterType(ref position))
                     {
