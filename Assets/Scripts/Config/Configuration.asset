@@ -23,9 +23,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ccf6acfe33fa1354e9cf255954d9fabb, type: 2}
   - {fileID: 11400000, guid: 2c698552f60c09647a6443b7ebc223a5, type: 2}
   boosters:
-  - {fileID: 11400000, guid: 92b2c2245a2aea34d85341442939cfbd, type: 2}
-  - {fileID: 11400000, guid: 0ddaa913992d14d4b9d36d55a2f9b549, type: 2}
-  - {fileID: 11400000, guid: 0e08d027c69e6044b89e398c22a9dc99, type: 2}
+  - {fileID: 11400000, guid: 9dd8add5ec8c00843a4269f6210fb44c, type: 2}
+  - {fileID: 11400000, guid: 28910e09235869641a59724c7d3d7b6c, type: 2}
+  - {fileID: 11400000, guid: d2c64f7399101bb40ad52819d5f83cf9, type: 2}
+  - {fileID: 11400000, guid: 5dc2af8202c1b9449850f4f1de424944, type: 2}
+  - {fileID: 11400000, guid: c37da99ec91404745900dc8ae01361cf, type: 2}
+  - {fileID: 11400000, guid: 90ba305c0cf6b9241a942493707cd01d, type: 2}
+  - {fileID: 11400000, guid: 28c28d1a9939b9e4abc400adb24d8b7b, type: 2}
   obstacles:
   - {fileID: 11400000, guid: 37db2ca008b80c448808014c4ef335f9, type: 2}
   UIBoosters:

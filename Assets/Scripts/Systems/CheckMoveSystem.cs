@@ -20,11 +20,19 @@ namespace Match3
 
                 ref var direction = ref _filter.Get1(0).direction;
                 ref var position  = ref _filter.Get2(0).value;
+
+                // if (board.isBooster(ref position) && board.isBooster(ref direction))
+                // {
+                //     board[position + direction].Get<BoosterFusionEvent>();
+                // }
                 
                 if (board.checkMoveAvaliable(ref position, ref direction))
                 {
                     board[position].Get<MoveEvent>();
                     board[position + direction].Get<MoveEvent>();
+                    if(board.isBooster(ref position)){   // проверка бустер ли был сдивинут + наложение ивента
+                        board[position].Get<BoosterActivationEvent>();
+                    }
                 } 
                 else
                 {
@@ -45,6 +53,7 @@ namespace Match3
                         )
                     );
                 }
+
             }
         } 
     }  

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f853e853ac21a8d44b3f980b395ed8cc, type: 3}
   m_Name: DestroyLineHorizontal
   m_EditorClassIdentifier: 
-  points: 0
+  points: 10
   sprites:
-  - {fileID: 21300000, guid: 31d6881ec6b0f524fbe7d2f2439930ce, type: 3}
+  - {fileID: 1104147033, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
   type: 9
   health: 0

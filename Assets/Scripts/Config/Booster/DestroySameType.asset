@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DestroySameType
   m_EditorClassIdentifier: 
   points: 5
-  sprites: []
-  type: 0
+  sprites:
+  - {fileID: -2100166911, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
+  type: 12
   health: 0

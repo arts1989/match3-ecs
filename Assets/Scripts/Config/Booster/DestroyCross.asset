@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DestroyCross
   m_EditorClassIdentifier: 
   points: 5
-  sprites: []
-  type: 0
+  sprites:
+  - {fileID: -1811987952, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
+  type: 11
   health: 0

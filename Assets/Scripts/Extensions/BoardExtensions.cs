@@ -14,8 +14,8 @@ namespace Match3
             var matchCoords = new List<Vector2Int>();
             var coords = new List<Vector2Int>();
 
-            bool hasDestroyLineVertical = false;
             bool hasDestroyLineHorizontal = false;
+            bool hasDestroyLineVertical = false;
             bool hasDestroyCross = false;
             bool hasHoming = false;
             bool hasBombSmall = false;
@@ -153,7 +153,7 @@ namespace Match3
 
             if (matchCoords.Count == 4 && hasBombSmall == false) // ������ 4 � ��� ��� 2 ����3 �������
             {
-                hasDestroyLineVertical = true;
+                hasDestroyLineHorizontal = true;
             }
 
             if (matchCoords.Count >= 5 && hasBombSmall == false)// ������ 5 � ��� ��� 2 ����3 �������
@@ -161,7 +161,7 @@ namespace Match3
                 hasDestroyCross = true;
             }
 
-            
+
 
             // �������� ���������� ������� �� 4
             var swipeDirection = position - oldPosition;
@@ -204,25 +204,32 @@ namespace Match3
             if (matchCoords.Count < _chainLenght)
                 matchCoords.Clear();
 
-            var boosterTypeToSpawnOnCurrentPosition = hasBombSmall ? BlockTypes.BombSmall 
-                : hasDestroyLineVertical ? BlockTypes.DestroyLineVertical
-                : hasDestroyLineHorizontal ? BlockTypes.DestroyLineHorizontal
+            var boosterTypeToSpawnOnCurrentPosition = hasBombSmall ? BlockTypes.BombSmall
                 : hasHoming ? BlockTypes.Homing
+                : hasDestroyLineHorizontal ? BlockTypes.DestroyLineHorizontal
+                : hasDestroyLineVertical ? BlockTypes.DestroyLineVertical
                 : hasDestroyCross ? BlockTypes.DestroyCross
                 : BlockTypes.Default;
 
             return (matchCoords, boosterTypeToSpawnOnCurrentPosition);
         }
 
-        public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int swipeDirection) 
+        public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int swipeDirection)
         {
-            if(!board.ContainsKey(position + swipeDirection)) // ����� �� ������� �����
+            if (!board.ContainsKey(position + swipeDirection)) // ����� �� ������� �����
                 return false;
 
             if (board[position].Get<BlockType>().value == BlockTypes.Obstacle ||
-                board[position + swipeDirection].Get<BlockType>().value == BlockTypes.Obstacle) {
+                board[position + swipeDirection].Get<BlockType>().value == BlockTypes.Obstacle)
+            {
                 //Debug.Log("����� �� �������, � ������� �� ���������");
                 return false;
+            }
+
+            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal || board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical || board[position].Get<BlockType>().value == BlockTypes.DestroyCross || board[position].Get<BlockType>().value == BlockTypes.Homing || board[position].Get<BlockType>().value == BlockTypes.BombSmall)
+            {
+                //Debug.Log("BoosterMove");
+                return true;
             }
 
             // �������� ���� 3 � ���
@@ -248,7 +255,7 @@ namespace Match3
 
                     if (board.checkBlocksSameType(ref posToCheck, ref nextPosToCheck))
                     {
-                         chainLenght++;
+                        chainLenght++;
                     }
 
                     startPos += direction;
@@ -286,7 +293,7 @@ namespace Match3
 
         public static bool checkBlocksSameType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int pos1, ref Vector2Int pos2)
         {
-            if(board.ContainsKey(pos1) && board.ContainsKey(pos2))
+            if (board.ContainsKey(pos1) && board.ContainsKey(pos2))
                 return board[pos1].Get<BlockType>().value == board[pos2].Get<BlockType>().value ? true : false;
 
             return false;
@@ -304,7 +311,7 @@ namespace Match3
         public static bool checkBlocksSameType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int pos1, ref Vector2Int pos2, ref Vector2Int pos3, ref Vector2Int pos4)
         {
             if (board.ContainsKey(pos1) && board.ContainsKey(pos2) && board.ContainsKey(pos3) && board.ContainsKey(pos4))
-                return (board[pos1].Get<BlockType>().value == board[pos2].Get<BlockType>().value 
+                return (board[pos1].Get<BlockType>().value == board[pos2].Get<BlockType>().value
                     && board[pos1].Get<BlockType>().value == board[pos3].Get<BlockType>().value
                     && board[pos1].Get<BlockType>().value == board[pos4].Get<BlockType>().value) ? true : false;
 
@@ -315,7 +322,7 @@ namespace Match3
         {
             var coords = new List<Vector2Int>();
 
-            foreach(var direction in _directions)
+            foreach (var direction in _directions)
             {
                 var coordToCheck = position + direction;
                 if (board.ContainsKey(coordToCheck) && board[coordToCheck].Get<BlockType>().value == BlockTypes.Obstacle)
@@ -342,7 +349,7 @@ namespace Match3
                     return true;
 
                 // �������
-                var rightDirection = direction == Vector2Int.up ? Vector2Int.right 
+                var rightDirection = direction == Vector2Int.up ? Vector2Int.right
                     : direction == Vector2Int.right ? Vector2Int.down
                     : direction == Vector2Int.down ? Vector2Int.left
                     : direction == Vector2Int.left ? Vector2Int.up
@@ -370,11 +377,162 @@ namespace Match3
 
             return false;
         }
-        
+
         public static bool isObstacle(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
         {
             return board.ContainsKey(position) && board[position].Get<BlockType>().value == BlockTypes.Obstacle;
         }
-    
+
+        public static bool isBooster(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
+        {
+            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal || board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical || board[position].Get<BlockType>().value == BlockTypes.DestroyCross || board[position].Get<BlockType>().value == BlockTypes.Homing || board[position].Get<BlockType>().value == BlockTypes.BombSmall)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static int checkBoosterType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
+        {
+
+            var type = 0;
+
+            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal)
+                 type = 1;
+
+            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical)
+                 type = 2;
+
+            if (board[position].Get<BlockType>().value == BlockTypes.DestroyCross)
+                 type = 3;
+
+            if (board[position].Get<BlockType>().value == BlockTypes.BombSmall)
+                 type = 4;
+
+            if (board[position].Get<BlockType>().value == BlockTypes.Homing)
+                 type = 5;
+
+
+             return type;
+        }
+
+
+        public static List<Vector2Int> boosterLineX(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
+        {
+            var coords = new List<Vector2Int>();
+            var pos1 = position;
+            var pos2 = position + Vector2Int.left;
+
+            while (board.TryGetValue(pos1, out var entity))
+            {
+                coords.Add(pos1);
+                pos1 += Vector2Int.right;
+            }
+
+            while (board.TryGetValue(pos2, out var entity))
+            {
+                coords.Add(pos2);
+                pos2 += Vector2Int.left;
+            }
+
+
+            return coords;
+        }
+
+        public static List<Vector2Int> boosterLineY(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
+        {
+            var coords = new List<Vector2Int>();
+            var pos1 = position;
+            var pos2 = position + Vector2Int.down;
+
+            while (board.TryGetValue(pos1, out var entity))
+            {
+                coords.Add(pos1);
+                pos1 += Vector2Int.up;
+            }
+
+            while (board.TryGetValue(pos2, out var entity))
+            {
+                coords.Add(pos2);
+                pos2 += Vector2Int.down;
+            }
+
+
+            return coords;
+        }
+
+        public static List<Vector2Int> boosterCross(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
+        {
+            var coords = new List<Vector2Int>();
+            var pos1 = position;
+            var pos2 = position + Vector2Int.right;
+            var pos3 = position + Vector2Int.down;
+            var pos4 = position + Vector2Int.left;
+
+
+            while (board.TryGetValue(pos1, out var entity))
+            {
+                coords.Add(pos1);
+                pos1 += Vector2Int.up;
+            }
+
+            while (board.TryGetValue(pos2, out var entity))
+            {
+                coords.Add(pos2);
+                pos2 += Vector2Int.right;
+            }
+
+            while (board.TryGetValue(pos3, out var entity))
+            {
+                coords.Add(pos3);
+                pos3 += Vector2Int.down;
+            }
+
+            while (board.TryGetValue(pos4, out var entity))
+            {
+                coords.Add(pos4);
+                pos4 += Vector2Int.left;
+            }
+
+            coords.Add(position);
+
+            return coords;
+        }
+
+        public static List<Vector2Int> boosterBombS(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
+        {
+            var coords = new List<Vector2Int>();
+            // var pos1 = position + Vector2Int.up + Vector2Int.left;
+            // var pos2 = position + Vector2Int.down + Vector2Int.right;
+
+            foreach (var direction in _directions)
+            {
+                var coordToCheck = position + direction;
+                if (board.ContainsKey(coordToCheck))
+                {
+                    coords.Add(coordToCheck);
+                }
+            }
+            coords.Add(position);
+            return coords;
+        }
+
+        public static List<Vector2Int> boosterHoming(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
+        {
+            var coords = new List<Vector2Int>();
+
+            // TO DO
+
+            coords.Add(position);
+            return coords;
+        }
+
+
+
+
+
+
     }
+
 }

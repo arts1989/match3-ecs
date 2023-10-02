@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HomingBombBig
   m_EditorClassIdentifier: 
   points: 5
-  sprites: []
-  type: 0
+  sprites:
+  - {fileID: -557680783, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
+  type: 19
   health: 0

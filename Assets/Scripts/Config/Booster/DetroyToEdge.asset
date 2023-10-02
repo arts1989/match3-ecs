@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DetroyToEdge
   m_EditorClassIdentifier: 
   points: 5
-  sprites: []
+  sprites:
+  - {fileID: 1632367487, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
   type: 0
   health: 0

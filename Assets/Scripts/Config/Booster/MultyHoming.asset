@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MultyHoming
   m_EditorClassIdentifier: 
   points: 5
-  sprites: []
-  type: 0
+  sprites:
+  - {fileID: 982363565, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
+  type: 15
   health: 0

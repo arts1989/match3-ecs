@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HomingLineHorizontal
   m_EditorClassIdentifier: 
   points: 5
-  sprites: []
-  type: 0
+  sprites:
+  - {fileID: 569053678, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
+  type: 16
   health: 0
