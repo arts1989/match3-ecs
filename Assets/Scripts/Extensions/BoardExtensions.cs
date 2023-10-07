@@ -399,137 +399,125 @@ namespace Match3
             var type = 0;
 
             if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal)
-                 type = 1;
+                type = 1;
 
             if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical)
-                 type = 2;
+                type = 2;
 
             if (board[position].Get<BlockType>().value == BlockTypes.DestroyCross)
-                 type = 3;
+                type = 3;
 
             if (board[position].Get<BlockType>().value == BlockTypes.BombSmall)
-                 type = 4;
+                type = 4;
 
             if (board[position].Get<BlockType>().value == BlockTypes.Homing)
-                 type = 5;
+                type = 5;
 
 
-             return type;
+            return type;
         }
 
 
-        public static List<Vector2Int> boosterLineX(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
+        public static List<Vector2Int> boosterActivation(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref BlockTypes type)
         {
             var coords = new List<Vector2Int>();
-            var pos1 = position;
-            var pos2 = position + Vector2Int.left;
 
-            while (board.TryGetValue(pos1, out var entity))
+
+            if (type == BlockTypes.DestroyLineHorizontal)
             {
-                coords.Add(pos1);
-                pos1 += Vector2Int.right;
-            }
+                var pos1 = position;
+                var pos2 = position + Vector2Int.left;
 
-            while (board.TryGetValue(pos2, out var entity))
-            {
-                coords.Add(pos2);
-                pos2 += Vector2Int.left;
-            }
-
-
-            return coords;
-        }
-
-        public static List<Vector2Int> boosterLineY(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
-        {
-            var coords = new List<Vector2Int>();
-            var pos1 = position;
-            var pos2 = position + Vector2Int.down;
-
-            while (board.TryGetValue(pos1, out var entity))
-            {
-                coords.Add(pos1);
-                pos1 += Vector2Int.up;
-            }
-
-            while (board.TryGetValue(pos2, out var entity))
-            {
-                coords.Add(pos2);
-                pos2 += Vector2Int.down;
-            }
-
-
-            return coords;
-        }
-
-        public static List<Vector2Int> boosterCross(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
-        {
-            var coords = new List<Vector2Int>();
-            var pos1 = position;
-            var pos2 = position + Vector2Int.right;
-            var pos3 = position + Vector2Int.down;
-            var pos4 = position + Vector2Int.left;
-
-
-            while (board.TryGetValue(pos1, out var entity))
-            {
-                coords.Add(pos1);
-                pos1 += Vector2Int.up;
-            }
-
-            while (board.TryGetValue(pos2, out var entity))
-            {
-                coords.Add(pos2);
-                pos2 += Vector2Int.right;
-            }
-
-            while (board.TryGetValue(pos3, out var entity))
-            {
-                coords.Add(pos3);
-                pos3 += Vector2Int.down;
-            }
-
-            while (board.TryGetValue(pos4, out var entity))
-            {
-                coords.Add(pos4);
-                pos4 += Vector2Int.left;
-            }
-
-            coords.Add(position);
-
-            return coords;
-        }
-
-        public static List<Vector2Int> boosterBombS(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
-        {
-            var coords = new List<Vector2Int>();
-            // var pos1 = position + Vector2Int.up + Vector2Int.left;
-            // var pos2 = position + Vector2Int.down + Vector2Int.right;
-
-            foreach (var direction in _directions)
-            {
-                var coordToCheck = position + direction;
-                if (board.ContainsKey(coordToCheck))
+                while (board.TryGetValue(pos1, out var entity))
                 {
-                    coords.Add(coordToCheck);
+                    coords.Add(pos1);
+                    pos1 += Vector2Int.right;
+                }
+
+                while (board.TryGetValue(pos2, out var entity))
+                {
+                    coords.Add(pos2);
+                    pos2 += Vector2Int.left;
                 }
             }
-            coords.Add(position);
+
+            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical)
+            {
+                var pos1 = position;
+                var pos2 = position + Vector2Int.down;
+
+                while (board.TryGetValue(pos1, out var entity))
+                {
+                    coords.Add(pos1);
+                    pos1 += Vector2Int.up;
+                }
+
+                while (board.TryGetValue(pos2, out var entity))
+                {
+                    coords.Add(pos2);
+                    pos2 += Vector2Int.down;
+                }
+            }
+
+            if (board[position].Get<BlockType>().value == BlockTypes.DestroyCross)
+            {
+                var pos1 = position;
+                var pos2 = position + Vector2Int.right;
+                var pos3 = position + Vector2Int.down;
+                var pos4 = position + Vector2Int.left;
+
+
+                while (board.TryGetValue(pos1, out var entity))
+                {
+                    coords.Add(pos1);
+                    pos1 += Vector2Int.up;
+                }
+
+                while (board.TryGetValue(pos2, out var entity))
+                {
+                    coords.Add(pos2);
+                    pos2 += Vector2Int.right;
+                }
+
+                while (board.TryGetValue(pos3, out var entity))
+                {
+                    coords.Add(pos3);
+                    pos3 += Vector2Int.down;
+                }
+
+                while (board.TryGetValue(pos4, out var entity))
+                {
+                    coords.Add(pos4);
+                    pos4 += Vector2Int.left;
+                }
+            }
+
+            if (board[position].Get<BlockType>().value == BlockTypes.BombSmall)
+            {
+                // var pos1 = position + Vector2Int.up + Vector2Int.left;
+                // var pos2 = position + Vector2Int.down + Vector2Int.right;
+
+                foreach (var direction in _directions)
+                {
+                    var coordToCheck = position + direction;
+                    if (board.ContainsKey(coordToCheck))
+                    {
+                        coords.Add(coordToCheck);
+                    }
+                }
+                coords.Add(position);
+            }
+
+            if (board[position].Get<BlockType>().value == BlockTypes.Homing)
+            {
+                // TO DO
+
+                coords.Add(position);
+            }
+
+
             return coords;
         }
-
-        public static List<Vector2Int> boosterHoming(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
-        {
-            var coords = new List<Vector2Int>();
-
-            // TO DO
-
-            coords.Add(position);
-            return coords;
-        }
-
-
-
 
 
 
