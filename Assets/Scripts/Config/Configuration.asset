@@ -30,6 +30,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c37da99ec91404745900dc8ae01361cf, type: 2}
   - {fileID: 11400000, guid: 90ba305c0cf6b9241a942493707cd01d, type: 2}
   - {fileID: 11400000, guid: 28c28d1a9939b9e4abc400adb24d8b7b, type: 2}
+  - {fileID: 11400000, guid: c37da99ec91404745900dc8ae01361cf, type: 2}
+  - {fileID: 11400000, guid: 5b0b466386342f84f89d6c03848106d0, type: 2}
+  - {fileID: 11400000, guid: 8162fb27aae72a448a3260126e949ae7, type: 2}
+  - {fileID: 11400000, guid: 5ded018259f144b4c8b9c2582ea6626a, type: 2}
+  - {fileID: 11400000, guid: b1bfd3581a2fc2e40869d5d73103d0ef, type: 2}
+  - {fileID: 11400000, guid: 64ab916dd4dbe1347ba830c45f9925af, type: 2}
+  - {fileID: 11400000, guid: 85f4ac8b7a4449b418139f671f348d2a, type: 2}
+  - {fileID: 11400000, guid: 42cb80be51b3fe34da76efc178246ae2, type: 2}
   obstacles:
   - {fileID: 11400000, guid: 37db2ca008b80c448808014c4ef335f9, type: 2}
   UIBoosters:

@@ -226,7 +226,11 @@ namespace Match3
                 return false;
             }
 
-            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal || board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical || board[position].Get<BlockType>().value == BlockTypes.DestroyCross || board[position].Get<BlockType>().value == BlockTypes.Homing || board[position].Get<BlockType>().value == BlockTypes.BombSmall)
+            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal ||
+             board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical ||
+              board[position].Get<BlockType>().value == BlockTypes.DestroyCross ||
+               board[position].Get<BlockType>().value == BlockTypes.Homing ||
+                board[position].Get<BlockType>().value == BlockTypes.BombSmall)
             {
                 //Debug.Log("BoosterMove");
                 return true;
@@ -385,7 +389,11 @@ namespace Match3
 
         public static bool isBooster(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
         {
-            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal || board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical || board[position].Get<BlockType>().value == BlockTypes.DestroyCross || board[position].Get<BlockType>().value == BlockTypes.Homing || board[position].Get<BlockType>().value == BlockTypes.BombSmall)
+            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal ||
+             board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical ||
+              board[position].Get<BlockType>().value == BlockTypes.DestroyCross ||
+               board[position].Get<BlockType>().value == BlockTypes.Homing ||
+                board[position].Get<BlockType>().value == BlockTypes.BombSmall)
             {
                 return true;
             }

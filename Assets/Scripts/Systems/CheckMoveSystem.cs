@@ -19,28 +19,39 @@ namespace Match3
                 var board = _gameState.Board;
 
                 ref var direction = ref _filter.Get1(0).direction;
-                ref var position  = ref _filter.Get2(0).value;
+                ref var position = ref _filter.Get2(0).value;
 
                 // if (board.isBooster(ref position) && board.isBooster(ref direction))
                 // {
                 //     board[position + direction].Get<BoosterFusionEvent>();
                 // }
-                
+
                 if (board.checkMoveAvaliable(ref position, ref direction))
                 {
-                    board[position].Get<MoveEvent>();
-                    board[position + direction].Get<MoveEvent>();
-                    if(board.isBooster(ref position)){   // проверка бустер ли был сдивинут + наложение ивента
+                    var pos2 = position + direction;
+                    if (board.isBooster(ref position) && board.isBooster(ref pos2))
+                    {  // проверка бустерs ли был сдвигают + наложение ивента
+                        board[position].Get<BoosterFusionEvent>();
+                        board[position + direction].Get<BoosterFusionEvent>();
+                    }
+                    if (board.isBooster(ref position))
+                    {   // проверка бустер ли был сдивинут + наложение ивента
                         board[position].Get<BoosterActivationEvent>();
                     }
-                } 
+                    else
+                    {
+                        board[position].Get<MoveEvent>();
+                        board[position + direction].Get<MoveEvent>();
+                    }
+
+                }
                 else
                 {
                     var entity = board[position];
                     var obj = entity.Get<LinkToObject>().value;
                     entity.Get<DenyEvent>();
 
-                    var pos     = new Vector3(position.x, position.y);
+                    var pos = new Vector3(position.x, position.y);
                     var nearPos = new Vector3(
                         position.x + (float)direction.x / 4,
                         position.y + (float)direction.y / 4
@@ -55,6 +66,6 @@ namespace Match3
                 }
 
             }
-        } 
-    }  
+        }
+    }
 }
