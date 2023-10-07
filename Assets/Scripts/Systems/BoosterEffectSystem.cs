@@ -7,7 +7,6 @@ namespace Match3
     internal class BoosterEffectSystem : IEcsRunSystem
     {
         private EcsFilter<BoosterActivationEvent, Position, BlockType> _filter;
-
         private GameState _gameState;
         public void Run()
         {
@@ -27,16 +26,8 @@ namespace Match3
                         board[target].Get<SpawnType>().value = BlockTypes.Default;
                         board[target].Get<DestroyEvent>();
                     }
-
-
-
                 }
-
-
             }
         }
-
-
-
     }
 }

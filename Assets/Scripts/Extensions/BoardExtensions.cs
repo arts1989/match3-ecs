@@ -490,11 +490,84 @@ namespace Match3
 
                 coords.Add(position);
             }
+            
+            else
+            {
+                coords.Add(position);
+            }
 
 
             return coords;
         }
 
+
+        public static BlockTypes boosterFusion(this Dictionary<Vector2Int, EcsEntity> board, ref BlockTypes type1, ref BlockTypes type2)
+        {
+            var boosterTypeToSpawnOnCurrentPosition = BlockTypes.Default;
+
+            if (type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.DestroyLineHorizontal ||
+             type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.DestroyLineVertical ||
+             type1 == BlockTypes.DestroyLineVertical && type2 == BlockTypes.DestroyLineHorizontal ||
+             type1 == BlockTypes.DestroyLineVertical && type2 == BlockTypes.DestroyLineVertical)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.DestroyCross;
+            }
+
+            if (type1 == BlockTypes.DestroyCross && type2 == BlockTypes.DestroyCross)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.DestroySameType;
+            }
+
+            if (type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.Homing ||
+            type1 == BlockTypes.Homing && type2 == BlockTypes.DestroyLineHorizontal)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.HomingLineHorizontal;
+            }
+
+            if (type1 == BlockTypes.DestroyLineVertical && type2 == BlockTypes.Homing ||
+            type1 == BlockTypes.Homing && type2 == BlockTypes.DestroyLineVertical)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.HomingLineVertical;
+            }
+
+            if (type1 == BlockTypes.BombSmall && type2 == BlockTypes.BombSmall)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.BombBig;
+            }
+
+            if (type1 == BlockTypes.Homing && type2 == BlockTypes.Homing)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.MultyHoming;
+            }
+
+            if (type1 == BlockTypes.BombSmall && type2 == BlockTypes.DestroyLineVertical ||
+            type1 == BlockTypes.DestroyLineVertical && type2 == BlockTypes.BombSmall)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.BombSmallLineVertical;
+            }
+
+            if (type1 == BlockTypes.BombSmall && type2 == BlockTypes.DestroyLineHorizontal ||
+            type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.BombSmall)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.BombSmallLineHorizontal;
+            }
+
+            if (type1 == BlockTypes.BombSmall && type2 == BlockTypes.Homing ||
+            type1 == BlockTypes.Homing && type2 == BlockTypes.BombSmall)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.HomingBombSmall;
+            }
+
+            if (type1 == BlockTypes.BombBig && type2 == BlockTypes.Homing ||
+            type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.BombBig)
+            {
+                boosterTypeToSpawnOnCurrentPosition = BlockTypes.HomingBombBig;
+            }
+
+
+
+            return (boosterTypeToSpawnOnCurrentPosition);
+        }
 
 
     }
