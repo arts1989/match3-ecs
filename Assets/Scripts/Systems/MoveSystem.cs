@@ -1,6 +1,7 @@
 ﻿using Leopotam.Ecs;
 using DG.Tweening;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 namespace Match3
 {
@@ -39,11 +40,19 @@ namespace Match3
                 _gameState.freezeBoard = true;
                 sequence.Play().OnComplete(() =>
                 {
-                        _filter.GetEntity(1).Get<CheckMatchEvent>().oldPosition = pos2;
-                    _filter.GetEntity(0).Get<CheckMatchEvent>().oldPosition = pos1;
-                    if (board.isBooster(ref pos2))
+                    var coordsToDestroy = board.getCoordToDestroyIfBooster(ref pos2);
+                    if (coordsToDestroy.Count > 0)
                     {
-                        _filter.GetEntity(0).Get<BoosterActivationEvent>();
+                        foreach (var coord in coordsToDestroy)
+                        {
+                            board[coord].Get<SpawnType>().value = BlockTypes.Default;
+                            board[coord].Get<DestroyEvent>();
+                        }
+                    }
+                    else
+                    {
+                        _filter.GetEntity(0).Get<CheckMatchEvent>().oldPosition = pos1;
+                        _filter.GetEntity(1).Get<CheckMatchEvent>().oldPosition = pos2;
                     }
                     _gameState.freezeBoard = false;
                 });

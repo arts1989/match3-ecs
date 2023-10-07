@@ -14,23 +14,21 @@ namespace Match3
             var matchCoords = new List<Vector2Int>();
             var coords = new List<Vector2Int>();
 
-            bool hasDestroyLineHorizontal = false;
-            bool hasDestroyLineVertical = false;
-            bool hasDestroyCross = false;
-            bool hasHoming = false;
-            bool hasBombSmall = false;
+            bool hasTeewee = false;
+            bool hasLine = false;
+            bool hasSquare = false;
 
-            // �������� ���� 3 � ���
+            // ïðîâåÿåì ìàò÷ 3 â ðÿä
             foreach (var direction in _directions)
             {
                 if (direction + position == oldPosition)
-                    continue; // ������ ������, �� ��������, ��� ��� ������� ����
+                    continue; // ïðèøëè îòñþäà, íå ïðîâåðÿì, òàì ãåì äðóãîãî òèïà
 
                 var chainLenght = 1;
                 var startPos = position;
                 coords.Clear();
 
-                if (direction != (oldPosition - position) && board.ContainsKey(position - direction)) // ������� -1 ��������� ��� �������� ������ "������ ����� ����� ����������� ����"
+                if (direction != (oldPosition - position) && board.ContainsKey(position - direction)) // çàöåïèì -1 êîðäèíàòó äëÿ ïðîâåðêè ñëó÷àÿ "äâèãàþ ìåæäó äâóìÿ îäèíàêîâîãî òèïà"
                 {
                     startPos -= direction;
                 }
@@ -56,7 +54,7 @@ namespace Match3
                     var lastBlockInChainPos = coords[coords.Count - 1] + direction;
                     coords.Add(lastBlockInChainPos);
 
-                    // ������ _|_ - ������� �������� ���� �� ���� � ������� ����� ������ ���� ���� �� (��������) ����
+                    // òåòðèñ _|_ - çàöåïèì îòðîñòîê åñëè îí åñòü è îáðåæåì ëèíèþ áîëüøå òðåõ åñëè îí (îòðîñòîê) åñòü
                     if (coords.Count >= 3)
                     {
                         var coordToCheckNearby = Vector2Int.zero;
@@ -80,7 +78,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasBombSmall = true;
+                                hasTeewee = true;
                             }
 
                             coordToCheckNearby = coords[1] + Vector2Int.up;
@@ -98,7 +96,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasBombSmall = true;
+                                hasTeewee = true;
                             }
                         }
                         else if (direction == Vector2Int.down || direction == Vector2Int.up)
@@ -118,7 +116,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasBombSmall = true;
+                                hasTeewee = true;
                             }
 
                             coordToCheckNearby = coords[1] + Vector2Int.right;
@@ -136,7 +134,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasBombSmall = true;
+                                hasTeewee = true;
                             }
                         }
                     }
@@ -151,24 +149,17 @@ namespace Match3
                 }
             }
 
-            if (matchCoords.Count == 4 && hasBombSmall == false) // ������ 4 � ��� ��� 2 ����3 �������
+            if (matchCoords.Count >= 5 && hasTeewee == false) // áîëëåå 5 â ðÿä èëè 2 ìàò÷3 óãîëêîì
             {
-                hasDestroyLineHorizontal = true;
+                hasLine = true;
             }
 
-            if (matchCoords.Count >= 5 && hasBombSmall == false)// ������ 5 � ��� ��� 2 ����3 �������
-            {
-                hasDestroyCross = true;
-            }
-
-
-
-            // �������� ���������� ������� �� 4
+            // ïðîâåÿåì êîáìèíàöèþ êâàäðàò èç 4
             var swipeDirection = position - oldPosition;
             foreach (var direction in _directions)
             {
                 if (direction + position == oldPosition || position - direction == oldPosition)
-                    continue; // ������� ����������� ������ � �������
+                    continue; // óáèðàåì íàïðàâëåíèÿ ñâàéïà è îáðàòêó
 
                 var pos1 = position;
                 var pos2 = position + direction;
@@ -197,18 +188,16 @@ namespace Match3
                         matchCoords.Add(pos4);
                     }
 
-                    hasHoming = true;
+                    hasSquare = true;
                 }
             }
 
             if (matchCoords.Count < _chainLenght)
                 matchCoords.Clear();
 
-            var boosterTypeToSpawnOnCurrentPosition = hasBombSmall ? BlockTypes.BombSmall
-                : hasHoming ? BlockTypes.Homing
-                : hasDestroyLineHorizontal ? BlockTypes.DestroyLineHorizontal
-                : hasDestroyLineVertical ? BlockTypes.DestroyLineVertical
-                : hasDestroyCross ? BlockTypes.DestroyCross
+            var boosterTypeToSpawnOnCurrentPosition = hasTeewee ? BlockTypes.Teewee
+                : hasLine ? BlockTypes.Line
+                : hasSquare ? BlockTypes.Square
                 : BlockTypes.Default;
 
             return (matchCoords, boosterTypeToSpawnOnCurrentPosition);
@@ -216,37 +205,27 @@ namespace Match3
 
         public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int swipeDirection)
         {
-            if (!board.ContainsKey(position + swipeDirection)) // ����� �� ������� �����
+            if (!board.ContainsKey(position + swipeDirection)) // ñâàéï çà ïðåäåëû äîñêè
                 return false;
 
             if (board[position].Get<BlockType>().value == BlockTypes.Obstacle ||
                 board[position + swipeDirection].Get<BlockType>().value == BlockTypes.Obstacle)
             {
-                //Debug.Log("����� �� �������, � ������� �� ���������");
+                //Debug.Log("ÿùèêè íå äâèãàåì, ñ ÿùèêàìè íå ñâàïàåìñÿ");
                 return false;
             }
 
-            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal ||
-             board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical ||
-              board[position].Get<BlockType>().value == BlockTypes.DestroyCross ||
-               board[position].Get<BlockType>().value == BlockTypes.Homing ||
-                board[position].Get<BlockType>().value == BlockTypes.BombSmall)
-            {
-                //Debug.Log("BoosterMove");
-                return true;
-            }
-
-            // �������� ���� 3 � ���
+            // ïðîâåÿåì ìàò÷ 3 â ðÿä
             foreach (var direction in _directions)
             {
                 if (direction + swipeDirection == Vector2.zero)
-                    continue; // ������� �������� ����������� ������, ��� �� ����� ���� ����������
+                    continue; // óáèðàåì îáðàòíîå íàïðàâëåíèå ñâàéïà, òàì íå ìîæåò áûòü êîìáèíàöèè
 
                 var chainLenght = 1;
                 var startPos = position + swipeDirection;
                 var coordToCheck = 2;
 
-                if (direction != swipeDirection && board.ContainsKey(startPos - direction)) // ������� -1 ��������� ��� �������� ������ "������ ����� ����� ����������� ����"
+                if (direction != swipeDirection && board.ContainsKey(startPos - direction)) // çàöåïèì -1 êîðäèíàòó äëÿ ïðîâåðêè ñëó÷àÿ "äâèãàþ ìåæäó äâóìÿ îäèíàêîâîãî òèïà"
                 {
                     startPos -= direction;
                     coordToCheck++;
@@ -273,11 +252,11 @@ namespace Match3
                 }
             }
 
-            // �������� ���������� ������� �� 4
+            // ïðîâåÿåì êîáìèíàöèþ êâàäðàò èç 4
             foreach (var direction in _directions)
             {
                 if (direction + swipeDirection == Vector2.zero || direction == swipeDirection)
-                    continue; // ������� ����������� ������ � �������
+                    continue; // óáèðàåì íàïðàâëåíèÿ ñâàéïà è îáðàòêó
 
                 var startPos = position + swipeDirection;
 
@@ -342,7 +321,7 @@ namespace Match3
         {
             foreach (var direction in _directions)
             {
-                // ��� � ���
+                // òðè â ðÿä
                 var firstNearbyInLine = position + direction;
                 var firstNearbyInLineType = board.ContainsKey(firstNearbyInLine) ? board[firstNearbyInLine].Get<BlockType>().value : BlockTypes.Default;
 
@@ -352,7 +331,7 @@ namespace Match3
                 if (firstNearbyInLineType == blockType && secondNearbyInLineType == blockType)
                     return true;
 
-                // �������
+                // êâàäðàò
                 var rightDirection = direction == Vector2Int.up ? Vector2Int.right
                     : direction == Vector2Int.right ? Vector2Int.down
                     : direction == Vector2Int.down ? Vector2Int.left
@@ -368,7 +347,7 @@ namespace Match3
                 if (firstNearbyInLineType == blockType && nearbyRightType == blockType && diagonallyType == blockType)
                     return true;
 
-                //�������� �������� ����� ����� 2�� ������ ���� ������ ��� ����� �������
+                //äîáàâèòü ïðîâåðêó ñïàâí ìåæäó 2ìÿ îäíîãî òèïà òîëüêî äëÿ ñïàâí ñèñòåìû
                 if (checkBetween)
                 {
                     var prevNearbyInLine = position - direction;
@@ -387,197 +366,76 @@ namespace Match3
             return board.ContainsKey(position) && board[position].Get<BlockType>().value == BlockTypes.Obstacle;
         }
 
-        public static bool isBooster(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
-        {
-            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal ||
-             board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical ||
-              board[position].Get<BlockType>().value == BlockTypes.DestroyCross ||
-               board[position].Get<BlockType>().value == BlockTypes.Homing ||
-                board[position].Get<BlockType>().value == BlockTypes.BombSmall)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-
-        public static List<Vector2Int> boosterActivation(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref BlockTypes type)
+        public static List<Vector2Int> getCoordToDestroyIfBooster(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
         {
             var coords = new List<Vector2Int>();
+            var blockType = board[position].Get<BlockType>().value;
 
-
-            if (type == BlockTypes.DestroyLineHorizontal)
+            if (blockType == BlockTypes.DestroyLineHorizontal)
             {
-                var pos1 = position;
-                var pos2 = position + Vector2Int.left;
+                var pos = position + Vector2Int.left;
 
-                while (board.TryGetValue(pos1, out var entity))
+                while (board.TryGetValue(pos, out var entity))
                 {
-                    coords.Add(pos1);
-                    pos1 += Vector2Int.right;
+                    coords.Add(pos);
+                    pos += Vector2Int.left;
                 }
 
-                while (board.TryGetValue(pos2, out var entity))
+                pos = position + Vector2Int.right;
+
+                while (board.TryGetValue(pos, out var entity))
                 {
-                    coords.Add(pos2);
-                    pos2 += Vector2Int.left;
+                    coords.Add(pos);
+                    pos += Vector2Int.right;
                 }
             }
-
-            if (type == BlockTypes.DestroyLineVertical)
+            else if (blockType == BlockTypes.DestroyLineVertical)
             {
-                var pos1 = position;
-                var pos2 = position + Vector2Int.down;
+                var pos = position + Vector2Int.up;
 
-                while (board.TryGetValue(pos1, out var entity))
+                while (board.TryGetValue(pos, out var entity))
                 {
-                    coords.Add(pos1);
-                    pos1 += Vector2Int.up;
+                    coords.Add(pos);
+                    pos += Vector2Int.up;
                 }
 
-                while (board.TryGetValue(pos2, out var entity))
+                pos = position + Vector2Int.down;
+
+                while (board.TryGetValue(pos, out var entity))
                 {
-                    coords.Add(pos2);
-                    pos2 += Vector2Int.down;
+                    coords.Add(pos);
+                    pos += Vector2Int.down;
                 }
             }
-
-            if (type == BlockTypes.DestroyCross)
+            else if (blockType == BlockTypes.BombSmall)
             {
-                var pos1 = position;
-                var pos2 = position + Vector2Int.right;
-                var pos3 = position + Vector2Int.down;
-                var pos4 = position + Vector2Int.left;
-
-
-                while (board.TryGetValue(pos1, out var entity))
-                {
-                    coords.Add(pos1);
-                    pos1 += Vector2Int.up;
-                }
-
-                while (board.TryGetValue(pos2, out var entity))
-                {
-                    coords.Add(pos2);
-                    pos2 += Vector2Int.right;
-                }
-
-                while (board.TryGetValue(pos3, out var entity))
-                {
-                    coords.Add(pos3);
-                    pos3 += Vector2Int.down;
-                }
-
-                while (board.TryGetValue(pos4, out var entity))
-                {
-                    coords.Add(pos4);
-                    pos4 += Vector2Int.left;
-                }
-            }
-
-            if (type == BlockTypes.BombSmall)
-            {
-                // var pos1 = position + Vector2Int.up + Vector2Int.left;
-                // var pos2 = position + Vector2Int.down + Vector2Int.right;
-
                 foreach (var direction in _directions)
                 {
+                    var rightDirection = direction == Vector2Int.up ? Vector2Int.right
+                        : direction == Vector2Int.right ? Vector2Int.down
+                        : direction == Vector2Int.down ? Vector2Int.left
+                        : direction == Vector2Int.left ? Vector2Int.up
+                        : Vector2Int.zero;
+
                     var coordToCheck = position + direction;
                     if (board.ContainsKey(coordToCheck))
                     {
                         coords.Add(coordToCheck);
                     }
+
+                    coordToCheck = position + direction + rightDirection;
+                    if (board.ContainsKey(coordToCheck))
+                    {
+                        coords.Add(coordToCheck);
+                    }
+
                 }
                 coords.Add(position);
             }
 
-            if (type == BlockTypes.Homing)
-            {
-                // TO DO
-
-                coords.Add(position);
-            }
-            
-            else
-            {
-                coords.Add(position);
-            }
-
+            if (coords.Count > 0) coords.Add(position);
 
             return coords;
         }
-
-
-        public static BlockTypes boosterFusion(this Dictionary<Vector2Int, EcsEntity> board, ref BlockTypes type1, ref BlockTypes type2)
-        {
-            var boosterTypeToSpawnOnCurrentPosition = BlockTypes.Default;
-
-            if (type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.DestroyLineHorizontal ||
-             type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.DestroyLineVertical ||
-             type1 == BlockTypes.DestroyLineVertical && type2 == BlockTypes.DestroyLineHorizontal ||
-             type1 == BlockTypes.DestroyLineVertical && type2 == BlockTypes.DestroyLineVertical)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.DestroyCross;
-            }
-
-            if (type1 == BlockTypes.DestroyCross && type2 == BlockTypes.DestroyCross)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.DestroySameType;
-            }
-
-            if (type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.Homing ||
-            type1 == BlockTypes.Homing && type2 == BlockTypes.DestroyLineHorizontal)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.HomingLineHorizontal;
-            }
-
-            if (type1 == BlockTypes.DestroyLineVertical && type2 == BlockTypes.Homing ||
-            type1 == BlockTypes.Homing && type2 == BlockTypes.DestroyLineVertical)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.HomingLineVertical;
-            }
-
-            if (type1 == BlockTypes.BombSmall && type2 == BlockTypes.BombSmall)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.BombBig;
-            }
-
-            if (type1 == BlockTypes.Homing && type2 == BlockTypes.Homing)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.MultyHoming;
-            }
-
-            if (type1 == BlockTypes.BombSmall && type2 == BlockTypes.DestroyLineVertical ||
-            type1 == BlockTypes.DestroyLineVertical && type2 == BlockTypes.BombSmall)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.BombSmallLineVertical;
-            }
-
-            if (type1 == BlockTypes.BombSmall && type2 == BlockTypes.DestroyLineHorizontal ||
-            type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.BombSmall)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.BombSmallLineHorizontal;
-            }
-
-            if (type1 == BlockTypes.BombSmall && type2 == BlockTypes.Homing ||
-            type1 == BlockTypes.Homing && type2 == BlockTypes.BombSmall)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.HomingBombSmall;
-            }
-
-            if (type1 == BlockTypes.BombBig && type2 == BlockTypes.Homing ||
-            type1 == BlockTypes.DestroyLineHorizontal && type2 == BlockTypes.BombBig)
-            {
-                boosterTypeToSpawnOnCurrentPosition = BlockTypes.HomingBombBig;
-            }
-
-
-
-            return (boosterTypeToSpawnOnCurrentPosition);
-        }
-
-
     }
-
 }

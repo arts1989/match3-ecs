@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace Match3
 {
@@ -21,25 +20,10 @@ namespace Match3
                 ref var direction = ref _filter.Get1(0).direction;
                 ref var position = ref _filter.Get2(0).value;
 
-                // if (board.isBooster(ref position) && board.isBooster(ref direction))
-                // {
-                //     board[position + direction].Get<BoosterFusionEvent>();
-                // }
-
                 if (board.checkMoveAvaliable(ref position, ref direction))
                 {
-                    var pos2 = position + direction;
-                    if (board.isBooster(ref position) && board.isBooster(ref pos2))
-                    {  // проверка бустерs ли был сдвигают + наложение ивента
-                        board[position].Get<BoosterFusionEvent>();
-                        board[position + direction].Get<BoosterFusionEvent>();
-                    }
-                    else
-                    {
-                        board[position].Get<MoveEvent>();
-                        board[position + direction].Get<MoveEvent>();
-                    }
-
+                    board[position].Get<MoveEvent>();
+                    board[position + direction].Get<MoveEvent>();
                 }
                 else
                 {
@@ -60,7 +44,6 @@ namespace Match3
                         )
                     );
                 }
-
             }
         }
     }
