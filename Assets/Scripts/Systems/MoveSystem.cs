@@ -39,13 +39,12 @@ namespace Match3
                 _gameState.freezeBoard = true;
                 sequence.Play().OnComplete(() =>
                 {
-                    if (board.isBooster(ref pos2))
-                    {
-                        _filter.GetEntity(1).Get<BoosterActivationEvent>();
-                    }
-                    else
                         _filter.GetEntity(1).Get<CheckMatchEvent>().oldPosition = pos2;
                     _filter.GetEntity(0).Get<CheckMatchEvent>().oldPosition = pos1;
+                    if (board.isBooster(ref pos2))
+                    {
+                        _filter.GetEntity(0).Get<BoosterActivationEvent>();
+                    }
                     _gameState.freezeBoard = false;
                 });
             }
