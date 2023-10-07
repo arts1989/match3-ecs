@@ -393,30 +393,6 @@ namespace Match3
             return false;
         }
 
-        public static int checkBoosterType(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position)
-        {
-
-            var type = 0;
-
-            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineHorizontal)
-                type = 1;
-
-            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical)
-                type = 2;
-
-            if (board[position].Get<BlockType>().value == BlockTypes.DestroyCross)
-                type = 3;
-
-            if (board[position].Get<BlockType>().value == BlockTypes.BombSmall)
-                type = 4;
-
-            if (board[position].Get<BlockType>().value == BlockTypes.Homing)
-                type = 5;
-
-
-            return type;
-        }
-
 
         public static List<Vector2Int> boosterActivation(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref BlockTypes type)
         {
@@ -441,7 +417,7 @@ namespace Match3
                 }
             }
 
-            if (board[position].Get<BlockType>().value == BlockTypes.DestroyLineVertical)
+            if (type == BlockTypes.DestroyLineVertical)
             {
                 var pos1 = position;
                 var pos2 = position + Vector2Int.down;
@@ -459,7 +435,7 @@ namespace Match3
                 }
             }
 
-            if (board[position].Get<BlockType>().value == BlockTypes.DestroyCross)
+            if (type == BlockTypes.DestroyCross)
             {
                 var pos1 = position;
                 var pos2 = position + Vector2Int.right;
@@ -492,7 +468,7 @@ namespace Match3
                 }
             }
 
-            if (board[position].Get<BlockType>().value == BlockTypes.BombSmall)
+            if (type == BlockTypes.BombSmall)
             {
                 // var pos1 = position + Vector2Int.up + Vector2Int.left;
                 // var pos2 = position + Vector2Int.down + Vector2Int.right;
@@ -508,7 +484,7 @@ namespace Match3
                 coords.Add(position);
             }
 
-            if (board[position].Get<BlockType>().value == BlockTypes.Homing)
+            if (type == BlockTypes.Homing)
             {
                 // TO DO
 
