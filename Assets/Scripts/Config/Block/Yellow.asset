@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f853e853ac21a8d44b3f980b395ed8cc, type: 3}
   m_Name: Yellow
   m_EditorClassIdentifier: 
-  points: 5
-  prefab: {fileID: 7369318952509992445, guid: a8549836b68e0a74d8b7749a7c55c79d, type: 3}
+  points: 0
   sprites:
   - {fileID: 21300000, guid: 3fab1a7fc44bab14d8688f0841780b18, type: 3}
   type: 5
+  health: 0

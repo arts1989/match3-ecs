@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f853e853ac21a8d44b3f980b395ed8cc, type: 3}
-  m_Name: BombSmallLineHorizontal
+  m_Name: DestroyLineHorizontal
   m_EditorClassIdentifier: 
-  points: 5
+  points: 10
   sprites:
-  - {fileID: -1716568020, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
-  type: 22
+  - {fileID: 1104147033, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
+  type: 6
   health: 0

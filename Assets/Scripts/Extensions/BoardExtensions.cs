@@ -14,21 +14,21 @@ namespace Match3
             var matchCoords = new List<Vector2Int>();
             var coords = new List<Vector2Int>();
 
-            bool hasTeewee = false;
-            bool hasLine = false;
-            bool hasSquare = false;
+            bool hasDestroyLineHorizontal = false; // match 5
+            bool hasBombSmall = false; // match 4 (square)
+            bool hasDestroyCross = false; // match 5 (Tetris - T)
 
-            // ïðîâåÿåì ìàò÷ 3 â ðÿä
+            // провеяем матч 3 в ряд
             foreach (var direction in _directions)
             {
                 if (direction + position == oldPosition)
-                    continue; // ïðèøëè îòñþäà, íå ïðîâåðÿì, òàì ãåì äðóãîãî òèïà
+                    continue; // пришли отсюда, не проверям, там гем другого типа
 
                 var chainLenght = 1;
                 var startPos = position;
                 coords.Clear();
 
-                if (direction != (oldPosition - position) && board.ContainsKey(position - direction)) // çàöåïèì -1 êîðäèíàòó äëÿ ïðîâåðêè ñëó÷àÿ "äâèãàþ ìåæäó äâóìÿ îäèíàêîâîãî òèïà"
+                if (direction != (oldPosition - position) && board.ContainsKey(position - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
                 {
                     startPos -= direction;
                 }
@@ -54,7 +54,7 @@ namespace Match3
                     var lastBlockInChainPos = coords[coords.Count - 1] + direction;
                     coords.Add(lastBlockInChainPos);
 
-                    // òåòðèñ _|_ - çàöåïèì îòðîñòîê åñëè îí åñòü è îáðåæåì ëèíèþ áîëüøå òðåõ åñëè îí (îòðîñòîê) åñòü
+                    // тетрис _|_ - зацепим отросток если он есть и обрежем линию больше трех если он (отросток) есть
                     if (coords.Count >= 3)
                     {
                         var coordToCheckNearby = Vector2Int.zero;
@@ -78,7 +78,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasTeewee = true;
+                                hasDestroyCross = true;
                             }
 
                             coordToCheckNearby = coords[1] + Vector2Int.up;
@@ -96,7 +96,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasTeewee = true;
+                                hasDestroyCross = true;
                             }
                         }
                         else if (direction == Vector2Int.down || direction == Vector2Int.up)
@@ -116,7 +116,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasTeewee = true;
+                                hasDestroyCross = true;
                             }
 
                             coordToCheckNearby = coords[1] + Vector2Int.right;
@@ -134,7 +134,7 @@ namespace Match3
                                     matchCoords.Add(coordToCheckNearbyNext);
                                 }
 
-                                hasTeewee = true;
+                                hasDestroyCross = true;
                             }
                         }
                     }
@@ -149,17 +149,17 @@ namespace Match3
                 }
             }
 
-            if (matchCoords.Count >= 5 && hasTeewee == false) // áîëëåå 5 â ðÿä èëè 2 ìàò÷3 óãîëêîì
+            if (matchCoords.Count >= 5 && hasDestroyCross == false) // боллее 5 в ряд или 2 матч3 уголком
             {
-                hasLine = true;
+                hasDestroyLineHorizontal = true;
             }
 
-            // ïðîâåÿåì êîáìèíàöèþ êâàäðàò èç 4
+            // провеяем кобминацию квадрат из 4
             var swipeDirection = position - oldPosition;
             foreach (var direction in _directions)
             {
                 if (direction + position == oldPosition || position - direction == oldPosition)
-                    continue; // óáèðàåì íàïðàâëåíèÿ ñâàéïà è îáðàòêó
+                    continue; // убираем направления свайпа и обратку
 
                 var pos1 = position;
                 var pos2 = position + direction;
@@ -188,16 +188,16 @@ namespace Match3
                         matchCoords.Add(pos4);
                     }
 
-                    hasSquare = true;
+                    hasBombSmall = true;
                 }
             }
 
             if (matchCoords.Count < _chainLenght)
                 matchCoords.Clear();
 
-            var boosterTypeToSpawnOnCurrentPosition = hasTeewee ? BlockTypes.Teewee
-                : hasLine ? BlockTypes.Line
-                : hasSquare ? BlockTypes.Square
+            var boosterTypeToSpawnOnCurrentPosition = hasDestroyCross ? BlockTypes.DestroyCross
+                : hasBombSmall ? BlockTypes.BombSmall
+                : hasDestroyLineHorizontal ? BlockTypes.DestroyLineHorizontal
                 : BlockTypes.Default;
 
             return (matchCoords, boosterTypeToSpawnOnCurrentPosition);
@@ -205,27 +205,36 @@ namespace Match3
 
         public static bool checkMoveAvaliable(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int swipeDirection)
         {
-            if (!board.ContainsKey(position + swipeDirection)) // ñâàéï çà ïðåäåëû äîñêè
+            if (!board.ContainsKey(position + swipeDirection)) // свайп за пределы доски
                 return false;
 
-            if (board[position].Get<BlockType>().value == BlockTypes.Obstacle ||
-                board[position + swipeDirection].Get<BlockType>().value == BlockTypes.Obstacle)
+            var currentBlockType = board[position].Get<BlockType>().value;
+            var swappingBlockType = board[position + swipeDirection].Get<BlockType>().value;
+
+            if (currentBlockType == BlockTypes.Obstacle || swappingBlockType == BlockTypes.Obstacle)
             {
-                //Debug.Log("ÿùèêè íå äâèãàåì, ñ ÿùèêàìè íå ñâàïàåìñÿ");
+                //Debug.Log("ящики не двигаем, с ящиками не свапаемся");
                 return false;
             }
 
-            // ïðîâåÿåì ìàò÷ 3 â ðÿä
+            if(currentBlockType == BlockTypes.DestroyLineHorizontal ||
+                currentBlockType == BlockTypes.BombSmall ||
+                currentBlockType == BlockTypes.DestroyCross)
+            {
+                return true; // разрешаем двигать бустеры
+            }
+
+            // провеяем матч 3 в ряд
             foreach (var direction in _directions)
             {
                 if (direction + swipeDirection == Vector2.zero)
-                    continue; // óáèðàåì îáðàòíîå íàïðàâëåíèå ñâàéïà, òàì íå ìîæåò áûòü êîìáèíàöèè
+                    continue; // убираем обратное направление свайпа, там не может быть комбинации
 
                 var chainLenght = 1;
                 var startPos = position + swipeDirection;
                 var coordToCheck = 2;
 
-                if (direction != swipeDirection && board.ContainsKey(startPos - direction)) // çàöåïèì -1 êîðäèíàòó äëÿ ïðîâåðêè ñëó÷àÿ "äâèãàþ ìåæäó äâóìÿ îäèíàêîâîãî òèïà"
+                if (direction != swipeDirection && board.ContainsKey(startPos - direction)) // зацепим -1 кординату для проверки случая "двигаю между двумя одинакового типа"
                 {
                     startPos -= direction;
                     coordToCheck++;
@@ -252,11 +261,11 @@ namespace Match3
                 }
             }
 
-            // ïðîâåÿåì êîáìèíàöèþ êâàäðàò èç 4
+            // провеяем кобминацию квадрат из 4
             foreach (var direction in _directions)
             {
                 if (direction + swipeDirection == Vector2.zero || direction == swipeDirection)
-                    continue; // óáèðàåì íàïðàâëåíèÿ ñâàéïà è îáðàòêó
+                    continue; // убираем направления свайпа и обратку
 
                 var startPos = position + swipeDirection;
 
@@ -321,7 +330,7 @@ namespace Match3
         {
             foreach (var direction in _directions)
             {
-                // òðè â ðÿä
+                // три в ряд
                 var firstNearbyInLine = position + direction;
                 var firstNearbyInLineType = board.ContainsKey(firstNearbyInLine) ? board[firstNearbyInLine].Get<BlockType>().value : BlockTypes.Default;
 
@@ -331,7 +340,7 @@ namespace Match3
                 if (firstNearbyInLineType == blockType && secondNearbyInLineType == blockType)
                     return true;
 
-                // êâàäðàò
+                // квадрат
                 var rightDirection = direction == Vector2Int.up ? Vector2Int.right
                     : direction == Vector2Int.right ? Vector2Int.down
                     : direction == Vector2Int.down ? Vector2Int.left
@@ -347,7 +356,7 @@ namespace Match3
                 if (firstNearbyInLineType == blockType && nearbyRightType == blockType && diagonallyType == blockType)
                     return true;
 
-                //äîáàâèòü ïðîâåðêó ñïàâí ìåæäó 2ìÿ îäíîãî òèïà òîëüêî äëÿ ñïàâí ñèñòåìû
+                //добавить проверку спавн между 2мя одного типа только для спавн системы
                 if (checkBetween)
                 {
                     var prevNearbyInLine = position - direction;
@@ -389,7 +398,7 @@ namespace Match3
                     pos += Vector2Int.right;
                 }
             }
-            else if (blockType == BlockTypes.DestroyLineVertical)
+            /*else if (blockType == BlockTypes.DestroyLineVertical)
             {
                 var pos = position + Vector2Int.up;
 
@@ -405,6 +414,19 @@ namespace Match3
                 {
                     coords.Add(pos);
                     pos += Vector2Int.down;
+                }
+            }*/
+            else if (blockType == BlockTypes.DestroyCross)
+            {
+                foreach (var direction in _directions)
+                {
+                    var pos = position + direction;
+
+                    while (board.TryGetValue(pos, out var entity))
+                    {
+                        coords.Add(pos);
+                        pos += direction;
+                    }
                 }
             }
             else if (blockType == BlockTypes.BombSmall)

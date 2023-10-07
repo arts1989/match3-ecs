@@ -40,8 +40,6 @@ namespace Match3
                 .Add(new DetectSwipeSystem())
                 .Add(new CheckMoveSystem())
                 .Add(new MoveSystem())
-                .Add(new BoosterFusionSystem())
-                .Add(new BoosterEffectSystem())
                 .Add(new CheckMatchSystem())
                 .Add(new ClearUnderlaySystem())
                 .Add(new CheckNearbyObstaclesSystem())
@@ -56,8 +54,6 @@ namespace Match3
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
                 .OneFrame<MoveEvent>()
-                .OneFrame<BoosterFusionEvent>()
-                .OneFrame<BoosterActivationEvent>()
                 .OneFrame<CheckMatchEvent>()
                 .OneFrame<DestroyEvent>()
                 .OneFrame<LoseEvent>()

@@ -1,12 +1,13 @@
 ﻿using DG.Tweening;
 using Leopotam.Ecs;
+using System.Linq;
 using UnityEngine;
 
 namespace Match3
 {
     internal class CheckMoveSystem : IEcsRunSystem
     {
-        private EcsFilter<CheckMoveEvent, Position> _filter;
+        private EcsFilter<CheckMoveEvent, Position, BlockType> _filter;
         private GameState _gameState;
 
         public void Run()
@@ -19,6 +20,7 @@ namespace Match3
 
                 ref var direction = ref _filter.Get1(0).direction;
                 ref var position = ref _filter.Get2(0).value;
+                ref var blockType = ref _filter.Get3(0).value;
 
                 if (board.checkMoveAvaliable(ref position, ref direction))
                 {
