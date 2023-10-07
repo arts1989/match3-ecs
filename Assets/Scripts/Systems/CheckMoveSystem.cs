@@ -34,10 +34,6 @@ namespace Match3
                         board[position].Get<BoosterFusionEvent>();
                         board[position + direction].Get<BoosterFusionEvent>();
                     }
-                    if (board.isBooster(ref position))
-                    {   // проверка бустер ли был сдивинут + наложение ивента
-                        board[position].Get<BoosterActivationEvent>();
-                    }
                     else
                     {
                         board[position].Get<MoveEvent>();

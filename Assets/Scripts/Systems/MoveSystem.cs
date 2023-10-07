@@ -13,8 +13,10 @@ namespace Match3
         {
             if (!_filter.IsEmpty())
             {
+                var board = _gameState.Board;
+
                 ref var obj1 = ref _filter.Get2(0).value;
-                ref var obj2 = ref _filter.Get2(1).value; 
+                ref var obj2 = ref _filter.Get2(1).value;
                 var tempObj1 = obj1.transform.position;
 
                 var entity1 = _filter.GetEntity(0);
@@ -35,10 +37,16 @@ namespace Match3
                 _gameState.Board[pos2] = entity1;
 
                 _gameState.freezeBoard = true;
-                sequence.Play().OnComplete(() => {
-                    _filter.GetEntity(1).Get<CheckMatchEvent>().oldPosition = pos2;
+                sequence.Play().OnComplete(() =>
+                {
+                    if (board.isBooster(ref pos2))
+                    {
+                        _filter.GetEntity(1).Get<BoosterActivationEvent>();
+                    }
+                    else
+                        _filter.GetEntity(1).Get<CheckMatchEvent>().oldPosition = pos2;
                     _filter.GetEntity(0).Get<CheckMatchEvent>().oldPosition = pos1;
-                    _gameState.freezeBoard = false; 
+                    _gameState.freezeBoard = false;
                 });
             }
         }
