@@ -3,6 +3,7 @@ using Match3;
 
 public static class WinManager
 {
+    /*
     static Dictionary<BlockTypes, int> collectionOfElements = new Dictionary<BlockTypes, int>();
     static Dictionary<BlockTypes, int> removelements = new Dictionary<BlockTypes, int>();
     static Dictionary<BlockTypes, int> collectionOfCombinations = new Dictionary<BlockTypes, int>();
@@ -33,5 +34,6 @@ public static class WinManager
         removelements = new Dictionary<BlockTypes, int>();
         collectionOfCombinations = new Dictionary<BlockTypes, int>();
     }
+    */
 }
 

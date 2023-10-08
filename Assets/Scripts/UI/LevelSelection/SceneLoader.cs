@@ -31,6 +31,7 @@ public class SceneLoader : MonoBehaviour
         {
             return;
         }
+        saveData.Level = numberLevel;
         saveData.levels.Insert(numberLevel, new LevelData() { Stars = 0 });
         _saveManager.SaveData(saveData);
         SceneManager.LoadScene("Game");

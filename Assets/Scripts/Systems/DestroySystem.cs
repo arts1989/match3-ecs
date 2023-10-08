@@ -17,9 +17,9 @@ namespace Match3
                 foreach (int index in _filter)
                 {
                     ref var spawnType    = ref _filter.Get2(index).value;
-                    ref var linkToObject = ref _filter.Get3(index).value;
+                    ref var linkToObject = ref _filter.Get3(index).value;                    
 
-                    // WinManager.SetElement(spawnType, Level level); // как из Configuration вытащить level???
+                   // WinManager.SetElement(spawnType, level); // как из Configuration вытащить level???
 
                     Object.Destroy(linkToObject); //удаляем обжект на сцене
 

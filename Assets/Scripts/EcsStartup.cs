@@ -13,14 +13,14 @@ namespace Match3
 
         public Configuration configuration;
         public SceneData sceneData;
-
+        
         void Start()
         {
             // void can be switched to IEnumerator for support coroutines.
 
             //load managers 
             var saveManager = new SaveManager();
-            var gameState = new GameState();
+            var gameState = new GameState(configuration);
 
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
@@ -50,7 +50,8 @@ namespace Match3
                 .Add(new AudioPlaySystem())
                 .Add(new CheckWinSystem())
                 .Add(new CheckLoseSystem()) 
-                .Add(new CheckWinColorSystem())                
+                .Add(new CheckWinColorSystem())
+                .Add(new CheckWinLevelTypeSystem())
 
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
@@ -66,7 +67,7 @@ namespace Match3
                 .Inject(configuration)
                 .Inject(saveManager)
                 .Inject(gameState)
-                .Inject(sceneData)
+                .Inject(sceneData)                
                 .InjectUi(_uiEmitter)
                 .Init();
         }

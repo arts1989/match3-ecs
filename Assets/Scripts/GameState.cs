@@ -23,10 +23,26 @@ namespace Match3
         public AudioClip destroySound;
         public AudioClip spawnSound;
         public AudioClip denySound;
-
+        public LevelType _levelType;
+                
+        /*
+        static Dictionary<BlockTypes, int> collectionOfElements = new Dictionary<BlockTypes, int>();
+        static Dictionary<BlockTypes, int> removelements = new Dictionary<BlockTypes, int>();
+        static Dictionary<BlockTypes, int> collectionOfCombinations = new Dictionary<BlockTypes, int>();
+        */
+        
         public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
 
         public bool freezeBoard = false;
+
+        public GameState(Configuration configuration)
+        {
+            var _saveManager = new SaveManager();
+            var saveData = _saveManager.GetData();
+            var level = configuration.levels[saveData.Level];
+            Init(level);
+        }
+                            
         /*
         private int[] _cells;
         private int _columns;
@@ -49,5 +65,29 @@ namespace Match3
             _cells = new int[_cellsAmount];
         }
         */
+        private void Init(Level level)
+        {
+            _levelType = level.LevelType;
+        }
+
+       /*
+        public static int GetCountBytape(BlockTypes types)
+        {
+            return collectionOfElements[types];
+        }
+
+        public static bool SetElement(BlockTypes types, Level level)
+        {
+            if (level.LevelType == 1)
+            {
+                collectionOfElements[types]++;
+
+                if (collectionOfElements[types] >= level.TargetLevel)
+                {
+                    return true;
+                }
+            }
+            return false;
+        } */       
     }
 }
