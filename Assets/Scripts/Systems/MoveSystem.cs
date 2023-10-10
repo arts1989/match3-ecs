@@ -1,7 +1,5 @@
-﻿using Leopotam.Ecs;
-using DG.Tweening;
-using Unity.VisualScripting;
-using UnityEngine.UIElements;
+﻿using DG.Tweening;
+using Leopotam.Ecs;
 
 namespace Match3
 {

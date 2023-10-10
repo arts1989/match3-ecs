@@ -9,6 +9,20 @@ namespace Match3
         static private List<Vector2Int> _directions = new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.right, Vector2Int.left };
         static private int _chainLenght = 3;
 
+        static private Dictionary<int, BlockTypes> _boosterMergeConfig = new Dictionary<int, BlockTypes>
+        {
+            { BlockTypes.DestroyLineHorizontal.GetHashCode() + BlockTypes.DestroyLineHorizontal.GetHashCode() ,  BlockTypes.DestroyCross },
+            { BlockTypes.DestroyLineHorizontal.GetHashCode() + BlockTypes.DestroyLineVertical.GetHashCode() ,  BlockTypes.DestroyCross },
+            { BlockTypes.DestroyLineVertical.GetHashCode() + BlockTypes.DestroyLineVertical.GetHashCode() ,  BlockTypes.DestroyCross },
+            { BlockTypes.DestroyCross.GetHashCode() + BlockTypes.DestroyCross.GetHashCode() ,  BlockTypes.DestroySameType },
+            { BlockTypes.DestroyLineHorizontal.GetHashCode() + BlockTypes.Homing.GetHashCode() ,  BlockTypes.HomingLineHorizontal },
+            { BlockTypes.DestroyLineVertical.GetHashCode() + BlockTypes.Homing.GetHashCode() ,  BlockTypes.HomingLineVertical },
+            { BlockTypes.BombSmall.GetHashCode() + BlockTypes.BombSmall.GetHashCode() ,  BlockTypes.BombBig },
+            { BlockTypes.BombSmall.GetHashCode() + BlockTypes.BombSmall.GetHashCode() ,  BlockTypes.BombBig },
+            { BlockTypes.Homing.GetHashCode() + BlockTypes.Homing.GetHashCode() ,  BlockTypes.MultyHoming },
+            { BlockTypes.BombSmall.GetHashCode() + BlockTypes.DestroyLineVertical.GetHashCode() ,  BlockTypes.BombSmallLineVertical },
+        };
+
         public static (List<Vector2Int> coords, BlockTypes blockType) getMatchCoords(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int oldPosition)
         {
             var matchCoords = new List<Vector2Int>();
@@ -458,6 +472,12 @@ namespace Match3
             if (coords.Count > 0) coords.Add(position);
 
             return coords;
+        }
+
+        public static BlockTypes getBoosterMergeType(this Dictionary<Vector2Int, EcsEntity> board, ref BlockTypes t1, ref BlockTypes t2)
+        {
+            var key = t1.GetHashCode() + t2.GetHashCode();
+            return _boosterMergeConfig.ContainsKey(key) ? _boosterMergeConfig[key] : BlockTypes.Default;
         }
     }
 }

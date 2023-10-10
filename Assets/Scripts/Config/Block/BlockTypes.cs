@@ -14,7 +14,7 @@
         BombSmall,
         DestroyCross,
         
-        /*DestroyLineVertical,
+        DestroyLineVertical,
         DestroySameType,
         DetroyToEdge,
         Homing,
@@ -25,7 +25,7 @@
         HomingBombBig,
         BombBig,
         BombSmallLineHorizontal,
-        BombSmallLineVertical,*/
+        BombSmallLineVertical,
         
         // obstacle
         Obstacle,
