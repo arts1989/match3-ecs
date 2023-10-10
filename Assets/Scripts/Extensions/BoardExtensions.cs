@@ -9,18 +9,17 @@ namespace Match3
         static private List<Vector2Int> _directions = new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.right, Vector2Int.left };
         static private int _chainLenght = 3;
 
-        static private Dictionary<int, BlockTypes> _boosterMergeConfig = new Dictionary<int, BlockTypes>
+        static private Dictionary<string, BlockTypes> _boosterMergeConfig = new Dictionary<string, BlockTypes>
         {
-            { BlockTypes.DestroyLineHorizontal.GetHashCode() + BlockTypes.DestroyLineHorizontal.GetHashCode() ,  BlockTypes.DestroyCross },
-            { BlockTypes.DestroyLineHorizontal.GetHashCode() + BlockTypes.DestroyLineVertical.GetHashCode() ,  BlockTypes.DestroyCross },
-            { BlockTypes.DestroyLineVertical.GetHashCode() + BlockTypes.DestroyLineVertical.GetHashCode() ,  BlockTypes.DestroyCross },
-            { BlockTypes.DestroyCross.GetHashCode() + BlockTypes.DestroyCross.GetHashCode() ,  BlockTypes.DestroySameType },
-            { BlockTypes.DestroyLineHorizontal.GetHashCode() + BlockTypes.Homing.GetHashCode() ,  BlockTypes.HomingLineHorizontal },
-            { BlockTypes.DestroyLineVertical.GetHashCode() + BlockTypes.Homing.GetHashCode() ,  BlockTypes.HomingLineVertical },
-            { BlockTypes.BombSmall.GetHashCode() + BlockTypes.BombSmall.GetHashCode() ,  BlockTypes.BombBig },
-            { BlockTypes.BombSmall.GetHashCode() + BlockTypes.BombSmall.GetHashCode() ,  BlockTypes.BombBig },
-            { BlockTypes.Homing.GetHashCode() + BlockTypes.Homing.GetHashCode() ,  BlockTypes.MultyHoming },
-            { BlockTypes.BombSmall.GetHashCode() + BlockTypes.DestroyLineVertical.GetHashCode() ,  BlockTypes.BombSmallLineVertical },
+            { BlockTypes.DestroyLineHorizontal.GetHashCode() + "+" + BlockTypes.DestroyLineHorizontal.GetHashCode() ,  BlockTypes.DestroyCross },
+            { BlockTypes.DestroyLineHorizontal.GetHashCode() + "+" + BlockTypes.DestroyLineVertical.GetHashCode() ,  BlockTypes.DestroyCross },
+            { BlockTypes.DestroyLineVertical.GetHashCode() + "+" + BlockTypes.DestroyLineVertical.GetHashCode() ,  BlockTypes.DestroyCross },
+            { BlockTypes.DestroyCross.GetHashCode() + "+" + BlockTypes.DestroyCross.GetHashCode() ,  BlockTypes.DestroySameType },
+            { BlockTypes.DestroyLineHorizontal.GetHashCode() + "+" + BlockTypes.Homing.GetHashCode() ,  BlockTypes.HomingLineHorizontal },
+            { BlockTypes.DestroyLineVertical.GetHashCode() + "+" + BlockTypes.Homing.GetHashCode() ,  BlockTypes.HomingLineVertical },
+            { BlockTypes.BombSmall.GetHashCode() + "+" + BlockTypes.BombSmall.GetHashCode() ,  BlockTypes.BombBig },
+            { BlockTypes.Homing.GetHashCode() + "+" + BlockTypes.Homing.GetHashCode() ,  BlockTypes.MultyHoming },
+            { BlockTypes.BombSmall.GetHashCode() + "+" + BlockTypes.DestroyLineVertical.GetHashCode() ,  BlockTypes.BombSmallLineVertical },
         };
 
         public static (List<Vector2Int> coords, BlockTypes blockType) getMatchCoords(this Dictionary<Vector2Int, EcsEntity> board, ref Vector2Int position, ref Vector2Int oldPosition)
@@ -474,10 +473,10 @@ namespace Match3
             return coords;
         }
 
-        public static BlockTypes getBoosterMergeType(this Dictionary<Vector2Int, EcsEntity> board, ref BlockTypes t1, ref BlockTypes t2)
+        public static void getBoosterMergeType(this Dictionary<Vector2Int, EcsEntity> board, ref BlockTypes t1, ref BlockTypes t2, out BlockTypes mergeType)
         {
-            var key = t1.GetHashCode() + t2.GetHashCode();
-            return _boosterMergeConfig.ContainsKey(key) ? _boosterMergeConfig[key] : BlockTypes.Default;
+            var key = t1.GetHashCode() + "+" + t2.GetHashCode();
+            mergeType = _boosterMergeConfig.ContainsKey(key) ? _boosterMergeConfig[key] : BlockTypes.Default;
         }
     }
 }

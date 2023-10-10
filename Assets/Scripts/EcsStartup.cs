@@ -39,6 +39,7 @@ namespace Match3
                 .Add(new HandleUIBoosterSystem())
                 .Add(new DetectSwipeSystem())
                 .Add(new CheckMoveSystem())
+                .Add(new BoosterMergeSystem())
                 .Add(new MoveSystem())
                 .Add(new CheckMatchSystem())
                 .Add(new ClearUnderlaySystem())
