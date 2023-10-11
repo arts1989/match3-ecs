@@ -12,64 +12,89 @@ namespace Match3
 
         public void Init() 
         {
-            for (int x = 0; x < _gameState.Columns; x++)
+            var board = _gameState.Board;
+            _world.spawnBlocksParent();
+
+            if (_gameState.blockPositionsActivated)
             {
-                for (int y = 0; y < _gameState.Rows; y++)
+                Sprite blockSprite = null;
+                int blockPoints = 0;
+
+                foreach (var block in _gameState.blockPositions)
                 {
-                    if(_configuration.levels[_gameState.currentLevel].PrecipiceProperty.Contains
-                        (new Vector2Int(x, y))) continue;
-                    
-                    var entity   = _world.NewEntity();
-                    var position = new Vector2Int(x, y);
+                    var entity = _world.NewEntity();
+                    var position = block.Key;
+                    var blockType = block.Value;
 
-                    int randomNum = Random.Range(0, _configuration.blocks.Count);
+                    foreach (var configBlock in _configuration.blocks)
+                    {
+                        if (blockType == configBlock.type)
+                        {
+                            blockSprite = configBlock.sprites[0];
+                            blockPoints = configBlock.points;
+                        }
+                    }
 
-                    var obj = _world.spawnGameObject(
-                        position,
-                        entity,
-                        _configuration.blocks[randomNum].prefab,
-                        _configuration.blocks[randomNum].sprites[0]
-                    );
+                    var obj = _world.spawnGameObject(position, entity, blockSprite);
 
                     entity.Get<Position>().value = position;
-                    entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
-                    entity.Get<Points>().value = _configuration.blocks[randomNum].points;  
+                    entity.Get<BlockType>().value = blockType;
+                    entity.Get<Points>().value = blockPoints;
                     entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
 
-                    _gameState.Board[position] = entity;
+                    board[position] = entity;
                 }
             }
+            else 
+            { 
+                for (int x = 0; x < _gameState.Columns; x++)
+                {
+                    for (int y = 0; y < _gameState.Rows; y++)
+                    {
+                        var position = new Vector2Int(x, y);
 
-            var obstacleCount = _gameState.ObstacleCount;
+                        if (_gameState.emptyPositions.Contains(position)) continue;
 
-            while(obstacleCount > 0)
-            {
-                var index = Random.Range(0, _gameState.Board.Count);
+                        var entity = _world.NewEntity();
+                        int randomNum = Random.Range(0, _configuration.blocks.Count);
 
-                var position = _gameState.Board.Keys.ElementAt(index);
-                var entity = _gameState.Board.Values.ElementAt(index);
+                        var obj = _world.spawnGameObject(position, entity, _configuration.blocks[randomNum].sprites[0]);
 
-                Object.Destroy(entity.Get<LinkToObject>().value); 
-                entity.Destroy();
+                        entity.Get<Position>().value = position;
+                        entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
+                        entity.Get<Points>().value = _configuration.blocks[randomNum].points;  
+                        entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
 
-                entity = _world.NewEntity();
+                        board[position] = entity;
+                    }
+                }
 
-                var obj = _world.spawnGameObject(
-                    position,
-                    entity,
-                    _configuration.obstacles[0].prefab,
-                    _configuration.obstacles[0].sprites[0]
-                );
+                var obstacleCount = _gameState.ObstacleCount;
 
-                entity.Get<Position>().value = position;
-                entity.Get<BlockType>().value = _configuration.obstacles[0].type;
-                entity.Get<Points>().value = _configuration.obstacles[0].points;
-                entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
-                entity.Get<Health>().value = _configuration.obstacles[0].health;
+                while(obstacleCount > 0)
+                {
+                    var index = Random.Range(0, _gameState.Board.Count);
 
-                _gameState.Board[position] = entity;
+                    var position = _gameState.Board.Keys.ElementAt(index);
+                    var entity = _gameState.Board.Values.ElementAt(index);
 
-                obstacleCount--;
+                    Object.Destroy(entity.Get<LinkToObject>().value); 
+                    entity.Destroy();
+
+                    entity = _world.NewEntity();
+
+                    var obj = _world.spawnGameObject(position, entity, _configuration.obstacles[0].sprites[0]);
+
+                    entity.Get<Position>().value = position;
+                    entity.Get<BlockType>().value = _configuration.obstacles[0].type;
+                    entity.Get<Points>().value = _configuration.obstacles[0].points;
+                    entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
+                    entity.Get<Health>().value = _configuration.obstacles[0].health;
+
+                    board[position] = entity;
+
+                    obstacleCount--;
+                }
             }
         } 
     }

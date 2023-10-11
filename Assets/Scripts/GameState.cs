@@ -17,6 +17,15 @@ namespace Match3
         public int ObstacleCount;
         public int UnderlayCount;
 
+        public bool blockPositionsActivated;
+        public List<SerializeItem<Vector2Int, BlockTypes>> blockPositions;
+
+        public bool underlayPositionsActivated;
+        public List<SerializeItem<Vector3Int, UnderlayTypes>> underlayPositions;
+
+        public bool emptyPositionsActivated;
+        public List<Vector2Int> emptyPositions;
+
         /*
         private int[] _cells;
         private int _columns;
@@ -38,6 +47,6 @@ namespace Match3
             _cellsAmount = _rows * _columns;
             _cells = new int[_cellsAmount];
         }
-        */ 
+        */
     }
 }

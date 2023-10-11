@@ -16,14 +16,16 @@ namespace Match3
 		public int ObstacleCount = 0;
 		public int UnderlayCount = 0;
 
-		[Header("Blocks and underlays properties")]
-		public List<SerializeItem<Vector2Int,BlockTypes>> blocksProperties;
-		public List<SerializeItem<Vector3Int,UnderlayTypes>> underlaysProperties;
+		[Header("Blocks positions on board")]
+		public bool blockPositionsActivated = false;
+		public List<SerializeItem<Vector2Int,BlockTypes>> blockPositions;
 
-		[Space] 
-		[SerializeField] private List<Vector2Int> precipiceProperty;
+        [Header("Underlay positions on board")]
+        public bool underlayPositionsActivated = false;
+        public List<SerializeItem<Vector3Int,UnderlayTypes>> underlayPositions;
 
-		//public IReadOnlyList<Vector2Int> PrecipiceProperty => precipiceProperty;
-		public List<Vector2Int> PrecipiceProperty => precipiceProperty;
+        [Header("Empty positions on board")]
+		public bool emptyPositionsActivated = false;
+        public List<Vector2Int> emptyPositions;
 	}	
 }
