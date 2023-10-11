@@ -16,15 +16,14 @@ namespace Match3
 		public int ObstacleCount = 0;
 		public int UnderlayCount = 0;
 
-		[Header("Blocks positions on board")]
+		[Space]
+
 		public bool blockPositionsActivated = false;
 		public List<SerializeItem<Vector2Int,BlockTypes>> blockPositions;
 
-        [Header("Underlay positions on board")]
         public bool underlayPositionsActivated = false;
         public List<SerializeItem<Vector3Int,UnderlayTypes>> underlayPositions;
 
-        [Header("Empty positions on board")]
 		public bool emptyPositionsActivated = false;
         public List<Vector2Int> emptyPositions;
 	}	

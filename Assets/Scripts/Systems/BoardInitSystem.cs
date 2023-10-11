@@ -10,7 +10,7 @@ namespace Match3
         private Configuration _configuration;
         private GameState _gameState;
 
-        public void Init() 
+        public void Init()
         {
             var board = _gameState.Board;
             _world.spawnBlocksParent();
@@ -45,24 +45,33 @@ namespace Match3
                     board[position] = entity;
                 }
             }
-            else 
-            { 
+            else
+            {
                 for (int x = 0; x < _gameState.Columns; x++)
                 {
                     for (int y = 0; y < _gameState.Rows; y++)
                     {
                         var position = new Vector2Int(x, y);
 
-                        if (_gameState.emptyPositions.Contains(position)) continue;
+                        if (_gameState.emptyPositionsActivated)
+                            if (_gameState.emptyPositions.Contains(position))
+                                continue;
 
                         var entity = _world.NewEntity();
                         int randomNum = Random.Range(0, _configuration.blocks.Count);
+                        var blockType = _configuration.blocks[randomNum].type;
+
+                        while (board.hasNearbySameType(ref position, ref blockType))
+                        {
+                            randomNum = Random.Range(0, _configuration.blocks.Count);
+                            blockType = _configuration.blocks[randomNum].type;
+                        }
 
                         var obj = _world.spawnGameObject(position, entity, _configuration.blocks[randomNum].sprites[0]);
 
                         entity.Get<Position>().value = position;
                         entity.Get<BlockType>().value = _configuration.blocks[randomNum].type;
-                        entity.Get<Points>().value = _configuration.blocks[randomNum].points;  
+                        entity.Get<Points>().value = _configuration.blocks[randomNum].points;
                         entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
 
                         board[position] = entity;
@@ -71,14 +80,22 @@ namespace Match3
 
                 var obstacleCount = _gameState.ObstacleCount;
 
-                while(obstacleCount > 0)
+                while (obstacleCount > 0)
                 {
-                    var index = Random.Range(0, _gameState.Board.Count);
+                    var x = Random.Range(0, _gameState.Columns);
+                    var y = Random.Range(0, _gameState.Rows);
+                    var position = new Vector2Int(x, y);
 
-                    var position = _gameState.Board.Keys.ElementAt(index);
-                    var entity = _gameState.Board.Values.ElementAt(index);
+                    while (board.isObstacle(ref position))
+                    {
+                        x = Random.Range(0, _gameState.Columns);
+                        y = Random.Range(0, _gameState.Rows);
+                        position = new Vector2Int(x, y);
+                    }
 
-                    Object.Destroy(entity.Get<LinkToObject>().value); 
+                    var entity = board[position];
+
+                    Object.Destroy(entity.Get<LinkToObject>().value);
                     entity.Destroy();
 
                     entity = _world.NewEntity();
@@ -96,6 +113,6 @@ namespace Match3
                     obstacleCount--;
                 }
             }
-        } 
+        }
     }
 }

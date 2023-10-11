@@ -38,11 +38,9 @@ namespace Match3
                 .Add (new MoveSystem()) // меняет местами
                 .Add (new CheckMatchSystem())
                 .Add (new ClearUnderlaySystem())
-                .Add (new DestroyAndSpawnSystem()) // унитожает связанный с энтити геймобжект
                 .Add (new UpdateScoreWidgetSystem())
                 .Add (new CheckWinSystem ()) // проверка что есть ентити с WinEvent 
                 .Add (new CheckLoseSystem()) // проверка что есть ентити с LoseEvent 
-
 
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
