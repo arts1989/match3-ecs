@@ -10,9 +10,23 @@
         Green,
         Yellow,
         // boosters
-        Teewee,
-        Line,
-        Square,
+        DestroyLineHorizontal,
+        BombSmall,
+        DestroyCross,
+        
+        DestroyLineVertical,
+        DestroySameType,
+        DetroyToEdge,
+        Homing,
+        MultyHoming,
+        HomingLineHorizontal,
+        HomingLineVertical,
+        HomingBombSmall,
+        HomingBombBig,
+        BombBig,
+        BombSmallLineHorizontal,
+        BombSmallLineVertical,
+        
         // obstacle
         Obstacle,
     }

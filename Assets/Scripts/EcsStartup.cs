@@ -39,6 +39,7 @@ namespace Match3
                 .Add(new HandleUIBoosterSystem())
                 .Add(new DetectSwipeSystem())
                 .Add(new CheckMoveSystem())
+                .Add(new BoosterMergeSystem())
                 .Add(new MoveSystem())
                 .Add(new CheckMatchSystem())
                 .Add(new ClearUnderlaySystem())
@@ -49,8 +50,8 @@ namespace Match3
                 .Add(new SpawnSystem())
                 .Add(new AudioPlaySystem())
                 .Add(new CheckWinSystem())
-                .Add(new CheckLoseSystem()) 
-                
+                .Add(new CheckLoseSystem())
+
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
                 .OneFrame<MoveEvent>()
