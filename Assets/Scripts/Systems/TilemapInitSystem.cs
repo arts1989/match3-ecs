@@ -1,5 +1,6 @@
 using Leopotam.Ecs;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Match3
 {
@@ -15,27 +16,53 @@ namespace Match3
             var tiles = _sceneData.tiles;
             var underlays = _configuration.underlays;
 
-            //подложка
-            for (int x = 0; x < _gameState.Columns; x++)
+            if (_gameState.blockPositionsActivated)
             {
-                for (int y = 0; y < _gameState.Rows; y++)
+                foreach (var row in _gameState.blockPositions)
                 {
-                    var coord = new Vector3Int(x, y);
+                    var coord = (Vector3Int) row.Key;
                     tilemap.SetTile(coord, tiles[0]);
                 }
+
+                foreach (var row in _gameState.underlayPositions)
+                {
+                    var coord = (Vector3Int) row.Key;
+                    tilemap.SetTile(coord, underlays[0].tiles[0]);
+                }
             }
-
-            //покрытия
-            var underlayCount = _gameState.UnderlayCount;
-            while (underlayCount > 0)
+            else
             {
-                var coord = new Vector3Int(
-                    Random.Range(0, _gameState.Columns - 1),
-                    Random.Range(0, _gameState.Rows - 1)
-                );
+                //подложка
+                for (int x = 0; x < _gameState.Columns; x++)
+                {
+                    for (int y = 0; y < _gameState.Rows; y++)
+                    {
+                        var coord = new Vector3Int(x, y);
 
-                tilemap.SetTile(coord, underlays[0].tiles[0]);
-                underlayCount--;
+                        if (_gameState.emptyPositionsActivated)
+                            if (_gameState.emptyPositions.Contains((Vector2Int)coord))
+                                continue;
+
+                        tilemap.SetTile(coord, tiles[0]);
+                    }
+                }
+
+                //покрытия
+                var underlayCount = _gameState.UnderlayCount;
+                while (underlayCount > 0)
+                {
+                    var coord = new Vector3Int(
+                        Random.Range(0, _gameState.Columns - 1),
+                        Random.Range(0, _gameState.Rows - 1)
+                    );
+
+                    if (_gameState.emptyPositionsActivated)
+                        if (_gameState.emptyPositions.Contains((Vector2Int)coord))
+                            continue;
+
+                    tilemap.SetTile(coord, underlays[0].tiles[0]);
+                    underlayCount--;
+                }
             }
 
             //бордеры

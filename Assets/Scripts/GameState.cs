@@ -24,9 +24,17 @@ namespace Match3
         public AudioClip spawnSound;
         public AudioClip denySound;
 
-        public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
+        public bool blockPositionsActivated;
+        public List<SerializeItem<Vector2Int, BlockTypes>> blockPositions;
+
+        public bool underlayPositionsActivated;
+        public List<SerializeItem<Vector3Int, UnderlayTypes>> underlayPositions;
+
+        public bool emptyPositionsActivated;
+        public List<Vector2Int> emptyPositions;
 
         public bool freezeBoard = false;
+
         /*
         private int[] _cells;
         private int _columns;

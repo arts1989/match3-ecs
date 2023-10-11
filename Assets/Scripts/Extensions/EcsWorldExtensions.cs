@@ -8,8 +8,6 @@ namespace Match3
         public static GameObject spawnGameObject(this EcsWorld world, Vector2Int position, EcsEntity entity, Sprite sprite)
         {
             var name = position.x + "_" + position.y + "_" + sprite.name;
-           // var obj = Object.Instantiate(prefab);
-
             var obj = new GameObject(name);
            
             obj.AddComponent<SpriteRenderer>().sprite = sprite;
