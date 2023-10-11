@@ -33,7 +33,7 @@ namespace Match3
                 .Add(new GameStateInitSystem())
                 .Add(new TilemapInitSystem())
                 .Add(new BoardInitSystem())
-                .Add(new BoosterInitSystem())
+                .Add(new UIBoosterInitSystem())
                 .Add(new CameraInitSystem())
                 .Add(new BackgroundInitSystem())
                 .Add(new HandleUIBoosterSystem())

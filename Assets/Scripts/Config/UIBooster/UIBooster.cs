@@ -3,10 +3,10 @@ using UnityEngine;
 namespace Match3
 {
     [CreateAssetMenu]
-    public class Booster : ScriptableObject
+    public class UIBooster : ScriptableObject
     {
         public GameObject prefab;
 
-        [SerializeField] public BoosterTypes boosterType;
+        [SerializeField] public UIBoosterTypes boosterType;
      }
 }

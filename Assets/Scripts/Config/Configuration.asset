@@ -26,6 +26,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9dd8add5ec8c00843a4269f6210fb44c, type: 2}
   - {fileID: 11400000, guid: 5dc2af8202c1b9449850f4f1de424944, type: 2}
   - {fileID: 11400000, guid: d2c64f7399101bb40ad52819d5f83cf9, type: 2}
+  - {fileID: 11400000, guid: 8fc243bc2d2293e4eb9632d61ce3aca1, type: 2}
   obstacles:
   - {fileID: 11400000, guid: 37db2ca008b80c448808014c4ef335f9, type: 2}
   UIBoosters:

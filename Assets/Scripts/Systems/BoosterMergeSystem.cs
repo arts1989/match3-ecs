@@ -1,6 +1,6 @@
 using DG.Tweening;
 using Leopotam.Ecs;
-using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Match3
 {
@@ -8,6 +8,8 @@ namespace Match3
     {
         private EcsFilter<MoveEvent, LinkToObject, BlockType> _filter;
         private GameState _gameState;
+        private EcsWorld _world;
+        private Configuration _configuration;
 
         public void Run()
         {
@@ -32,13 +34,27 @@ namespace Match3
                     entity1.Del<MoveEvent>();
                     entity2.Del<MoveEvent>();
 
-                    obj2.transform.DOMove(obj1.transform.position, .25f).OnComplete(() => {
-                        _gameState.freezeBoard = false;
+                    obj1.transform.DOMove(obj2.transform.position, .25f).OnComplete(() => {
+                        
+                       
                         entity1.Get<SpawnType>().value = BlockTypes.Default;
                         entity1.Get<DestroyEvent>();
 
-                        entity1.Get<SpawnType>().value = mergeType;
-                        entity1.Get<DestroyEvent>();
+                        foreach (var configBlock in _configuration.boosters)
+                        {
+                            if (mergeType == configBlock.type)
+                            {
+                                Object.Destroy(entity2.Get<LinkToObject>().value);
+
+                                var obj = _world.spawnGameObject(entity2.Get<Position>().value, entity2, configBlock.sprites[0]);
+
+                                entity2.Get<BlockType>().value = mergeType;
+                                entity2.Get<Points>().value = configBlock.points;
+                                entity2.Get<LinkToObject>().value = obj; //link to entity from gameobject
+                            }
+                        }
+
+                        _gameState.freezeBoard = false;
                     });
                 }
             }

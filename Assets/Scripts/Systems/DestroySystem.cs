@@ -7,7 +7,6 @@ namespace Match3
     {
         private EcsFilter<DestroyEvent, SpawnType, LinkToObject> _filter;
         private GameState _gameState;
-        private SceneData _sceneData;
         private Configuration _configuration;
 
         public void Run()

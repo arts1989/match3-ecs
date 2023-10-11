@@ -2,6 +2,6 @@
 {
     internal struct BoosterType
     {
-        public BoosterTypes value;
+        public UIBoosterTypes value;
     }
 }

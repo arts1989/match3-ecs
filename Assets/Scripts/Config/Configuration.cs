@@ -17,7 +17,7 @@ namespace Match3
 
         public List<Block> obstacles = new List<Block>();
 
-        public List<Booster> UIBoosters = new List<Booster>();
+        public List<UIBooster> UIBoosters = new List<UIBooster>();
 
         public List<Underlay> underlays = new List<Underlay>();
 

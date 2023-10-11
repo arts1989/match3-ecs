@@ -221,18 +221,16 @@ namespace Match3
             if (!board.ContainsKey(position + swipeDirection)) // свайп за пределы доски
                 return false;
 
-            var currentBlockType = board[position].Get<BlockType>().value;
-            var swappingBlockType = board[position + swipeDirection].Get<BlockType>().value;
+            var currentBlockType = board[position].Get<BlockType>();
+            var swappingBlockType = board[position + swipeDirection].Get<BlockType>();
 
-            if (currentBlockType == BlockTypes.Obstacle || swappingBlockType == BlockTypes.Obstacle)
+            if (currentBlockType.isObstacle || swappingBlockType.isObstacle)
             {
                 //Debug.Log("ящики не двигаем, с ящиками не свапаемся");
                 return false;
             }
 
-            if(currentBlockType == BlockTypes.DestroyLineHorizontal ||
-                currentBlockType == BlockTypes.BombSmall ||
-                currentBlockType == BlockTypes.DestroyCross)
+            if(currentBlockType.isBooster)
             {
                 return true; // разрешаем двигать бустеры
             }
@@ -465,7 +463,43 @@ namespace Match3
                     }
 
                 }
-                coords.Add(position);
+            }
+            else if (blockType == BlockTypes.BombBig)
+            {
+                foreach (var direction in _directions)
+                {
+                    var rightDirection = direction == Vector2Int.up ? Vector2Int.right
+                        : direction == Vector2Int.right ? Vector2Int.down
+                        : direction == Vector2Int.down ? Vector2Int.left
+                        : direction == Vector2Int.left ? Vector2Int.up
+                        : Vector2Int.zero;
+
+                    var pos = position + direction;
+
+                    var c = 2;
+                    while (board.TryGetValue(pos, out var entity))
+                    {
+                        if (c == 0) break;
+
+                        if (board.ContainsKey(pos))
+                        {
+                            coords.Add(pos);
+                        }
+
+                        if (board.ContainsKey(pos + rightDirection))
+                        {
+                            coords.Add(pos + rightDirection);
+                        }
+
+                        if (board.ContainsKey(pos + rightDirection + rightDirection))
+                        {
+                            coords.Add(pos + rightDirection + rightDirection);
+                        }
+
+                        c--;
+                        pos += direction;
+                    }
+                }
             }
 
             if (coords.Count > 0) coords.Add(position);

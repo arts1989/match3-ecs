@@ -1,11 +1,10 @@
 using Leopotam.Ecs;
 using Leopotam.Ecs.Ui.Actions;
-using Leopotam.Ecs.Ui.Components;
 using UnityEngine;
 
 namespace Match3
 {
-    internal class BoosterInitSystem : IEcsInitSystem
+    internal class UIBoosterInitSystem : IEcsInitSystem
     {
         private EcsWorld _world;
         private Configuration _configuration;

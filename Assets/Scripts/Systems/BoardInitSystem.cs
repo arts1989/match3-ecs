@@ -34,6 +34,28 @@ namespace Match3
                         }
                     }
 
+                    foreach (var configBlock in _configuration.boosters)
+                    {
+                        if (blockType == configBlock.type)
+                        {
+                            blockSprite = configBlock.sprites[0];
+                            blockPoints = configBlock.points;
+
+                            entity.Get<BlockType>().isBooster = true;
+                        }
+                    }
+
+                    foreach (var configBlock in _configuration.obstacles)
+                    {
+                        if (blockType == configBlock.type)
+                        {
+                            blockSprite = configBlock.sprites[0];
+                            blockPoints = configBlock.points;
+
+                            entity.Get<BlockType>().isObstacle = true;
+                        }
+                    }
+
                     var obj = _world.spawnGameObject(position, entity, blockSprite);
                      
                     entity.Get<Position>().value = position;
@@ -102,6 +124,7 @@ namespace Match3
 
                     entity.Get<Position>().value = position;
                     entity.Get<BlockType>().value = _configuration.obstacles[0].type;
+                    entity.Get<BlockType>().isObstacle = true;
                     entity.Get<Points>().value = _configuration.obstacles[0].points;
                     entity.Get<LinkToObject>().value = obj; //link to entity from gameobject
                     entity.Get<Health>().value = _configuration.obstacles[0].health;

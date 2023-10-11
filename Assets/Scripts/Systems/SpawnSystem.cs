@@ -70,6 +70,7 @@ namespace Match3
 
                                     _filter.GetEntity(index).Get<LinkToObject>().value = obj;
                                     _filter.GetEntity(index).Get<BlockType>().value = booster.type;
+                                    _filter.GetEntity(index).Get<BlockType>().isBooster = true;
                                     _filter.GetEntity(index).Get<Points>().value = booster.points;
 
                                     _filter.GetEntity(index).Del<SpawnType>();
