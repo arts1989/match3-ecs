@@ -16,6 +16,13 @@ namespace Match3
         public int PointsToWin;
         public int ObstacleCount;
         public int UnderlayCount;
+        public bool waterfallSpawnEnable;
+        public Sprite background;
+        public AudioClip backgroundAudioClip;
+        public AudioClip swipeSound;
+        public AudioClip destroySound;
+        public AudioClip spawnSound;
+        public AudioClip denySound;
 
         public bool blockPositionsActivated;
         public List<SerializeItem<Vector2Int, BlockTypes>> blockPositions;
@@ -25,6 +32,8 @@ namespace Match3
 
         public bool emptyPositionsActivated;
         public List<Vector2Int> emptyPositions;
+
+        public bool freezeBoard = false;
 
         /*
         private int[] _cells;

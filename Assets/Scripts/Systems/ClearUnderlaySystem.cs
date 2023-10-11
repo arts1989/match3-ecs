@@ -6,7 +6,7 @@ namespace Match3
 {
     internal class ClearUnderlaySystem : IEcsRunSystem
     {
-        private EcsFilter<DestroyAndSpawnEvent, Position> _filter;
+        private EcsFilter<DestroyEvent, Position> _filter;
         private GameState _gameState;
         private Configuration _configuration;
         private SceneData _sceneData;

@@ -1,5 +1,7 @@
-﻿using Leopotam.Ecs;
+﻿using DG.Tweening;
+using Leopotam.Ecs;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace Match3
 {
@@ -14,20 +16,36 @@ namespace Match3
             //вектора - в соседний ряд в комбинацию или оставить на месте.
             if (!_filter.IsEmpty())
             {
-                ref var direction = ref _filter.Get1(0).direction;
-                ref var position  = ref _filter.Get2(0).value;
-
                 var board = _gameState.Board;
 
-                if (board.checkMoveAvaliable(position, direction))
+                ref var direction = ref _filter.Get1(0).direction;
+                ref var position  = ref _filter.Get2(0).value;
+                
+                if (board.checkMoveAvaliable(ref position, ref direction))
                 {
                     board[position].Get<MoveEvent>();
                     board[position + direction].Get<MoveEvent>();
-                } else
+                } 
+                else
                 {
-                    Debug.Log("Движение запрещено");
+                    var entity = board[position];
+                    var obj = entity.Get<LinkToObject>().value;
+                    entity.Get<DenyEvent>();
+
+                    var pos     = new Vector3(position.x, position.y);
+                    var nearPos = new Vector3(
+                        position.x + (float)direction.x / 4,
+                        position.y + (float)direction.y / 4
+                    );
+
+                    _gameState.freezeBoard = true;
+                    obj.transform.DOMove(nearPos, .25f).OnComplete(
+                        () => obj.transform.DOMove(pos, .25f).OnComplete(
+                            () => _gameState.freezeBoard = false
+                        )
+                    );
                 }
             }
-        }
+        } 
     }  
 }

@@ -1,5 +1,4 @@
 ﻿using Leopotam.Ecs;
-using System.Linq;
 using UnityEngine;
 
 namespace Match3
@@ -36,7 +35,7 @@ namespace Match3
                     }
 
                     var obj = _world.spawnGameObject(position, entity, blockSprite);
-
+                     
                     entity.Get<Position>().value = position;
                     entity.Get<BlockType>().value = blockType;
                     entity.Get<Points>().value = blockPoints;
@@ -79,7 +78,6 @@ namespace Match3
                 }
 
                 var obstacleCount = _gameState.ObstacleCount;
-
                 while (obstacleCount > 0)
                 {
                     var x = Random.Range(0, _gameState.Columns);
@@ -115,4 +113,4 @@ namespace Match3
             }
         }
     }
-}
+}   

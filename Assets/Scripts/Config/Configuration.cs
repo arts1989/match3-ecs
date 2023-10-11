@@ -26,5 +26,11 @@ namespace Match3
         [Header("Effects")]
         public GameObject deathVFX;
         public float durationOfExplosion = 1f;
+
+        [Header("Audio")]
+        public AudioClip swipeSound;
+        public AudioClip destroySound;
+        public AudioClip spawnSound;
+        public AudioClip denySound;
     }
 }

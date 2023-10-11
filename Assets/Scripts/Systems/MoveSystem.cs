@@ -1,5 +1,6 @@
 ﻿using Leopotam.Ecs;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 namespace Match3
 {
@@ -22,21 +23,23 @@ namespace Match3
                 var pos1 = entity1.Ref<Position>().Unref().value;
                 var pos2 = entity2.Ref<Position>().Unref().value;
 
-                // меняем трансформ у обжектов
-                obj1.transform.DOMove(obj2.transform.position, .5f)
-                    .OnComplete(() => { 
-                        _filter.GetEntity(0).Get<CheckMatchEvent>().oldPosition = pos1;
-                    });
-                obj2.transform.DOMove(tempObj1, .5f)
-                    .OnComplete(() => {
-                        _filter.GetEntity(1).Get<CheckMatchEvent>().oldPosition = pos2;
-                    });
-                
+                var sequence = DOTween.Sequence();
+
+                sequence.Insert(0, obj1.transform.DOMove(obj2.transform.position, .5f));
+                sequence.Insert(0, obj2.transform.DOMove(tempObj1, .5f));
+
                 entity1.Get<Position>().value = pos2;
                 entity2.Get<Position>().value = pos1;
-                 //обновляем стейт доски
+
                 _gameState.Board[pos1] = entity2;
                 _gameState.Board[pos2] = entity1;
+
+                _gameState.freezeBoard = true;
+                sequence.Play().OnComplete(() => {
+                    _filter.GetEntity(1).Get<CheckMatchEvent>().oldPosition = pos2;
+                    _filter.GetEntity(0).Get<CheckMatchEvent>().oldPosition = pos1;
+                    _gameState.freezeBoard = false; 
+                });
             }
         }
     }

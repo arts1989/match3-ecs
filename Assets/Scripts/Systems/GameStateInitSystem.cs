@@ -25,6 +25,15 @@ namespace Match3
             _gameState.PointsToWin = _configuration.levels[level].PointsToWin;
             _gameState.PointsScored = 0;
 
+            _gameState.waterfallSpawnEnable = _configuration.levels[level].waterfallSpawnEnable;
+            _gameState.background = levelConfig.background;
+            _gameState.backgroundAudioClip = levelConfig.backgroundSound;
+
+            _gameState.swipeSound = _configuration.swipeSound;
+            _gameState.destroySound = _configuration.destroySound;
+            _gameState.spawnSound = _configuration.spawnSound;
+            _gameState.denySound = _configuration.denySound;
+
             _gameState.blockPositionsActivated = _configuration.levels[level].blockPositionsActivated;
             _gameState.underlayPositionsActivated = _configuration.levels[level].blockPositionsActivated;
             _gameState.emptyPositionsActivated = _configuration.levels[level].blockPositionsActivated;
@@ -34,4 +43,4 @@ namespace Match3
             _gameState.emptyPositions = _configuration.levels[level].emptyPositions;
         }
     }
-}
+} 

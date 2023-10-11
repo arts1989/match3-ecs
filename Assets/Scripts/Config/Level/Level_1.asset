@@ -13,37 +13,11 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   PointsToWin: 1000
-  Columns: 7
-  Rows: 7
-  MovesAvailable: 7
-  ObstacleCount: 5
+  Columns: 9
+  Rows: 9
+  waterfallSpawnEnable: 1
+  MovesAvailable: 500
+  ObstacleCount: 3
   UnderlayCount: 3
-  blocksProperties:
-  - _key: {x: 0, y: 0}
-    _value: 1
-  - _key: {x: 0, y: 1}
-    _value: 2
-  - _key: {x: 0, y: 2}
-    _value: 3
-  - _key: {x: 1, y: 0}
-    _value: 1
-  - _key: {x: 1, y: 1}
-    _value: 2
-  - _key: {x: 1, y: 2}
-    _value: 3
-  - _key: {x: 2, y: 0}
-    _value: 2
-  - _key: {x: 2, y: 1}
-    _value: 3
-  - _key: {x: 2, y: 2}
-    _value: 1
-  underlaysProperties:
-  - _key: {x: 0, y: 0, z: 0}
-    _value: 0
-  - _key: {x: 1, y: 1, z: 0}
-    _value: 0
-  - _key: {x: 2, y: 2, z: 0}
-    _value: 0
-  precipiceProperty:
-  - {x: 1, y: 1}
-  - {x: 2, y: 2}
+  background: {fileID: 21300000, guid: 453058dff4ab28c41b5f44b0cc636ef1, type: 3}
+  backgroundSound: {fileID: 8300000, guid: 5f13b20e2c13267498c40d89e5d58749, type: 3}
