@@ -23,13 +23,7 @@ namespace Match3
         public AudioClip destroySound;
         public AudioClip spawnSound;
         public AudioClip denySound;
-        public LevelType LevelType;
-                
-        /*
-        static Dictionary<BlockTypes, int> collectionOfElements = new Dictionary<BlockTypes, int>();
-        static Dictionary<BlockTypes, int> removelements = new Dictionary<BlockTypes, int>();
-        static Dictionary<BlockTypes, int> collectionOfCombinations = new Dictionary<BlockTypes, int>();
-        */
+        public LevelType LevelType;                
         
         public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
 
@@ -42,7 +36,12 @@ namespace Match3
             var level = configuration.levels[saveData.Level];
             Init(level);
         }
-                            
+
+        private void Init(Level level)
+        {
+            LevelType = level.LevelType;
+        }
+
         /*
         private int[] _cells;
         private int _columns;
@@ -65,29 +64,25 @@ namespace Match3
             _cells = new int[_cellsAmount];
         }
         */
-        private void Init(Level level)
-        {
-            LevelType = level.LevelType;
-        }
 
-       /*
-        public static int GetCountBytape(BlockTypes types)
-        {
-            return collectionOfElements[types];
-        }
+        /*
+         public static int GetCountBytape(BlockTypes types)
+         {
+             return collectionOfElements[types];
+         }
 
-        public static bool SetElement(BlockTypes types, Level level)
-        {
-            if (level.LevelType == 1)
-            {
-                collectionOfElements[types]++;
+         public static bool SetElement(BlockTypes types, Level level)
+         {
+             if (level.LevelType == 1)
+             {
+                 collectionOfElements[types]++;
 
-                if (collectionOfElements[types] >= level.TargetLevel)
-                {
-                    return true;
-                }
-            }
-            return false;
-        } */       
+                 if (collectionOfElements[types] >= level.TargetLevel)
+                 {
+                     return true;
+                 }
+             }
+             return false;
+         } */
     }
 }

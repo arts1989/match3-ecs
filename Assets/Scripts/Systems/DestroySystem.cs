@@ -6,8 +6,7 @@ namespace Match3
     internal class DestroySystem : IEcsRunSystem
     {
         private EcsFilter<DestroyEvent, SpawnType, LinkToObject> _filter;
-        private GameState _gameState;
-        private SceneData _sceneData;
+        private GameState _gameState;        
         private Configuration _configuration;
 
         public void Run()
@@ -17,9 +16,7 @@ namespace Match3
                 foreach (int index in _filter)
                 {
                     ref var spawnType    = ref _filter.Get2(index).value;
-                    ref var linkToObject = ref _filter.Get3(index).value;                    
-
-                   // WinManager.SetElement(spawnType, level); // как из Configuration вытащить level???
+                    ref var linkToObject = ref _filter.Get3(index).value;                   
 
                     Object.Destroy(linkToObject); //удаляем обжект на сцене
 

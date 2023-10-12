@@ -49,8 +49,7 @@ namespace Match3
                 .Add(new SpawnSystem())
                 .Add(new AudioPlaySystem())
                 .Add(new CheckWinSystem())
-                .Add(new CheckLoseSystem()) 
-                .Add(new CheckWinColorSystem())
+                .Add(new CheckLoseSystem())                
                 .Add(new CheckWinLevelTypeSystem())
 
                 // register one-frame components (order is important), for example:
