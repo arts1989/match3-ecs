@@ -23,7 +23,7 @@ namespace Match3
         public AudioClip destroySound;
         public AudioClip spawnSound;
         public AudioClip denySound;
-        public LevelType _levelType;
+        public LevelType LevelType;
                 
         /*
         static Dictionary<BlockTypes, int> collectionOfElements = new Dictionary<BlockTypes, int>();
@@ -67,7 +67,7 @@ namespace Match3
         */
         private void Init(Level level)
         {
-            _levelType = level.LevelType;
+            LevelType = level.LevelType;
         }
 
        /*
