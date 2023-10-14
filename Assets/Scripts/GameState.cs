@@ -23,7 +23,7 @@ namespace Match3
         public AudioClip destroySound;
         public AudioClip spawnSound;
         public AudioClip denySound;
-        public LevelType LevelType;                
+        public LevelTypes LevelType;                
         
         public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
 

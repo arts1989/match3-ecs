@@ -7,7 +7,7 @@ namespace Match3
 	public class Level : ScriptableObject
 	{
 		public int PointsToWin = 100;
-		public LevelType LevelType; //уровень
+		public LevelTypes LevelType; //уровень
 		public int TargetLevel; //число для победы
 
 		public int Columns = 5;

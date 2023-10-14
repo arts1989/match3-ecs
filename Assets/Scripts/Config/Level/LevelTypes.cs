@@ -1,6 +1,6 @@
 namespace Match3
 {
-    public enum LevelType
+    public enum LevelTypes
     {
         // элементы по цветам
         OnlyBlue,

@@ -16,23 +16,23 @@ namespace Match3
                     ref var blockType = ref _filter.Get2(index).value;
                     ref var points = ref _filter.Get3(index).value;                    
 
-                    if (blockType == BlockTypes.Blue && _gameState.LevelType == LevelType.OnlyBlue)
+                    if (blockType == BlockTypes.Blue && _gameState.LevelType == LevelTypes.OnlyBlue)
                     {
                         _gameState.PointsScored += points;
                     }
-                    if (blockType == BlockTypes.Red && _gameState.LevelType == LevelType.OnlyRed)
+                    if (blockType == BlockTypes.Red && _gameState.LevelType == LevelTypes.OnlyRed)
                     {
                         _gameState.PointsScored += points;
                     }
-                    if (blockType == BlockTypes.Purple && _gameState.LevelType == LevelType.OnlyPurple)
+                    if (blockType == BlockTypes.Purple && _gameState.LevelType == LevelTypes.OnlyPurple)
                     {                        
                         _gameState.PointsScored += points;
                     }
-                    if (blockType == BlockTypes.Green && _gameState.LevelType == LevelType.OnlyGreen)
+                    if (blockType == BlockTypes.Green && _gameState.LevelType == LevelTypes.OnlyGreen)
                     {                        
                         _gameState.PointsScored += points;
                     }
-                    if (blockType == BlockTypes.Yellow && _gameState.LevelType == LevelType.OnlyYellow)
+                    if (blockType == BlockTypes.Yellow && _gameState.LevelType == LevelTypes.OnlyYellow)
                     {                        
                         _gameState.PointsScored += points;
                     }
