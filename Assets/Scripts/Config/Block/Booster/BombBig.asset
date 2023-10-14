@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f853e853ac21a8d44b3f980b395ed8cc, type: 3}
-  m_Name: Line
+  m_Name: BombBig
   m_EditorClassIdentifier: 
-  points: 0
-  prefab: {fileID: 7369318952509992445, guid: a8549836b68e0a74d8b7749a7c55c79d, type: 3}
+  points: 5
   sprites:
-  - {fileID: 21300000, guid: 74ff375bc488a83438fa8f32af4958b3, type: 3}
-  type: 7
+  - {fileID: 290094543, guid: fdca0cef11cfe7b4c93b89009fdfbba3, type: 3}
+  type: 18
+  health: 0

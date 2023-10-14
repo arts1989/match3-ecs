@@ -29,7 +29,7 @@ namespace Match3
                         ref var blockType = ref entityDropped.Get<BlockType>().value;
 
                         //destroy blocks same type
-                        if (boosterType == BoosterTypes.DestroyBlocksSameType)
+                        if (boosterType == UIBoosterTypes.DestroyBlocksSameType)
                         {
                             foreach (var entity in _gameState.Board.Values)
                             {

@@ -23,6 +23,15 @@ namespace Match3
         public AudioClip destroySound;
         public AudioClip spawnSound;
         public AudioClip denySound;
+
+        public bool blockPositionsActivated;
+        public List<SerializeItem<Vector2Int, BlockTypes>> blockPositions;
+
+        public bool underlayPositionsActivated;
+        public List<SerializeItem<Vector3Int, UnderlayTypes>> underlayPositions;
+
+        public bool emptyPositionsActivated;
+        public List<Vector2Int> emptyPositions;
         public LevelTypes LevelType;                
         
         public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;

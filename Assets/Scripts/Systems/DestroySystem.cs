@@ -6,7 +6,7 @@ namespace Match3
     internal class DestroySystem : IEcsRunSystem
     {
         private EcsFilter<DestroyEvent, SpawnType, LinkToObject> _filter;
-        private GameState _gameState;        
+        private GameState _gameState;
         private Configuration _configuration;
 
         public void Run()
@@ -18,7 +18,7 @@ namespace Match3
                     ref var spawnType    = ref _filter.Get2(index).value;
                     ref var linkToObject = ref _filter.Get3(index).value;                   
 
-                    Object.Destroy(linkToObject); //удаляем обжект на сцене
+                    Object.Destroy(linkToObject); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
                     var explosion = Object.Instantiate(_configuration.deathVFX, linkToObject.transform.position, linkToObject.transform.rotation);
                     Object.Destroy(explosion, _configuration.durationOfExplosion);

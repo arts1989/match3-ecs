@@ -1,6 +1,5 @@
-﻿using Leopotam.Ecs;
-using DG.Tweening;
-using Unity.VisualScripting;
+﻿using DG.Tweening;
+using Leopotam.Ecs;
 
 namespace Match3
 {
@@ -13,8 +12,10 @@ namespace Match3
         {
             if (!_filter.IsEmpty())
             {
+                var board = _gameState.Board;
+
                 ref var obj1 = ref _filter.Get2(0).value;
-                ref var obj2 = ref _filter.Get2(1).value; 
+                ref var obj2 = ref _filter.Get2(1).value;
                 var tempObj1 = obj1.transform.position;
 
                 var entity1 = _filter.GetEntity(0);
@@ -35,10 +36,23 @@ namespace Match3
                 _gameState.Board[pos2] = entity1;
 
                 _gameState.freezeBoard = true;
-                sequence.Play().OnComplete(() => {
-                    _filter.GetEntity(1).Get<CheckMatchEvent>().oldPosition = pos2;
-                    _filter.GetEntity(0).Get<CheckMatchEvent>().oldPosition = pos1;
-                    _gameState.freezeBoard = false; 
+                sequence.Play().OnComplete(() =>
+                {
+                    var coordsToDestroy = board.getCoordToDestroyIfBooster(ref pos2);
+                    if (coordsToDestroy.Count > 0)
+                    {
+                        foreach (var coord in coordsToDestroy)
+                        {
+                            board[coord].Get<SpawnType>().value = BlockTypes.Default;
+                            board[coord].Get<DestroyEvent>();
+                        }
+                    }
+                    else
+                    {
+                        _filter.GetEntity(0).Get<CheckMatchEvent>().oldPosition = pos1;
+                        _filter.GetEntity(1).Get<CheckMatchEvent>().oldPosition = pos2;
+                    }
+                    _gameState.freezeBoard = false;
                 });
             }
         }
