@@ -20,7 +20,7 @@ namespace Match3
 
             //load managers 
             var saveManager = new SaveManager();
-            var gameState = new GameState(configuration);
+            var gameState = new GameState();
 
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);

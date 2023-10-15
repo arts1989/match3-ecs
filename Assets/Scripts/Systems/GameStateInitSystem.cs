@@ -41,6 +41,8 @@ namespace Match3
             _gameState.blockPositions = _configuration.levels[level].blockPositions;
             _gameState.underlayPositions = _configuration.levels[level].underlayPositions;
             _gameState.emptyPositions = _configuration.levels[level].emptyPositions;
+
+            _gameState.LevelType = _configuration.levels[level].LevelType;
         }
     }
 } 

@@ -37,20 +37,7 @@ namespace Match3
         public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
 
         public bool freezeBoard = false;
-
-        public GameState(Configuration configuration)
-        {
-            var _saveManager = new SaveManager();
-            var saveData = _saveManager.GetData();
-            var level = configuration.levels[saveData.Level];
-            Init(level);
-        }
-
-        private void Init(Level level)
-        {
-            LevelType = level.LevelType;
-        }
-
+               
         /*
         private int[] _cells;
         private int _columns;
@@ -72,26 +59,6 @@ namespace Match3
             _cellsAmount = _rows * _columns;
             _cells = new int[_cellsAmount];
         }
-        */
-
-        /*
-         public static int GetCountBytape(BlockTypes types)
-         {
-             return collectionOfElements[types];
-         }
-
-         public static bool SetElement(BlockTypes types, Level level)
-         {
-             if (level.LevelType == 1)
-             {
-                 collectionOfElements[types]++;
-
-                 if (collectionOfElements[types] >= level.TargetLevel)
-                 {
-                     return true;
-                 }
-             }
-             return false;
-         } */
+        */        
     }
 }
