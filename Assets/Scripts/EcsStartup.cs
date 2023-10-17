@@ -45,6 +45,7 @@ namespace Match3
                 .Add(new ClearUnderlaySystem())
                 .Add(new CheckNearbyObstaclesSystem())
                 .Add(new UpdatePointsSystem())
+                .Add(new UpdateWinPointsSystem())
                 .Add(new DestroySystem())
                 .Add(new WaterfallSystem())
                 .Add(new SpawnSystem())

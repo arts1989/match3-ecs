@@ -13,7 +13,8 @@ namespace Match3
         public int Columns;
         public int MovesAvaliable;
         public int PointsScored;
-        public int PointsToWin;
+        public int WinPoints;  // для винкондишенов
+        public int PointsToWin; 
         public int ObstacleCount;
         public int UnderlayCount;
         public bool waterfallSpawnEnable;
