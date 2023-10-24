@@ -5,7 +5,7 @@ namespace Match3
 { 
     internal class CheckWinLevelTypeSystem : IEcsRunSystem
     {
-        private EcsFilter<DestroyEvent, BlockType, WinPoints> _filter;
+        private EcsFilter<DestroyEvent, BlockType, Points> _filter;
         private GameState _gameState;       
 
         public void Run()
@@ -36,6 +36,16 @@ namespace Match3
                     }
                     if (blockType == BlockTypes.Yellow && _gameState.LevelType == LevelTypes.OnlyYellow)
                     {                        
+                        _gameState.WinPoints += winPoints;
+                    }
+
+
+                    if (_gameState.LevelType == LevelTypes.Substrate)
+                    {
+                        _gameState.WinPoints += winPoints;
+                    }
+                    if (_gameState.LevelType == LevelTypes.CombinationT && _gameState.LevelType == LevelTypes.CombinationSquare)
+                    {
                         _gameState.WinPoints += winPoints;
                     }
                 }
