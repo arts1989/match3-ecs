@@ -5,7 +5,7 @@ namespace Match3
 { 
     internal class CheckWinLevelTypeSystem : IEcsRunSystem
     {
-        private EcsFilter<DestroyEvent, BlockType, Points> _filter;
+        private EcsFilter<DestroyEvent, BlockType, WinPoints> _filter;
         private GameState _gameState;       
 
         public void Run()
