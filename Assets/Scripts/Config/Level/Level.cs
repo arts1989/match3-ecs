@@ -3,34 +3,34 @@ using UnityEngine;
 
 namespace Match3
 {
-	[CreateAssetMenu]
-	public class Level : ScriptableObject
-	{
-		public int PointsToWin = 100;
-		public LevelTypes LevelType; //уровень
-		public int TargetLevel; //число для победы
+    [CreateAssetMenu]
+    public class Level : ScriptableObject
+    {
+        public int PointsToWin = 100;
 
-		public int Columns = 5;
-		public int Rows = 5;
-		public bool waterfallSpawnEnable = false;
-		public int MovesAvailable = 5;
-		public int ObstacleCount = 0;
-		public int UnderlayCount = 0;
-		public Sprite background;
+        public LevelTypes LevelType; //уровень
 
-		[Space]
+        // public int TargetLevel; 
+        public int TargetWinLevel; //число для победы j
 
-		public bool blockPositionsActivated = false;
-		public List<SerializeItem<Vector2Int,BlockTypes>> blockPositions;
+        public int Columns = 5;
+        public int Rows = 5;
+        public bool waterfallSpawnEnable;
+        public int MovesAvailable = 5;
+        public int ObstacleCount;
+        public int UnderlayCount;
+        public Sprite background;
 
-		public bool underlayPositionsActivated = false;
-		public List<SerializeItem<Vector3Int,UnderlayTypes>> underlayPositions;
+        [Space] public bool blockPositionsActivated;
 
-		public bool emptyPositionsActivated = false;
-		public List<Vector2Int> emptyPositions;
+        public List<SerializeItem<Vector2Int, BlockTypes>> blockPositions;
 
-  		[Header("BackgroundSound")]
-		public AudioClip backgroundSound;
+        public bool underlayPositionsActivated;
+        public List<SerializeItem<Vector3Int, UnderlayTypes>> underlayPositions;
 
-	}
+        public bool emptyPositionsActivated;
+        public List<Vector2Int> emptyPositions;
+
+        [Header("BackgroundSound")] public AudioClip backgroundSound;
+    }
 }

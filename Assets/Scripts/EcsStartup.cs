@@ -1,20 +1,20 @@
 using Leopotam.Ecs;
 using Leopotam.Ecs.Ui.Systems;
+using Leopotam.Ecs.UnityIntegration;
 using UnityEngine;
 
 namespace Match3
 {
-    sealed partial class EcsStartup : MonoBehaviour
+    internal sealed class EcsStartup : MonoBehaviour
     {
-        EcsWorld _world;
-        EcsSystems _systems;
-
-        [SerializeField] EcsUiEmitter _uiEmitter;
+        [SerializeField] private EcsUiEmitter _uiEmitter;
 
         public Configuration configuration;
         public SceneData sceneData;
-        
-        void Start()
+        private EcsSystems _systems;
+        private EcsWorld _world;
+
+        private void Start()
         {
             // void can be switched to IEnumerator for support coroutines.
 
@@ -25,8 +25,8 @@ namespace Match3
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
 #if UNITY_EDITOR
-            Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
-            Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);
+            EcsWorldObserver.Create(_world);
+            EcsSystemsObserver.Create(_systems);
 #endif
             _systems
                 // register your sys tems here, for example:
@@ -45,14 +45,13 @@ namespace Match3
                 .Add(new ClearUnderlaySystem())
                 .Add(new CheckNearbyObstaclesSystem())
                 .Add(new UpdatePointsSystem())
-                .Add(new UpdateWinPointsSystem())
                 .Add(new DestroySystem())
                 .Add(new WaterfallSystem())
                 .Add(new SpawnSystem())
                 .Add(new AudioPlaySystem())
                 .Add(new CheckWinSystem())
-                .Add(new CheckLoseSystem())                
-                .Add(new CheckWinLevelTypeSystem())
+                .Add(new CheckLoseSystem())
+                .Add(new CheckWinConditionSystem())
 
                 // register one-frame components (order is important), for example:
                 .OneFrame<CheckMoveEvent>()
@@ -62,23 +61,23 @@ namespace Match3
                 .OneFrame<LoseEvent>()
                 .OneFrame<WinEvent>()
                 .OneFrame<SpawnEvent>()
-                .OneFrame<DenyEvent>()                
+                .OneFrame<DenyEvent>()
 
                 // inject service instances here (order doesn't important), for example:
                 .Inject(configuration)
                 .Inject(saveManager)
                 .Inject(gameState)
-                .Inject(sceneData)                
+                .Inject(sceneData)
                 .InjectUi(_uiEmitter)
                 .Init();
         }
 
-        void Update()
+        private void Update()
         {
             _systems?.Run();
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (_systems != null)
             {

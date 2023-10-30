@@ -1,11 +1,10 @@
 using Leopotam.Ecs;
-using UnityEngine;
 
 namespace Match3
 {
-    internal class CheckWinLevelTypeSystem : IEcsRunSystem
+    internal class CheckWinConditionSystem : IEcsRunSystem
     {
-        private EcsFilter<DestroyEvent, BlockType, WinPoints> _filter;
+        private EcsFilter<DestroyEvent, BlockType> _filter;
         private GameState _gameState;
 
         public void Run()
@@ -14,28 +13,22 @@ namespace Match3
             foreach (var index in _filter)
             {
                 ref var blockType = ref _filter.Get2(index).value;
-                ref var winPoints = ref _filter.Get3(index).value;
 
                 switch (blockType)
                 {
                     case BlockTypes.Blue when _gameState.LevelType == LevelTypes.OnlyBlue:
-                        _gameState.WinPoints += winPoints;
-                        break;
                     case BlockTypes.Red when _gameState.LevelType == LevelTypes.OnlyRed:
-                        Debug.Log("OnlyRed");
-                        _gameState.WinPoints += winPoints;
-                        break;
                     case BlockTypes.Purple when _gameState.LevelType == LevelTypes.OnlyPurple:
                     case BlockTypes.Green when _gameState.LevelType == LevelTypes.OnlyGreen:
                     case BlockTypes.Yellow when _gameState.LevelType == LevelTypes.OnlyYellow:
-                        _gameState.WinPoints += winPoints;
+                        _gameState.TargetWinLevel--;
+
+                        if (_gameState.TargetWinLevel <= 0)
+                            _filter.GetEntity(0).Get<WinEvent>();
+                        if (_gameState.MovesAvaliable == 0 && _gameState.TargetWinLevel <= 0)
+                            _filter.GetEntity(0).Get<LoseEvent>();
                         break;
                 }
-
-
-                if (_gameState.LevelType == LevelTypes.Substrate) _gameState.WinPoints += winPoints;
-                if (_gameState.LevelType == LevelTypes.CombinationT &&
-                    _gameState.LevelType == LevelTypes.CombinationSquare) _gameState.WinPoints += winPoints;
             }
         }
     }

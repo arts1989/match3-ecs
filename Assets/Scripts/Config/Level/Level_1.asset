@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PointsToWin: 1000
   LevelType: 1
-  TargetLevel: 0
+  TargetWinLevel: 9
   Columns: 5
   Rows: 5
   waterfallSpawnEnable: 1
