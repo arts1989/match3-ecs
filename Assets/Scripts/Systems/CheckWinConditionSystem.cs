@@ -6,6 +6,7 @@ namespace Match3
     {
         private EcsFilter<DestroyEvent, BlockType> _filter;
         private GameState _gameState;
+        private SceneData _sceneData;
 
         public void Run()
         {
@@ -24,9 +25,10 @@ namespace Match3
                         _gameState.TargetWinLevel--;
 
                         if (_gameState.TargetWinLevel <= 0)
-                            _filter.GetEntity(0).Get<WinEvent>();
-                        if (_gameState.MovesAvaliable == 0 && _gameState.TargetWinLevel <= 0)
-                            _filter.GetEntity(0).Get<LoseEvent>();
+                            _sceneData.UI.WinScreen.Show(true);
+
+                        if (_gameState.MovesAvaliable <= 0 && _gameState.TargetWinLevel <= 0)
+                            _sceneData.UI.LoseScreen.Show(true);
                         break;
                 }
             }
