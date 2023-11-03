@@ -1136,6 +1136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textMovesLeft: {fileID: 1002217650962254904}
   textPointsScored: {fileID: 2665893445254645466}
+  textPointsWin: {fileID: 0}
 --- !u!222 &4579566050404624844
 CanvasRenderer:
   m_ObjectHideFlags: 0

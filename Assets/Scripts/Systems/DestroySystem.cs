@@ -16,7 +16,7 @@ namespace Match3
                 foreach (int index in _filter)
                 {
                     ref var spawnType    = ref _filter.Get2(index).value;
-                    ref var linkToObject = ref _filter.Get3(index).value;
+                    ref var linkToObject = ref _filter.Get3(index).value;                   
 
                     Object.Destroy(linkToObject); //������� ������ �� �����
 

@@ -1,6 +1,4 @@
 using Leopotam.Ecs;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Match3
 {
@@ -24,6 +22,7 @@ namespace Match3
 
             _gameState.PointsToWin = _configuration.levels[level].PointsToWin;
             _gameState.PointsScored = 0;
+            _gameState.TargetWinLevel = _configuration.levels[level].TargetWinLevel; // винкондишены 
 
             _gameState.waterfallSpawnEnable = _configuration.levels[level].waterfallSpawnEnable;
             _gameState.background = levelConfig.background;
@@ -41,6 +40,8 @@ namespace Match3
             _gameState.blockPositions = _configuration.levels[level].blockPositions;
             _gameState.underlayPositions = _configuration.levels[level].underlayPositions;
             _gameState.emptyPositions = _configuration.levels[level].emptyPositions;
+
+            _gameState.LevelType = _configuration.levels[level].LevelType;
         }
     }
-} 
+}

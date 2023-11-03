@@ -1,39 +1,46 @@
-using Leopotam.Ecs;
 using System.Collections.Generic;
+using Leopotam.Ecs;
 using UnityEngine;
 
 namespace Match3
 {
     public class GameState
     {
-        public Dictionary<Vector2Int, EcsEntity> Board = new Dictionary<Vector2Int, EcsEntity> ();
-        
-        public int currentLevel;
-        public int Rows;
-        public int Columns;
-        public int MovesAvaliable;
-        public int PointsScored;
-        public int PointsToWin;
-        public int ObstacleCount;
-        public int UnderlayCount;
-        public bool waterfallSpawnEnable;
         public Sprite background;
         public AudioClip backgroundAudioClip;
-        public AudioClip swipeSound;
-        public AudioClip destroySound;
-        public AudioClip spawnSound;
-        public AudioClip denySound;
-
-        public bool blockPositionsActivated;
         public List<SerializeItem<Vector2Int, BlockTypes>> blockPositions;
 
-        public bool underlayPositionsActivated;
-        public List<SerializeItem<Vector3Int, UnderlayTypes>> underlayPositions;
+        public bool blockPositionsActivated;
 
-        public bool emptyPositionsActivated;
+        public List<SerializeItem<Vector2Int, BlockTypes>> blocksProperties;
+        public Dictionary<Vector2Int, EcsEntity> Board = new();
+        public int Columns;
+
+        public int currentLevel;
+        public AudioClip denySound;
+        public AudioClip destroySound;
         public List<Vector2Int> emptyPositions;
 
+        public bool emptyPositionsActivated;
+
         public bool freezeBoard = false;
+        public LevelTypes LevelType;
+        public int MovesAvaliable;
+        public int ObstacleCount;
+        public int PointsScored;
+        public int PointsToWin;
+        public int Rows;
+        public AudioClip spawnSound;
+
+        public AudioClip swipeSound;
+
+        //public int numberOfCombinations; // для винконкондишенов 
+        public int TargetWinLevel; // для винконкондишенов 
+        public int UnderlayCount;
+        public List<SerializeItem<Vector3Int, UnderlayTypes>> underlayPositions;
+
+        public bool underlayPositionsActivated;
+        public bool waterfallSpawnEnable;
 
         /*
         private int[] _cells;
@@ -57,5 +64,6 @@ namespace Match3
             _cells = new int[_cellsAmount];
         }
         */
+        public int Points { get; set; }
     }
 }
