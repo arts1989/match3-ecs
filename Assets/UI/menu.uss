@@ -1,0 +1,36 @@
+.menu-button {
+    background-image: url('project://database/Assets/AssetsGame/UI/SettingsScreen/SettingsScreen.png?fileID=-158803900&guid=4a12b7f93670511448aa7cfea493c917&type=3#SettingsScreen_5');
+    height: 75px;
+    width: 260px;
+    -unity-font-style: bold;
+    font-size: 35px;
+    color: rgba(14, 14, 14, 255);
+    border-top-left-radius: 27px;
+    border-bottom-left-radius: 27px;
+    border-top-right-radius: 27px;
+    border-bottom-right-radius: 27px;
+    transition-duration: 500ms;
+    transition-timing-function: ease-out-back;
+    -unity-text-align: middle-center;
+}
+
+.menu-button:hover {
+    background-color: rgba(9, 10, 9, 255);
+    width: 286px;
+    height: 82.5px;
+    border-bottom-width: 0;
+    background-image: url('project://database/Assets/AssetsGame/UI/SettingsScreen/SettingsScreen.png?fileID=-1720158737&guid=4a12b7f93670511448aa7cfea493c917&type=3#SettingsScreen_0');
+}
+
+.button-container {
+    flex-shrink: 0;
+    flex-grow: 0;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 120px;
+}
+
+.animate-slide-left {
+    margin-left: 145px;
+}

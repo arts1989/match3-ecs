@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/menu.uss?fileID=7433441132597879392&amp;guid=092229ed4db77d446adf72625b079c54&amp;type=3#menu" />
+    <ui:VisualElement name="button-container" class="button-container">
+        <ui:Button display-tooltip-when-elided="true" name="menu-button" class="menu-button">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="label" style="height: 71px; width: 245px; -unity-font-style: bold;" />
+        </ui:Button>
+    </ui:VisualElement>
+</ui:UXML>
