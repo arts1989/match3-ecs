@@ -567,7 +567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &492399982
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1213,7 +1213,7 @@ MonoBehaviour:
   _transitionDuration: 0.5
   _easing: 0
   _buttonDelay: 0.5
-  _animatedClass: 
+  _animatedClass: .button-container
   _buttonTemplate: {fileID: 9197481963319205126, guid: 5fbc890d48b84e047837919ac7dfdb79, type: 3}
 --- !u!114 &1307432715
 MonoBehaviour:
