@@ -26,6 +26,8 @@ public class MenuSystem : MonoBehaviour
     private StyleList<EasingFunction> _easingValues;
     private WaitForSeconds _pause;
 
+   /* Для вырианта меню Toolkit
+    
     private void Start()
     {
         _durationValues = new List<TimeValue> { new(_transitionDuration, TimeUnit.Second) };
@@ -56,5 +58,6 @@ public class MenuSystem : MonoBehaviour
     private void OnClick(MenuEntry entry)
     {
         entry.Callback.Invoke();
-    }
+    } 
+    */
 }
