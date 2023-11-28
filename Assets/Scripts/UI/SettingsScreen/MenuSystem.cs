@@ -25,7 +25,7 @@ public class MenuSystem : MonoBehaviour
     private List<TimeValue> _durationValues;
     private StyleList<EasingFunction> _easingValues;
     private WaitForSeconds _pause;
-
+    
    /* Для вырианта меню Toolkit
     
     private void Start()
