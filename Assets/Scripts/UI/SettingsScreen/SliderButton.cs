@@ -14,6 +14,10 @@ public class SliderButton : MonoBehaviour
     public Image imageMask;
     private float sizeDeltaX;
 
+    public GameObject pictureActive;
+    public GameObject picturePassive;
+    
+    
     private void Start()
     {
         sizeDeltaX = imageMask.rectTransform.sizeDelta.x / 100;
@@ -25,5 +29,7 @@ public class SliderButton : MonoBehaviour
         textSound.text = Math.Round(sound) + "";
         mask2D.padding = new Vector4(slider.value * sizeDeltaX, 0, 0, 0);
         if (sound <= 0) sound = 0;
+        picturePassive.SetActive(sound <= 0);
+        pictureActive.SetActive(sound >= 1);
     }
 }
