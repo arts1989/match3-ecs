@@ -7,9 +7,9 @@ using UnityEngine.Serialization;
 
 public class SliderButton : MonoBehaviour
 {
-    public float sound;
+    public float scale;
     public Slider slider;
-    public TMP_Text textSound;
+    public TMP_Text text;
     public RectMask2D mask2D;
     public Image imageMask;
     private float sizeDeltaX;
@@ -25,11 +25,11 @@ public class SliderButton : MonoBehaviour
 
     public void SliderMovement()
     {
-        sound = slider.value;
-        textSound.text = Math.Round(sound) + "";
+        scale = slider.value;
+        text.text = Math.Round(scale) + "";
         mask2D.padding = new Vector4(slider.value * sizeDeltaX, 0, 0, 0);
-        if (sound <= 0) sound = 0;
-        picturePassive.SetActive(sound <= 0);
-        pictureActive.SetActive(sound >= 1);
+        if (scale <= 0) scale = 0;
+        picturePassive.SetActive(scale <= 0);
+        pictureActive.SetActive(scale >= 1);
     }
 }
