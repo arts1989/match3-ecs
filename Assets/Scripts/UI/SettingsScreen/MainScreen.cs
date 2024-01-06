@@ -15,4 +15,25 @@ public class MainScreen : MonoBehaviour
         Debug.Log("Игра закрылась!");
         Application.Quit();
     }
+
+    public void RestartButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // Time.timeScale = 1f;
+    }
+
+    public void SaveSettings()
+    {
+        
+    }
+
+    public void Vibration()
+    {
+        Handheld.Vibrate();
+    }
+
+    public void Message()
+    {
+        
+    }
 }
