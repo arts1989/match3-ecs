@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Match3
 {
-    internal class AudioPlaySystem : IEcsInitSystem, IEcsRunSystem
+    public class AudioPlaySystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter<MoveEvent> _moveEvent;
         private EcsFilter<DestroyEvent> _destroyEvent;
@@ -12,6 +12,8 @@ namespace Match3
 
         private SceneData _sceneData;
         private GameState _gameState;
+        
+        //private SliderButton _sliderButton; !!!
 
         public void Init()
         {
@@ -40,7 +42,7 @@ namespace Match3
                     !denyEvent    ? _gameState.denySound :
                     null;
 
-                blocksAudio.volume = 0.5f;
+                blocksAudio.volume = 0.5f; //_sliderButton.slider.value;  //0.5f; !!!
                 blocksAudio.Play();
             }
         }

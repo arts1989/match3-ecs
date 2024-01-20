@@ -3,26 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainScreen : MonoBehaviour
+public class SettingWindow : MonoBehaviour
 {
-    [SerializeField] private SettingWindow _settingWindow;
-
-public void PlayGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
-    }
-
-    public void ExitGame()
-    {
-        Debug.Log("Игра закрылась!");
-        Application.Quit();
-    }
-
-    public void OpenSettings()
-    {
-        Instantiate(_settingWindow.gameObject, transform.parent);
-    }
-
     public void RestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -33,7 +15,7 @@ public void PlayGame()
     {
         
     }
-
+    
     public void Vibration()
     {
         Handheld.Vibrate();

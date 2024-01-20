@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
 
 public class SoundVolumeController : MonoBehaviour
 {
     [SerializeField] private AudioSource _audio;
-    [SerializeField] private Slider _slider;
+    //[SerializeField] private Slider _slider;
+    private SliderButton _sliderButton;
 
     [SerializeField] private string _saveVolumeKey;
     [SerializeField] private string _sliderTag;
@@ -25,8 +27,9 @@ public class SoundVolumeController : MonoBehaviour
             GameObject sliderObj = GameObject.FindWithTag(this._sliderTag);
             if (sliderObj != null)
             {
-                _slider = sliderObj.GetComponent<Slider>();
-                _volume = _slider.value;
+                //_slider = sliderObj.GetComponent<Slider>();
+                _sliderButton.slider = sliderObj.GetComponent<UnityEngine.UI.Slider>();
+                _volume = _sliderButton.slider.value;
             }
         }
         else
@@ -42,8 +45,9 @@ public class SoundVolumeController : MonoBehaviour
         GameObject sliderObj = GameObject.FindWithTag(_sliderTag);
         if (sliderObj != null)
         {
-            _slider = sliderObj.GetComponent<Slider>();
-            _volume = _slider.value;
+            //_slider = sliderObj.GetComponent<Slider>();
+            _sliderButton.slider = sliderObj.GetComponent<Slider>();
+            _volume = _sliderButton.slider.value;
 
 
             if (_audio.volume != _volume)

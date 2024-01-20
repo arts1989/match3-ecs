@@ -1,4 +1,5 @@
 using System;
+using Match3;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -16,7 +17,8 @@ public class SliderButton : MonoBehaviour
 
     public GameObject pictureActive;
     public GameObject picturePassive;
-    
+
+    //public AudioPlaySystem audioPlaySystem; !!!
     
     private void Start()
     {
