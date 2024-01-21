@@ -13,7 +13,6 @@ namespace Match3
         private SceneData _sceneData;
         private GameState _gameState;
         
-        //private SliderButton _sliderButton; !!!
 
         public void Init()
         {
@@ -42,7 +41,7 @@ namespace Match3
                     !denyEvent    ? _gameState.denySound :
                     null;
 
-                blocksAudio.volume = 0.5f; //_sliderButton.slider.value;  //0.5f; !!!
+                blocksAudio.volume = 0.5f; 
                 blocksAudio.Play();
             }
         }

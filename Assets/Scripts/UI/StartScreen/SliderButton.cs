@@ -17,8 +17,7 @@ public class SliderButton : MonoBehaviour
 
     public GameObject pictureActive;
     public GameObject picturePassive;
-
-    //public AudioPlaySystem audioPlaySystem; !!!
+    
     
     private void Start()
     {

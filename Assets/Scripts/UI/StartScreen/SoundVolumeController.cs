@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 using Slider = UnityEngine.UI.Slider;
 
 public class SoundVolumeController : MonoBehaviour
-{
+{/*
     [SerializeField] private AudioSource _audio;
     //[SerializeField] private Slider _slider;
     private SliderButton _sliderButton;
@@ -56,5 +56,5 @@ public class SoundVolumeController : MonoBehaviour
             }
         }
         _audio.volume = _volume;
-    }
+    } */
 }
