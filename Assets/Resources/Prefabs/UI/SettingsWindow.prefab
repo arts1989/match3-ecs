@@ -1646,6 +1646,7 @@ GameObject:
   - component: {fileID: 3360607681877005332}
   - component: {fileID: 3360607681877005333}
   - component: {fileID: 3360607681877005335}
+  - component: {fileID: 8108370850025287320}
   m_Layer: 5
   m_Name: ButtonMusic
   m_TagString: Untagged
@@ -1735,6 +1736,21 @@ MonoBehaviour:
   imageMask: {fileID: 3360607683313831663}
   pictureActive: {fileID: 3360607681786657989}
   picturePassive: {fileID: 3360607682719520960}
+--- !u!114 &8108370850025287320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3360607681877005339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0990b9b78a4be94687d30623a908c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeParameter: MusicVolume
+  audioMixer: {fileID: 24100000, guid: 15c4a152cd969004d8d6d6b1cb3926ea, type: 2}
+  slider: {fileID: 3360607682752850070}
 --- !u!1 &3360607681909449967
 GameObject:
   m_ObjectHideFlags: 0
@@ -3898,7 +3914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0990b9b78a4be94687d30623a908c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeParameter: MusicrVolume
+  volumeParameter: MusicVolume
   audioMixer: {fileID: 24100000, guid: 15c4a152cd969004d8d6d6b1cb3926ea, type: 2}
   slider: {fileID: 3360607682752850070}
 --- !u!1 &3360607682782479782

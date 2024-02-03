@@ -501,6 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 448676919}
   - component: {fileID: 448676918}
+  - component: {fileID: 448676920}
   m_Layer: 0
   m_Name: Source
   m_TagString: Untagged
@@ -537,6 +538,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &448676920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448676917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a131b8a5386694eb5660dd4447f63b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Audios:
+  - Name: denySound
+    clip: {fileID: 8300000, guid: 652d6f1b416152e4cb597bd0b78ffaaa, type: 3}
+    volume: 0
+    loop: 0
+    AudioSource: {fileID: 0}
+  - Name: destroyNornal
+    clip: {fileID: 8300000, guid: b3d4bbf294d7e14479f22606c6532a15, type: 3}
+    volume: 0
+    loop: 0
+    AudioSource: {fileID: 0}
+  - Name: normalMove
+    clip: {fileID: 8300000, guid: aeed83815e9da0a4587e35b5b205af35, type: 3}
+    volume: 0
+    loop: 0
+    AudioSource: {fileID: 0}
+  - Name: spawnSound
+    clip: {fileID: 8300000, guid: 49254e3139237c447a2a89104bd1f73b, type: 3}
+    volume: 0
+    loop: 0
+    AudioSource: {fileID: 0}
+  - Name: Teddy's1v1
+    clip: {fileID: 8300000, guid: 5f13b20e2c13267498c40d89e5d58749, type: 3}
+    volume: 0
+    loop: 0
+    AudioSource: {fileID: 0}
+  - Name: Teddy's2v1
+    clip: {fileID: 8300000, guid: ea079a66462064e48bbeca7aa91a078d, type: 3}
+    volume: 0
+    loop: 0
+    AudioSource: {fileID: 0}
 --- !u!1 &492399981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,7 +1931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1959044153
 Transform:
   m_ObjectHideFlags: 0

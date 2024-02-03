@@ -25,8 +25,8 @@ public class VolumeController : MonoBehaviour
 
     private void HandleSliderValueChanged(float value)
     {
-        var _volumeValue = Math.Log10(value) * _multiplier;
-        audioMixer.SetFloat(volumeParameter, (float)_volumeValue);
+        _volumeValue = (float)(Math.Log10(value) * _multiplier);
+        audioMixer.SetFloat(volumeParameter, _volumeValue);
     }
 
     private void OnDisable()
